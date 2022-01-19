@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Fluid问题诊断 | Fluid</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/fluid-stacked-color.svg">
+    <meta name="description" content="Fluid, 在云上为大数据以及AI应用的弹性数据提供抽象和加速服务。">
+    
+    <link rel="preload" href="/assets/css/0.styles.edbab21a.css" as="style"><link rel="preload" href="/assets/js/app.ff89ebb7.js" as="script"><link rel="preload" href="/assets/js/2.9883a141.js" as="script"><link rel="preload" href="/assets/js/68.0de414a9.js" as="script"><link rel="prefetch" href="/assets/js/10.ff2f4ab4.js"><link rel="prefetch" href="/assets/js/11.7511cb62.js"><link rel="prefetch" href="/assets/js/12.6cc0075a.js"><link rel="prefetch" href="/assets/js/13.ac2fd551.js"><link rel="prefetch" href="/assets/js/14.6c27fec2.js"><link rel="prefetch" href="/assets/js/15.5b399203.js"><link rel="prefetch" href="/assets/js/16.56d4c631.js"><link rel="prefetch" href="/assets/js/17.ded4c0e4.js"><link rel="prefetch" href="/assets/js/18.63823924.js"><link rel="prefetch" href="/assets/js/19.403ee62d.js"><link rel="prefetch" href="/assets/js/20.0b8ab171.js"><link rel="prefetch" href="/assets/js/21.4b4f535c.js"><link rel="prefetch" href="/assets/js/22.aca0862a.js"><link rel="prefetch" href="/assets/js/23.1ef5c1d2.js"><link rel="prefetch" href="/assets/js/24.793d122b.js"><link rel="prefetch" href="/assets/js/25.5a478a64.js"><link rel="prefetch" href="/assets/js/26.128776a2.js"><link rel="prefetch" href="/assets/js/27.f4afbc76.js"><link rel="prefetch" href="/assets/js/28.cb0e85f7.js"><link rel="prefetch" href="/assets/js/29.2849f366.js"><link rel="prefetch" href="/assets/js/3.2ada5a00.js"><link rel="prefetch" href="/assets/js/30.4c8dfe96.js"><link rel="prefetch" href="/assets/js/31.70054216.js"><link rel="prefetch" href="/assets/js/32.392b4ec1.js"><link rel="prefetch" href="/assets/js/33.3b370eba.js"><link rel="prefetch" href="/assets/js/34.41a7b5eb.js"><link rel="prefetch" href="/assets/js/35.95f0a00d.js"><link rel="prefetch" href="/assets/js/36.168f5f83.js"><link rel="prefetch" href="/assets/js/37.4452566b.js"><link rel="prefetch" href="/assets/js/38.901c3a3c.js"><link rel="prefetch" href="/assets/js/39.ec1506de.js"><link rel="prefetch" href="/assets/js/4.c98b7bc1.js"><link rel="prefetch" href="/assets/js/40.04ca41b7.js"><link rel="prefetch" href="/assets/js/41.3e25d182.js"><link rel="prefetch" href="/assets/js/42.1727ac1f.js"><link rel="prefetch" href="/assets/js/43.bce70a95.js"><link rel="prefetch" href="/assets/js/44.7ac691a6.js"><link rel="prefetch" href="/assets/js/45.be2e439b.js"><link rel="prefetch" href="/assets/js/46.05713c89.js"><link rel="prefetch" href="/assets/js/47.8ea80a90.js"><link rel="prefetch" href="/assets/js/48.1583acd2.js"><link rel="prefetch" href="/assets/js/49.aa1e9b68.js"><link rel="prefetch" href="/assets/js/5.f5746beb.js"><link rel="prefetch" href="/assets/js/50.21c7a3f8.js"><link rel="prefetch" href="/assets/js/51.4aa0466d.js"><link rel="prefetch" href="/assets/js/52.7a76af04.js"><link rel="prefetch" href="/assets/js/53.d536675e.js"><link rel="prefetch" href="/assets/js/54.de903366.js"><link rel="prefetch" href="/assets/js/55.9253880d.js"><link rel="prefetch" href="/assets/js/56.182caf99.js"><link rel="prefetch" href="/assets/js/57.e637b6a7.js"><link rel="prefetch" href="/assets/js/58.f13666f3.js"><link rel="prefetch" href="/assets/js/59.2f3414d9.js"><link rel="prefetch" href="/assets/js/6.8b6ef391.js"><link rel="prefetch" href="/assets/js/60.2e782ed8.js"><link rel="prefetch" href="/assets/js/61.912178b8.js"><link rel="prefetch" href="/assets/js/62.fe49a10b.js"><link rel="prefetch" href="/assets/js/63.e955b402.js"><link rel="prefetch" href="/assets/js/64.5a01d069.js"><link rel="prefetch" href="/assets/js/65.c387d4a2.js"><link rel="prefetch" href="/assets/js/66.d6fc89ad.js"><link rel="prefetch" href="/assets/js/67.ecece501.js"><link rel="prefetch" href="/assets/js/69.c3b6d603.js"><link rel="prefetch" href="/assets/js/7.480203b2.js"><link rel="prefetch" href="/assets/js/70.c3c1666d.js"><link rel="prefetch" href="/assets/js/71.74b515d0.js"><link rel="prefetch" href="/assets/js/72.565535fb.js"><link rel="prefetch" href="/assets/js/73.aa4b80fa.js"><link rel="prefetch" href="/assets/js/74.5babfb55.js"><link rel="prefetch" href="/assets/js/75.c240aa07.js"><link rel="prefetch" href="/assets/js/76.bdf11e70.js"><link rel="prefetch" href="/assets/js/77.da79c69e.js"><link rel="prefetch" href="/assets/js/78.b025a170.js"><link rel="prefetch" href="/assets/js/79.a0ef641e.js"><link rel="prefetch" href="/assets/js/8.ceafe7a8.js"><link rel="prefetch" href="/assets/js/80.9488d79d.js"><link rel="prefetch" href="/assets/js/81.bda0a9bb.js"><link rel="prefetch" href="/assets/js/82.8c563a57.js"><link rel="prefetch" href="/assets/js/83.9e589297.js"><link rel="prefetch" href="/assets/js/84.5c46079d.js"><link rel="prefetch" href="/assets/js/85.469b5e0f.js"><link rel="prefetch" href="/assets/js/86.1cfc9826.js"><link rel="prefetch" href="/assets/js/87.33adc5b0.js"><link rel="prefetch" href="/assets/js/88.adc406fa.js"><link rel="prefetch" href="/assets/js/89.8f120c05.js"><link rel="prefetch" href="/assets/js/9.c4bb6552.js"><link rel="prefetch" href="/assets/js/90.3728026e.js"><link rel="prefetch" href="/assets/js/91.a0fcfd1f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.edbab21a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><img src="/fluid-horizontal-color.png" alt="Fluid" class="logo"></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/guide/" class="nav-link router-link-active">
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dev/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/" class="nav-link">
+  示例
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="社区" class="dropdown-title"><span class="title">社区</span> <span class="arrow down"></span></button> <button type="button" aria-label="社区" class="mobile-dropdown-title"><span class="title">社区</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/community/community.html" class="nav-link">
+  社区
+</a></li><li class="dropdown-item"><!----> <a href="/zh/community/ADOPTERS.html" class="nav-link">
+  合作伙伴
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/blog/technology/" class="nav-link">
+  技术内幕
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/releases/" class="nav-link">
+  版本发布
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/casestudy/" class="nav-link">
+  案例学习
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/troubleshooting.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/guide/troubleshooting.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/guide/" class="nav-link router-link-active">
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dev/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/" class="nav-link">
+  示例
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="社区" class="dropdown-title"><span class="title">社区</span> <span class="arrow down"></span></button> <button type="button" aria-label="社区" class="mobile-dropdown-title"><span class="title">社区</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/community/community.html" class="nav-link">
+  社区
+</a></li><li class="dropdown-item"><!----> <a href="/zh/community/ADOPTERS.html" class="nav-link">
+  合作伙伴
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/blog/technology/" class="nav-link">
+  技术内幕
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/releases/" class="nav-link">
+  版本发布
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/casestudy/" class="nav-link">
+  案例学习
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/troubleshooting.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/guide/troubleshooting.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/zh/guide/" aria-current="page" class="sidebar-link">Fluid概览</a></li><li><a href="/zh/guide/get_started.html" class="sidebar-link">Fluid 快速上手</a></li><li><a href="/zh/guide/install.html" class="sidebar-link">在Kubernetes集群上部署Fluid</a></li><li><a href="/zh/guide/troubleshooting.html" aria-current="page" class="active sidebar-link">Fluid问题诊断</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/guide/troubleshooting.html#如何使用脚本收集日志" class="sidebar-link">如何使用脚本收集日志</a></li></ul></li><li><a href="/zh/guide/faq.html" class="sidebar-link">常见问题</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="fluid问题诊断"><a href="#fluid问题诊断" class="header-anchor">#</a> Fluid问题诊断</h1> <p>您可能会在部署、开发Fluid的过程中遇到各种问题，而查看日志可以协助我们定位问题原因。但在分布式环境下，Fluid底层的分布式缓存引擎（Runtime）运行在不同主机的容器上，手动收集这些容器的日志效率低下。因此，Fluid提供了shell脚本<a href="https://raw.githubusercontent.com/fluid-cloudnative/fluid/master/tools/diagnose-fluid.sh" target="_blank" rel="noopener noreferrer">diagnose-fluid.sh<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>，帮助使用者快速收集Fluid系统和Runtime容器的日志信息。</p> <h2 id="如何使用脚本收集日志"><a href="#如何使用脚本收集日志" class="header-anchor">#</a> 如何使用脚本收集日志</h2> <ol><li><p>首先，确保shell脚本有运行权限</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token function">chmod</span> a+x diagnose-fluid.sh
+</code></pre></div></li> <li><p>查看帮助信息</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ ./diagnose-fluid.sh 
+Usage:
+    ./diagnose-fluid.sh COMMAND <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span>
+COMMAND:
+    <span class="token builtin class-name">help</span>
+        Display this <span class="token builtin class-name">help</span> message.
+    collect
+        Collect pods logs of controller and runtime.
+OPTIONS:
+    -r, --name name
+        Set the name of runtime.
+    -n, --namespace name
+        Set the namespace of runtime.
+</code></pre></div></li> <li><p>收集日志</p> <p>运行<code>diagnose-fluid.sh</code>，<code>--name</code>指定了Runtime的name，<code>--namespace</code>指定了Runtime的namespace</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ ./diagnose-fluid.sh collect --name cifar10 --namespace default
+</code></pre></div><p>shell脚本会将收集的日志信息打包到执行路径下的一个压缩包里。</p></li></ol></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/zh/guide/install.html" class="prev">
+        在Kubernetes集群上部署Fluid
+      </a></span> <span class="next"><a href="/zh/guide/faq.html">
+        常见问题
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.ff89ebb7.js" defer></script><script src="/assets/js/2.9883a141.js" defer></script><script src="/assets/js/68.0de414a9.js" defer></script>
+  </body>
+</html>

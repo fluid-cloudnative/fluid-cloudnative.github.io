@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>DEMO - Single-Machine Multiple-Dataset Speed Up Accessing Remote Files | Fluid</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/fluid-stacked-color.svg">
+    <meta name="description" content="Fluid, elastic data abstraction and acceleration for BigData/AI applications in cloud.">
+    
+    <link rel="preload" href="/assets/css/0.styles.edbab21a.css" as="style"><link rel="preload" href="/assets/js/app.ff89ebb7.js" as="script"><link rel="preload" href="/assets/js/2.9883a141.js" as="script"><link rel="preload" href="/assets/js/42.1727ac1f.js" as="script"><link rel="prefetch" href="/assets/js/10.ff2f4ab4.js"><link rel="prefetch" href="/assets/js/11.7511cb62.js"><link rel="prefetch" href="/assets/js/12.6cc0075a.js"><link rel="prefetch" href="/assets/js/13.ac2fd551.js"><link rel="prefetch" href="/assets/js/14.6c27fec2.js"><link rel="prefetch" href="/assets/js/15.5b399203.js"><link rel="prefetch" href="/assets/js/16.56d4c631.js"><link rel="prefetch" href="/assets/js/17.ded4c0e4.js"><link rel="prefetch" href="/assets/js/18.63823924.js"><link rel="prefetch" href="/assets/js/19.403ee62d.js"><link rel="prefetch" href="/assets/js/20.0b8ab171.js"><link rel="prefetch" href="/assets/js/21.4b4f535c.js"><link rel="prefetch" href="/assets/js/22.aca0862a.js"><link rel="prefetch" href="/assets/js/23.1ef5c1d2.js"><link rel="prefetch" href="/assets/js/24.793d122b.js"><link rel="prefetch" href="/assets/js/25.5a478a64.js"><link rel="prefetch" href="/assets/js/26.128776a2.js"><link rel="prefetch" href="/assets/js/27.f4afbc76.js"><link rel="prefetch" href="/assets/js/28.cb0e85f7.js"><link rel="prefetch" href="/assets/js/29.2849f366.js"><link rel="prefetch" href="/assets/js/3.2ada5a00.js"><link rel="prefetch" href="/assets/js/30.4c8dfe96.js"><link rel="prefetch" href="/assets/js/31.70054216.js"><link rel="prefetch" href="/assets/js/32.392b4ec1.js"><link rel="prefetch" href="/assets/js/33.3b370eba.js"><link rel="prefetch" href="/assets/js/34.41a7b5eb.js"><link rel="prefetch" href="/assets/js/35.95f0a00d.js"><link rel="prefetch" href="/assets/js/36.168f5f83.js"><link rel="prefetch" href="/assets/js/37.4452566b.js"><link rel="prefetch" href="/assets/js/38.901c3a3c.js"><link rel="prefetch" href="/assets/js/39.ec1506de.js"><link rel="prefetch" href="/assets/js/4.c98b7bc1.js"><link rel="prefetch" href="/assets/js/40.04ca41b7.js"><link rel="prefetch" href="/assets/js/41.3e25d182.js"><link rel="prefetch" href="/assets/js/43.bce70a95.js"><link rel="prefetch" href="/assets/js/44.7ac691a6.js"><link rel="prefetch" href="/assets/js/45.be2e439b.js"><link rel="prefetch" href="/assets/js/46.05713c89.js"><link rel="prefetch" href="/assets/js/47.8ea80a90.js"><link rel="prefetch" href="/assets/js/48.1583acd2.js"><link rel="prefetch" href="/assets/js/49.aa1e9b68.js"><link rel="prefetch" href="/assets/js/5.f5746beb.js"><link rel="prefetch" href="/assets/js/50.21c7a3f8.js"><link rel="prefetch" href="/assets/js/51.4aa0466d.js"><link rel="prefetch" href="/assets/js/52.7a76af04.js"><link rel="prefetch" href="/assets/js/53.d536675e.js"><link rel="prefetch" href="/assets/js/54.de903366.js"><link rel="prefetch" href="/assets/js/55.9253880d.js"><link rel="prefetch" href="/assets/js/56.182caf99.js"><link rel="prefetch" href="/assets/js/57.e637b6a7.js"><link rel="prefetch" href="/assets/js/58.f13666f3.js"><link rel="prefetch" href="/assets/js/59.2f3414d9.js"><link rel="prefetch" href="/assets/js/6.8b6ef391.js"><link rel="prefetch" href="/assets/js/60.2e782ed8.js"><link rel="prefetch" href="/assets/js/61.912178b8.js"><link rel="prefetch" href="/assets/js/62.fe49a10b.js"><link rel="prefetch" href="/assets/js/63.e955b402.js"><link rel="prefetch" href="/assets/js/64.5a01d069.js"><link rel="prefetch" href="/assets/js/65.c387d4a2.js"><link rel="prefetch" href="/assets/js/66.d6fc89ad.js"><link rel="prefetch" href="/assets/js/67.ecece501.js"><link rel="prefetch" href="/assets/js/68.0de414a9.js"><link rel="prefetch" href="/assets/js/69.c3b6d603.js"><link rel="prefetch" href="/assets/js/7.480203b2.js"><link rel="prefetch" href="/assets/js/70.c3c1666d.js"><link rel="prefetch" href="/assets/js/71.74b515d0.js"><link rel="prefetch" href="/assets/js/72.565535fb.js"><link rel="prefetch" href="/assets/js/73.aa4b80fa.js"><link rel="prefetch" href="/assets/js/74.5babfb55.js"><link rel="prefetch" href="/assets/js/75.c240aa07.js"><link rel="prefetch" href="/assets/js/76.bdf11e70.js"><link rel="prefetch" href="/assets/js/77.da79c69e.js"><link rel="prefetch" href="/assets/js/78.b025a170.js"><link rel="prefetch" href="/assets/js/79.a0ef641e.js"><link rel="prefetch" href="/assets/js/8.ceafe7a8.js"><link rel="prefetch" href="/assets/js/80.9488d79d.js"><link rel="prefetch" href="/assets/js/81.bda0a9bb.js"><link rel="prefetch" href="/assets/js/82.8c563a57.js"><link rel="prefetch" href="/assets/js/83.9e589297.js"><link rel="prefetch" href="/assets/js/84.5c46079d.js"><link rel="prefetch" href="/assets/js/85.469b5e0f.js"><link rel="prefetch" href="/assets/js/86.1cfc9826.js"><link rel="prefetch" href="/assets/js/87.33adc5b0.js"><link rel="prefetch" href="/assets/js/88.adc406fa.js"><link rel="prefetch" href="/assets/js/89.8f120c05.js"><link rel="prefetch" href="/assets/js/9.c4bb6552.js"><link rel="prefetch" href="/assets/js/90.3728026e.js"><link rel="prefetch" href="/assets/js/91.a0fcfd1f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.edbab21a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/fluid-horizontal-color.png" alt="Fluid" class="logo"></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Docs" class="dropdown-title"><span class="title">Docs</span> <span class="arrow down"></span></button> <button type="button" aria-label="Docs" class="mobile-dropdown-title"><span class="title">Docs</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/" class="nav-link">
+  Guide
+</a></li><li class="dropdown-item"><!----> <a href="/dev/" class="nav-link">
+  Dev
+</a></li><li class="dropdown-item"><!----> <a href="/samples/" class="nav-link router-link-active">
+  Samples
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Community" class="dropdown-title"><span class="title">Community</span> <span class="arrow down"></span></button> <button type="button" aria-label="Community" class="mobile-dropdown-title"><span class="title">Community</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/community/community.html" class="nav-link">
+  Community
+</a></li><li class="dropdown-item"><!----> <a href="/community/ADOPTERS.html" class="nav-link">
+  Adopters
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Blog" class="dropdown-title"><span class="title">Blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="Blog" class="mobile-dropdown-title"><span class="title">Blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/technology/" class="nav-link">
+  Technology
+</a></li><li class="dropdown-item"><!----> <a href="/blog/releases/" class="nav-link">
+  Releases
+</a></li><li class="dropdown-item"><!----> <a href="/blog/casestudy/" class="nav-link">
+  Case Study
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/samples/multi_dataset_same_node_accessing.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/multi_dataset_same_node_accessing.html" class="nav-link">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Docs" class="dropdown-title"><span class="title">Docs</span> <span class="arrow down"></span></button> <button type="button" aria-label="Docs" class="mobile-dropdown-title"><span class="title">Docs</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/guide/" class="nav-link">
+  Guide
+</a></li><li class="dropdown-item"><!----> <a href="/dev/" class="nav-link">
+  Dev
+</a></li><li class="dropdown-item"><!----> <a href="/samples/" class="nav-link router-link-active">
+  Samples
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Community" class="dropdown-title"><span class="title">Community</span> <span class="arrow down"></span></button> <button type="button" aria-label="Community" class="mobile-dropdown-title"><span class="title">Community</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/community/community.html" class="nav-link">
+  Community
+</a></li><li class="dropdown-item"><!----> <a href="/community/ADOPTERS.html" class="nav-link">
+  Adopters
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Blog" class="dropdown-title"><span class="title">Blog</span> <span class="arrow down"></span></button> <button type="button" aria-label="Blog" class="mobile-dropdown-title"><span class="title">Blog</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/technology/" class="nav-link">
+  Technology
+</a></li><li class="dropdown-item"><!----> <a href="/blog/releases/" class="nav-link">
+  Releases
+</a></li><li class="dropdown-item"><!----> <a href="/blog/casestudy/" class="nav-link">
+  Case Study
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/samples/multi_dataset_same_node_accessing.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/multi_dataset_same_node_accessing.html" class="nav-link">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/samples/" aria-current="page" class="sidebar-link">DEMO - Speed Up Accessing Remote Files</a></li><li><a href="/samples/accelerate_pvc.html" class="sidebar-link">DEMO - Accelerate PVC with Fluid</a></li><li><a href="/samples/machinelearning.html" class="sidebar-link">DEMO - Accelerate Machine Learning Training with Fluid</a></li><li><a href="/samples/data_warmup.html" class="sidebar-link">Demo - Data Preloading</a></li><li><a href="/samples/accelerate_hdfs.html" class="sidebar-link">DEMO - Speed Up Accessing HDFS Client Files</a></li><li><a href="/samples/accelerate_s3_minio.html" class="sidebar-link">DEMO - Speed Up Accessing Minio Files</a></li><li><a href="/samples/data_co_locality.html" class="sidebar-link">DEMO - Cache Co-locality for Workload Scheduling</a></li><li><a href="/samples/multi_dataset_same_node_accessing.html" aria-current="page" class="active sidebar-link">DEMO - Single-Machine Multiple-Dataset Speed Up Accessing Remote Files</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/samples/multi_dataset_same_node_accessing.html#prerequisites" class="sidebar-link">Prerequisites</a></li><li class="sidebar-sub-header"><a href="/samples/multi_dataset_same_node_accessing.html#install-resources-to-kubernetes" class="sidebar-link">Install Resources to Kubernetes</a></li><li class="sidebar-sub-header"><a href="/samples/multi_dataset_same_node_accessing.html#remote-file-access" class="sidebar-link">Remote File Access</a></li><li class="sidebar-sub-header"><a href="/samples/multi_dataset_same_node_accessing.html#speed-up-accessing-remote-files" class="sidebar-link">Speed Up Accessing Remote Files</a></li><li class="sidebar-sub-header"><a href="/samples/multi_dataset_same_node_accessing.html#clean-up" class="sidebar-link">Clean Up</a></li></ul></li><li><a href="/samples/nonroot_access.html" class="sidebar-link">Example - Using Fluid to access non-root user's data</a></li><li><a href="/samples/tieredstore_config.html" class="sidebar-link">Demo - Alluxio Tieredstore Configuration</a></li><li><a href="/samples/use_encryptoptions.html" class="sidebar-link">DEMO - Use Secret to configure Dataset sensitive information</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="demo-single-machine-multiple-dataset-speed-up-accessing-remote-files"><a href="#demo-single-machine-multiple-dataset-speed-up-accessing-remote-files" class="header-anchor">#</a> DEMO - Single-Machine Multiple-Dataset Speed Up Accessing Remote Files</h1> <p>Powered by <a href="https://www.alluxio.io" target="_blank" rel="noopener noreferrer">Alluxio<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and <a href="https://github.com/libfuse/libfuse" target="_blank" rel="noopener noreferrer">Fuse<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, Fluid provides a simple way for users to access files stored in remote filesystems, just like accessing some ordinary files in local filesystem. Fluid manages and isolates the entire life cycle of data sets, especially for short life cycle applications (e.g data analysis tasks, machine learning tasks), users can deploy them on a large scale in a cluster.</p> <p>This demo aims to show you an overview of all the features mentioned above.</p> <h2 id="prerequisites"><a href="#prerequisites" class="header-anchor">#</a> Prerequisites</h2> <p>Before everything we are going to do, please refer to <a href="https://github.com/fluid-cloudnative/fluid/blob/master/docs/en/userguide/install.md" target="_blank" rel="noopener noreferrer">Installation Guide<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> to install Fluid on your Kubernetes Cluster, and make sure all the components used by Fluid are ready like this:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -n fluid-system
+NAME                                  READY   STATUS    RESTARTS   AGE
+alluxioruntime-controller-5b64fdbbb-84pc6   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8h
+csi-nodeplugin-fluid-fwgjh                  <span class="token number">2</span>/2     Running   <span class="token number">0</span>          8h
+csi-nodeplugin-fluid-ll8bq                  <span class="token number">2</span>/2     Running   <span class="token number">0</span>          8h
+dataset-controller-5b7848dbbb-n44dj         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8h
+</code></pre></div><p>Normally, you shall see a Pod named <code>controller-manager</code> and several Pods named <code>csi-nodeplugin</code>. The num of <code>csi-nodeplugin</code> Pods depends on how many nodes your Kubernetes cluster have, so please make sure all <code>csi-nodeplugin</code> Pods are working properly.</p> <h2 id="install-resources-to-kubernetes"><a href="#install-resources-to-kubernetes" class="header-anchor">#</a> Install Resources to Kubernetes</h2> <p><strong>Label a node</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl  label node cn-beijing.192.168.0.199 <span class="token assign-left variable">fluid</span><span class="token operator">=</span>multi-dataset
+</code></pre></div><blockquote><p>In the next steps, we will use <code>NodeSelector</code> to manage the nodes scheduled by the Dataset. There, it is only for experiment use.</p></blockquote> <p><strong>Check the <code>Dataset</code> object to be created</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>dataset.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: hbase
+spec:
+  mounts:
+    - mountPoint: https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/stable/
+      name: hbase
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: fluid
+              operator: In
+              values:
+                - &quot;multi-dataset&quot;
+  placement: &quot;Shared&quot; // set Exclusive or empty means dataset exclusive
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>dataset1.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: spark
+spec:
+  mounts:
+    - mountPoint: https://mirrors.bit.edu.cn/apache/spark/
+      name: spark
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: fluid
+              operator: In
+              values:
+                - &quot;multi-dataset&quot;
+  placement: &quot;Shared&quot; 
+EOF</span>        
+</code></pre></div><blockquote><p>Notes: Here, we use THU's tuna Apache mirror site as our <code>mountPoint</code>. If your environment isn't in Chinese mainland, please replace it with <code>https://downloads.apache.org/hbase/stable/</code> and <code>https://downloads.apache.org/spark/</code>.</p></blockquote> <p>Here, we'd like to create a resource object with kind <code>Dataset</code>. <code>Dataset</code> is a Custom Resource Definition(CRD) defined by Fluid and used to tell Fluid where to find all the data you'd like to access. Under the hood, Fluid uses Alluxio to do some mount operations, so <code>mountPoint</code> property can be any legal UFS path acknowledged by Alluxio. Here, we use <a href="https://docs.alluxio.io/os/user/stable/en/ufs/WEB.html" target="_blank" rel="noopener noreferrer">WebUFS<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> for its simplicity.</p> <p>For more information about UFS, please refer to <a href="https://docs.alluxio.io/os/user/stable/en/ufs/HDFS.html" target="_blank" rel="noopener noreferrer">Alluxio Docs - Storage Integrations<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <blockquote><p>We use Hbase stable and Spark on a mirror site of Apache downloads as an example of remote file. It's nothing special, you can change it to any remote file you like. But please note that, if you are going to use WebUFS like we do, files on Apache sites are highly recommended because you might need some <a href="https://docs.alluxio.io/os/user/stable/en/ufs/WEB.html#configuring-alluxio" target="_blank" rel="noopener noreferrer">advanced configurations<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> due to current implementation of WebUFS.</p></blockquote> <p><strong>Create the <code>Dataset</code> object</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl apply -f dataset.yaml
+dataset.data.fluid.io/hbase created
+$ kubectl apply -f dataset1.yaml
+dataset.data.fluid.io/spark created
+</code></pre></div><p><strong>Check status of the <code>Dataset</code> object</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get dataset
+NAME    UFS TOTAL SIZE   CACHED   CACHE CAPACITY   CACHED PERCENTAGE   PHASE      AGE
+hbase                                                                  NotBound   6s
+spark                                                                  NotBound   4s
+</code></pre></div><p>With a <code>NotBound</code> phase in status, the dataset is not ready cause there isn't any <code>AlluxioRuntime</code> object supporting it. We'll create one in the following steps.</p> <p><strong>Check the <code>AlluxioRuntime</code> object to be created</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>runtime.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: AlluxioRuntime
+metadata:
+  name: hbase
+spec:
+  replicas: 1
+  tieredstore:
+    levels:
+      - mediumtype: MEM
+        path: /dev/shm
+        quota: 2Gi
+        high: &quot;0.95&quot;
+        low: &quot;0.7&quot;
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>runtime1.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: AlluxioRuntime
+metadata:
+  name: spark
+spec:
+  replicas: 1
+  tieredstore:
+    levels:
+      - mediumtype: MEM
+        path: /dev/shm
+        quota: 4Gi
+        high: &quot;0.95&quot;
+        low: &quot;0.7&quot;
+        
+EOF</span>
+</code></pre></div><p><strong>Create a <code>AlluxioRuntime</code> object</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl create -f runtime.yaml
+alluxioruntime.data.fluid.io/hbase created
+
+<span class="token comment"># Pay attention to waiting for all components of Dataset hbase Running</span>
+$ kubectl get pod -o wide <span class="token operator">|</span> <span class="token function">grep</span> hbase
+NAME                 READY   STATUS    RESTARTS   AGE   IP              NODE                       NOMINATED NODE   READINESS GATES
+hhbase-fuse-jl2g2     <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-master-0       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m55s   <span class="token number">192.168</span>.0.200   cn-beijing.192.168.0.200   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-worker-g89p8   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+$ kubectl create -f runtime1.yaml
+alluxioruntime.data.fluid.io/spark created
+</code></pre></div><p><strong>Get the <code>AlluxioRuntime</code> object</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get alluxioruntime
+NAME    MASTER PHASE   WORKER PHASE   FUSE PHASE   AGE
+hbase   Ready          Ready          Ready        2m14s
+spark   Ready          Ready          Ready        58s
+</code></pre></div><p><code>AlluxioRuntime</code> is another CRD defined by Fluid. An <code>AluxioRuntime</code> object describes specifications used to run an Alluxio instance.</p> <p>Wait for a while, and make sure all components defined in the <code>AlluxioRuntime</code> object are ready. You shall see something like this:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -o wide
+NAME                 READY   STATUS    RESTARTS   AGE     IP              NODE                       NOMINATED NODE   READINESS GATES
+hhbase-fuse-jl2g2     <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-master-0       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m55s   <span class="token number">192.168</span>.0.200   cn-beijing.192.168.0.200   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-worker-g89p8   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+spark-fuse-5z49p     <span class="token number">1</span>/1     Running   <span class="token number">0</span>          19s     <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+spark-master-0       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          50s     <span class="token number">192.168</span>.0.200   cn-beijing.192.168.0.200   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+spark-worker-96ksn   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          19s     <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><p>Note that the worker and fuse components of the different Datasets above can be dispatched to the same node <code>cn-beijing.192.168.0.199</code> normally .</p> <p><strong>Check status of the <code>Dataset</code> object again</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get dataset 
+NAME    UFS TOTAL SIZE   CACHED   CACHE CAPACITY   CACHED PERCENTAGE   PHASE   AGE
+hbase   <span class="token number">443</span>.89MiB        <span class="token number">0</span>.00B    <span class="token number">2</span>.00GiB          <span class="token number">0.0</span>%                Bound   11m
+spark   <span class="token number">1</span>.92GiB          <span class="token number">0</span>.00B    <span class="token number">4</span>.00GiB          <span class="token number">0.0</span>%                Bound   9m38s
+</code></pre></div><p>Because it has been bound to a successfully started AlluxioRuntime, the state of the Dataset resource object has been updated, and the value of the <code>PHASE</code> attribute has changed to the <code>Bound</code> state. The basic information about the resource object can be obtained through the above command.</p> <p><strong>Check status of the <code>AlluxioRuntime</code> object</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get alluxioruntime -o wide
+NAME    READY MASTERS   DESIRED MASTERS   MASTER PHASE   READY WORKERS   DESIRED WORKERS   WORKER PHASE   READY FUSES   DESIRED FUSES   FUSE PHASE   AGE
+hbase   <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>             <span class="token number">1</span>               Ready        11m
+spark   <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>             <span class="token number">1</span>               Ready        9m52s
+</code></pre></div><p>Detailed information about the Alluxio instance is provided here.</p> <p><strong>Check related PersistentVolume and PersistentVolumeClaim</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get <span class="token function">pv</span>
+NAME    CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM           STORAGECLASS   REASON   AGE
+hbase   100Gi      RWX            Retain           Bound    default/hbase                           4m55s
+spark   100Gi      RWX            Retain           Bound    default/spark                           51s
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pvc
+NAME    STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+hbase   Bound    hbase    100Gi      RWX                           4m57s
+spark   Bound    spark    100Gi      RWX                           53s
+</code></pre></div><p>Related PV and PVC have been created by Fluid since the <code>Dataset</code> object is ready(bounded). Workloads are now able to access remote files by mounting PVC.</p> <h2 id="remote-file-access"><a href="#remote-file-access" class="header-anchor">#</a> Remote File Access</h2> <p><strong>Check the app to be created</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>nginx.yaml</span>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-hbase
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: /data
+          name: hbase-vol
+  volumes:
+    - name: hbase-vol
+      persistentVolumeClaim:
+        claimName: hbase
+  nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>nginx1.yaml</span>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-spark
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: /data
+          name: hbase-vol
+  volumes:
+    - name: hbase-vol
+      persistentVolumeClaim:
+        claimName: spark
+  nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+</code></pre></div><p><strong>Run a demo app to access remote files</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl create -f nginx.yaml
+$ kubectl create -f nginx1.yaml
+</code></pre></div><p>Login to nginx hbase Pod:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl <span class="token builtin class-name">exec</span> -it nginx-hbase -- <span class="token function">bash</span>
+</code></pre></div><p>Check file status:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">ls</span> -lh /data/hbase
+total 444M
+-r--r----- <span class="token number">1</span> root root 193K Sep <span class="token number">16</span> 00:53 CHANGES.md
+-r--r----- <span class="token number">1</span> root root 112K Sep <span class="token number">16</span> 00:53 RELEASENOTES.md
+-r--r----- <span class="token number">1</span> root root  26K Sep <span class="token number">16</span> 00:53 api_compare_2.2.6RC2_to_2.2.5.html
+-r--r----- <span class="token number">1</span> root root 211M Sep <span class="token number">16</span> 00:53 hbase-2.2.6-bin.tar.gz
+-r--r----- <span class="token number">1</span> root root 200M Sep <span class="token number">16</span> 00:53 hbase-2.2.6-client-bin.tar.gz
+-r--r----- <span class="token number">1</span> root root  34M Sep <span class="token number">16</span> 00:53 hbase-2.2.6-src.tar.gz
+</code></pre></div><p>Login to nginx spark Pod:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl <span class="token builtin class-name">exec</span> -it nginx-spark -- <span class="token function">bash</span>
+</code></pre></div><p>Check file status:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">ls</span> -lh /data/spark/
+total <span class="token number">1</span>.0K
+dr--r----- <span class="token number">1</span> root root <span class="token number">7</span> Oct <span class="token number">22</span> <span class="token number">12</span>:21 spark-2.4.7
+dr--r----- <span class="token number">1</span> root root <span class="token number">7</span> Oct <span class="token number">22</span> <span class="token number">12</span>:21 spark-3.0.1
+$ <span class="token function">du</span> -h /data/spark/
+999M	/data/spark/spark-3.0.1
+968M	/data/spark/spark-2.4.7
+<span class="token number">2</span>.0G	/data/spark/
+</code></pre></div><p>Loginout nginx Pod:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token builtin class-name">exit</span>
+</code></pre></div><p>As you may have seen, all the files on the WebUFS appear no differences from any other file in the local filesystem of the nginx Pod.</p> <h2 id="speed-up-accessing-remote-files"><a href="#speed-up-accessing-remote-files" class="header-anchor">#</a> Speed Up Accessing Remote Files</h2> <p>To demonstrate how great speedup you may enjoy when accessing remote files, here is a demo job:</p> <p><strong>Check the test job to be launched</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>app.yaml</span>
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fluid-copy-test-hbase
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: busybox
+          image: busybox
+          command: [&quot;/bin/sh&quot;]
+          args: [&quot;-c&quot;, &quot;set -x; time cp -r /data/hbase ./&quot;]
+          volumeMounts:
+            - mountPath: /data
+              name: hbase-vol
+      volumes:
+        - name: hbase-vol
+          persistentVolumeClaim:
+            claimName: hbase
+      nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>app1.yaml</span>
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fluid-copy-test-spark
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: busybox
+          image: busybox
+          command: [&quot;/bin/sh&quot;]
+          args: [&quot;-c&quot;, &quot;set -x; time cp -r /data/spark ./&quot;]
+          volumeMounts:
+            - mountPath: /data
+              name: spark-vol
+      volumes:
+        - name: spark-vol
+          persistentVolumeClaim:
+            claimName: spark
+      nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+</code></pre></div><p><strong>Launch a test job</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl create -f app.yaml
+job.batch/fluid-copy-test-hbase created
+$ kubectl create -f app1.yaml
+job.batch/fluid-copy-test-spark created
+</code></pre></div><p>The hbase job executes a shell command <code>time cp -r /data/hbase ./</code>, and <code>/data/hbase</code> is the location where the remote file is mounted in the pod. After the command is completed, the execution time of the command will be displayed on the terminal.</p> <p>The spark job executes a shell command <code>time cp -r /data/spark ./</code>, and <code>/data/hbase</code> is the location where the remote file is mounted in the pod. After the command is completed, the execution time of the command will be displayed on the terminal.</p> <p>Wait for a while and make sure the job has completed. You can check its runnning status by:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -o wide <span class="token operator">|</span> <span class="token function">grep</span> copy 
+ffluid-copy-test-hbase-r8gxp   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          4m16s   <span class="token number">172.29</span>.0.135    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+fluid-copy-test-spark-54q8m   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          4m14s   <span class="token number">172.29</span>.0.136    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><p>If you see the above result, it means the job has been completed.</p> <blockquote><p>Note: <code>r8gxp</code> in <code>fluid-copy-test-hbase-r8gxp</code> is a specifier generated by the Job we created. It's highly possible that you may have different specifier in your environment. Please remember replace it with your own specifier in the following steps</p></blockquote> <p><strong>Check running time of the test job</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl  logs fluid-copy-test-hbase-r8gxp
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/hbase ./
+real    3m <span class="token number">34</span>.08s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">1</span>.24s
+$ kubectl  logs fluid-copy-test-spark-54q8m
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/spark ./
+real    3m <span class="token number">25</span>.47s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">5</span>.48s
+</code></pre></div><p>It can be seen that the first remote file read hbase took nearly 3m34s, and the spark took nearly 3m25s.</p> <p><strong>Check status of the dataset</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get dataset
+NAME    UFS TOTAL SIZE   CACHED      CACHE CAPACITY   CACHED PERCENTAGE   PHASE   AGE
+hbase   <span class="token number">443</span>.89MiB        <span class="token number">443</span>.89MiB   <span class="token number">2</span>.00GiB          <span class="token number">100.0</span>%              Bound   30m
+spark   <span class="token number">1</span>.92GiB          <span class="token number">1</span>.92GiB     <span class="token number">4</span>.00GiB          <span class="token number">100.0</span>%              Bound   28m
+</code></pre></div><p>Now, all the remote files have been cached in Alluxio.</p> <p><strong>Re-Launch the test job</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl delete -f app.yaml
+$ kubectl create -f app.yaml
+$ kubectl delete -f app1.yaml
+$ kubectl create -f app1.yaml
+</code></pre></div><p>Since the remote file has been cached, the test job can be completed quickly:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -o wide<span class="token operator">|</span> <span class="token function">grep</span> fluid
+fluid-copy-test-hbase-sf5md   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          53s   <span class="token number">172.29</span>.0.137    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+fluid-copy-test-spark-fwp57   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          51s   <span class="token number">172.29</span>.0.138    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl  logs fluid-copy-test-hbase-sf5md
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/hbase ./
+real    0m <span class="token number">0</span>.36s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">0</span>.36s
+$ kubectl  logs fluid-copy-test-spark-fwp57
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/spark ./
+real    0m <span class="token number">1</span>.57s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">1</span>.57s
+</code></pre></div><p>Doing the same read operation, hbase takes only 0.36s this time and spark takes only 1.57s.</p> <p>The great speedup attributes to the powerful caching capability provided by Alluxio. That means that once you access some remote file, it will be cached in Alluxio, and your next following operations will enjoy a local access instead of a remote one, and thus a great speedup.</p> <blockquote><p>Note: Time spent for the test job depends on your network environment. If it takes too long for you to complete the job, changing a mirror or some smaller file might help.</p></blockquote> <p>Also login to the host node (if possible)</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">ssh</span> root@192.168.0.199
+$ <span class="token function">ls</span> /dev/shm/default/
+hbase  spark
+$ <span class="token function">ls</span> -lh /dev/shm/default/hbase/alluxioworker/
+total 444M
+-rwxrwxrwx <span class="token number">1</span> root root 174K Oct <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">100663296</span>
+-rwxrwxrwx <span class="token number">1</span> root root 115K Oct <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">16777216</span>
+-rwxrwxrwx <span class="token number">1</span> root root 200M Oct <span class="token number">22</span> <span class="token number">20</span>:26 <span class="token number">33554432</span>
+-rwxrwxrwx <span class="token number">1</span> root root 106K Oct <span class="token number">22</span> <span class="token number">20</span>:26 <span class="token number">50331648</span>
+-rwxrwxrwx <span class="token number">1</span> root root 211M Oct <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">67108864</span>
+-rwxrwxrwx <span class="token number">1</span> root root  34M Oct <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">83886080</span>
+$ <span class="token function">ls</span> -lh /dev/shm/default/spark/alluxioworker/
+total <span class="token number">2</span>.0G
+-rwxrwxrwx <span class="token number">1</span> root root 210M Oct <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">100663296</span>
+-rwxrwxrwx <span class="token number">1</span> root root  16M Oct <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">117440512</span>
+-rwxrwxrwx <span class="token number">1</span> root root 195M Oct <span class="token number">22</span> <span class="token number">21</span>:05 <span class="token number">134217728</span>
+-rwxrwxrwx <span class="token number">1</span> root root 214M Oct <span class="token number">22</span> <span class="token number">21</span>:05 <span class="token number">150994944</span>
+-rwxrwxrwx <span class="token number">1</span> root root 140M Oct <span class="token number">22</span> <span class="token number">21</span>:08 <span class="token number">16777216</span>
+-rwxrwxrwx <span class="token number">1</span> root root  22M Oct <span class="token number">22</span> <span class="token number">21</span>:05 <span class="token number">167772160</span>
+-rwxrwxrwx <span class="token number">1</span> root root 221M Oct <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">184549376</span>
+-rwxrwxrwx <span class="token number">1</span> root root 150M Oct <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">201326592</span>
+-rwxrwxrwx <span class="token number">1</span> root root 311K Oct <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">218103808</span>
+-rwxrwxrwx <span class="token number">1</span> root root 322K Oct <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">234881024</span>
+-rwxrwxrwx <span class="token number">1</span> root root 210M Oct <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">33554432</span>
+-rwxrwxrwx <span class="token number">1</span> root root 161M Oct <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">50331648</span>
+-rwxrwxrwx <span class="token number">1</span> root root 223M Oct <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">67108864</span>
+-rwxrwxrwx <span class="token number">1</span> root root 208M Oct <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">83886080</span>
+</code></pre></div><p>It can be seen that the block files cached by different Datasets are isolated according to the namespace and name of the Dataset.</p> <h2 id="clean-up"><a href="#clean-up" class="header-anchor">#</a> Clean Up</h2> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl delete -f <span class="token builtin class-name">.</span>
+$ kubectl label node cn-beijing.192.168.0.199 fluid-
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/samples/data_co_locality.html" class="prev">
+        DEMO - Cache Co-locality for Workload Scheduling
+      </a></span> <span class="next"><a href="/samples/nonroot_access.html">
+        Example - Using Fluid to access non-root user's data
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.ff89ebb7.js" defer></script><script src="/assets/js/2.9883a141.js" defer></script><script src="/assets/js/42.1727ac1f.js" defer></script>
+  </body>
+</html>

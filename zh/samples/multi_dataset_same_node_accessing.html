@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>示例 - 单机多Dataset远程Web文件访问加速 | Fluid</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/fluid-stacked-color.svg">
+    <meta name="description" content="Fluid, 在云上为大数据以及AI应用的弹性数据提供抽象和加速服务。">
+    
+    <link rel="preload" href="/assets/css/0.styles.edbab21a.css" as="style"><link rel="preload" href="/assets/js/app.ff89ebb7.js" as="script"><link rel="preload" href="/assets/js/2.9883a141.js" as="script"><link rel="preload" href="/assets/js/88.adc406fa.js" as="script"><link rel="prefetch" href="/assets/js/10.ff2f4ab4.js"><link rel="prefetch" href="/assets/js/11.7511cb62.js"><link rel="prefetch" href="/assets/js/12.6cc0075a.js"><link rel="prefetch" href="/assets/js/13.ac2fd551.js"><link rel="prefetch" href="/assets/js/14.6c27fec2.js"><link rel="prefetch" href="/assets/js/15.5b399203.js"><link rel="prefetch" href="/assets/js/16.56d4c631.js"><link rel="prefetch" href="/assets/js/17.ded4c0e4.js"><link rel="prefetch" href="/assets/js/18.63823924.js"><link rel="prefetch" href="/assets/js/19.403ee62d.js"><link rel="prefetch" href="/assets/js/20.0b8ab171.js"><link rel="prefetch" href="/assets/js/21.4b4f535c.js"><link rel="prefetch" href="/assets/js/22.aca0862a.js"><link rel="prefetch" href="/assets/js/23.1ef5c1d2.js"><link rel="prefetch" href="/assets/js/24.793d122b.js"><link rel="prefetch" href="/assets/js/25.5a478a64.js"><link rel="prefetch" href="/assets/js/26.128776a2.js"><link rel="prefetch" href="/assets/js/27.f4afbc76.js"><link rel="prefetch" href="/assets/js/28.cb0e85f7.js"><link rel="prefetch" href="/assets/js/29.2849f366.js"><link rel="prefetch" href="/assets/js/3.2ada5a00.js"><link rel="prefetch" href="/assets/js/30.4c8dfe96.js"><link rel="prefetch" href="/assets/js/31.70054216.js"><link rel="prefetch" href="/assets/js/32.392b4ec1.js"><link rel="prefetch" href="/assets/js/33.3b370eba.js"><link rel="prefetch" href="/assets/js/34.41a7b5eb.js"><link rel="prefetch" href="/assets/js/35.95f0a00d.js"><link rel="prefetch" href="/assets/js/36.168f5f83.js"><link rel="prefetch" href="/assets/js/37.4452566b.js"><link rel="prefetch" href="/assets/js/38.901c3a3c.js"><link rel="prefetch" href="/assets/js/39.ec1506de.js"><link rel="prefetch" href="/assets/js/4.c98b7bc1.js"><link rel="prefetch" href="/assets/js/40.04ca41b7.js"><link rel="prefetch" href="/assets/js/41.3e25d182.js"><link rel="prefetch" href="/assets/js/42.1727ac1f.js"><link rel="prefetch" href="/assets/js/43.bce70a95.js"><link rel="prefetch" href="/assets/js/44.7ac691a6.js"><link rel="prefetch" href="/assets/js/45.be2e439b.js"><link rel="prefetch" href="/assets/js/46.05713c89.js"><link rel="prefetch" href="/assets/js/47.8ea80a90.js"><link rel="prefetch" href="/assets/js/48.1583acd2.js"><link rel="prefetch" href="/assets/js/49.aa1e9b68.js"><link rel="prefetch" href="/assets/js/5.f5746beb.js"><link rel="prefetch" href="/assets/js/50.21c7a3f8.js"><link rel="prefetch" href="/assets/js/51.4aa0466d.js"><link rel="prefetch" href="/assets/js/52.7a76af04.js"><link rel="prefetch" href="/assets/js/53.d536675e.js"><link rel="prefetch" href="/assets/js/54.de903366.js"><link rel="prefetch" href="/assets/js/55.9253880d.js"><link rel="prefetch" href="/assets/js/56.182caf99.js"><link rel="prefetch" href="/assets/js/57.e637b6a7.js"><link rel="prefetch" href="/assets/js/58.f13666f3.js"><link rel="prefetch" href="/assets/js/59.2f3414d9.js"><link rel="prefetch" href="/assets/js/6.8b6ef391.js"><link rel="prefetch" href="/assets/js/60.2e782ed8.js"><link rel="prefetch" href="/assets/js/61.912178b8.js"><link rel="prefetch" href="/assets/js/62.fe49a10b.js"><link rel="prefetch" href="/assets/js/63.e955b402.js"><link rel="prefetch" href="/assets/js/64.5a01d069.js"><link rel="prefetch" href="/assets/js/65.c387d4a2.js"><link rel="prefetch" href="/assets/js/66.d6fc89ad.js"><link rel="prefetch" href="/assets/js/67.ecece501.js"><link rel="prefetch" href="/assets/js/68.0de414a9.js"><link rel="prefetch" href="/assets/js/69.c3b6d603.js"><link rel="prefetch" href="/assets/js/7.480203b2.js"><link rel="prefetch" href="/assets/js/70.c3c1666d.js"><link rel="prefetch" href="/assets/js/71.74b515d0.js"><link rel="prefetch" href="/assets/js/72.565535fb.js"><link rel="prefetch" href="/assets/js/73.aa4b80fa.js"><link rel="prefetch" href="/assets/js/74.5babfb55.js"><link rel="prefetch" href="/assets/js/75.c240aa07.js"><link rel="prefetch" href="/assets/js/76.bdf11e70.js"><link rel="prefetch" href="/assets/js/77.da79c69e.js"><link rel="prefetch" href="/assets/js/78.b025a170.js"><link rel="prefetch" href="/assets/js/79.a0ef641e.js"><link rel="prefetch" href="/assets/js/8.ceafe7a8.js"><link rel="prefetch" href="/assets/js/80.9488d79d.js"><link rel="prefetch" href="/assets/js/81.bda0a9bb.js"><link rel="prefetch" href="/assets/js/82.8c563a57.js"><link rel="prefetch" href="/assets/js/83.9e589297.js"><link rel="prefetch" href="/assets/js/84.5c46079d.js"><link rel="prefetch" href="/assets/js/85.469b5e0f.js"><link rel="prefetch" href="/assets/js/86.1cfc9826.js"><link rel="prefetch" href="/assets/js/87.33adc5b0.js"><link rel="prefetch" href="/assets/js/89.8f120c05.js"><link rel="prefetch" href="/assets/js/9.c4bb6552.js"><link rel="prefetch" href="/assets/js/90.3728026e.js"><link rel="prefetch" href="/assets/js/91.a0fcfd1f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.edbab21a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><img src="/fluid-horizontal-color.png" alt="Fluid" class="logo"></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/guide/" class="nav-link">
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dev/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/" class="nav-link router-link-active">
+  示例
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="社区" class="dropdown-title"><span class="title">社区</span> <span class="arrow down"></span></button> <button type="button" aria-label="社区" class="mobile-dropdown-title"><span class="title">社区</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/community/community.html" class="nav-link">
+  社区
+</a></li><li class="dropdown-item"><!----> <a href="/zh/community/ADOPTERS.html" class="nav-link">
+  合作伙伴
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/blog/technology/" class="nav-link">
+  技术内幕
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/releases/" class="nav-link">
+  版本发布
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/casestudy/" class="nav-link">
+  案例学习
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/samples/multi_dataset_same_node_accessing.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/multi_dataset_same_node_accessing.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/guide/" class="nav-link">
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dev/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/" class="nav-link router-link-active">
+  示例
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="社区" class="dropdown-title"><span class="title">社区</span> <span class="arrow down"></span></button> <button type="button" aria-label="社区" class="mobile-dropdown-title"><span class="title">社区</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/community/community.html" class="nav-link">
+  社区
+</a></li><li class="dropdown-item"><!----> <a href="/zh/community/ADOPTERS.html" class="nav-link">
+  合作伙伴
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/blog/technology/" class="nav-link">
+  技术内幕
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/releases/" class="nav-link">
+  版本发布
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/casestudy/" class="nav-link">
+  案例学习
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/samples/multi_dataset_same_node_accessing.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/multi_dataset_same_node_accessing.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/zh/samples/" aria-current="page" class="sidebar-link">示例 - 远程Web文件访问加速</a></li><li><a href="/zh/samples/accelerate_pvc.html" class="sidebar-link">示例 - 使用Fluid加速PVC</a></li><li><a href="/zh/samples/machinelearning.html" class="sidebar-link">示例 - 用Fluid加速机器学习训练</a></li><li><a href="/zh/samples/data_warmup.html" class="sidebar-link">示例 - 数据预加载</a></li><li><a href="/zh/samples/accelerate_hdfs.html" class="sidebar-link">示例 - HDFS Client文件访问加速</a></li><li><a href="/zh/samples/api_proxy.html" class="sidebar-link">示例 - 基于Restful的文件系统客户端</a></li><li><a href="/zh/samples/backup_and_restore_metadata.html" class="sidebar-link">示例-Dataset数据的的备份与恢复</a></li><li><a href="/zh/samples/data_co_locality.html" class="sidebar-link">示例 - 数据缓存亲和性调度</a></li><li><a href="/zh/samples/data_toleration.html" class="sidebar-link">示例 - 数据容忍污点调度</a></li><li><a href="/zh/samples/dataset_scaling.html" class="sidebar-link">示例 - Dataset手动扩缩容</a></li><li><a href="/zh/samples/fuse_affinity.html" class="sidebar-link">示例 - Fuse客户端全局部署</a></li><li><a href="/zh/samples/hdfs_configuration.html" class="sidebar-link">示例 - Fluid访问HDFS所需的特殊配置</a></li><li><a href="/zh/samples/hostpath.html" class="sidebar-link">示例 - 使用Fluid加速主机目录</a></li><li><a href="/zh/samples/master_high_avaliability.html" class="sidebar-link">示例 - 配置 master 高可用模式</a></li><li><a href="/zh/samples/multi_dataset_same_node_accessing.html" aria-current="page" class="active sidebar-link">示例 - 单机多Dataset远程Web文件访问加速</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/samples/multi_dataset_same_node_accessing.html#前提条件" class="sidebar-link">前提条件</a></li><li class="sidebar-sub-header"><a href="/zh/samples/multi_dataset_same_node_accessing.html#运行示例" class="sidebar-link">运行示例</a></li><li class="sidebar-sub-header"><a href="/zh/samples/multi_dataset_same_node_accessing.html#远程文件访问" class="sidebar-link">远程文件访问</a></li><li class="sidebar-sub-header"><a href="/zh/samples/multi_dataset_same_node_accessing.html#远程文件访问加速" class="sidebar-link">远程文件访问加速</a></li><li class="sidebar-sub-header"><a href="/zh/samples/multi_dataset_same_node_accessing.html#环境清理" class="sidebar-link">环境清理</a></li></ul></li><li><a href="/zh/samples/nonroot_access.html" class="sidebar-link">示例 - 使用Fluid访问非root用户的数据</a></li><li><a href="/zh/samples/tieredstore_config.html" class="sidebar-link">示例 - Alluxio分层存储配置</a></li><li><a href="/zh/samples/use_encryptoptions.html" class="sidebar-link">示例 - 使用Secret配置Dataset敏感信息</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="示例-单机多dataset远程web文件访问加速"><a href="#示例-单机多dataset远程web文件访问加速" class="header-anchor">#</a> 示例 - 单机多Dataset远程Web文件访问加速</h1> <p>通过<a href="https://www.alluxio.io" target="_blank" rel="noopener noreferrer">Alluxio<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>和<a href="https://github.com/libfuse/libfuse" target="_blank" rel="noopener noreferrer">Fuse<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>，Fluid为用户提供了一种更为简单的文件访问接口，使得任意运行在Kubernetes集群上的程序能够像访问本地文件一样轻松访问存储在远程文件系统中的文件。Fluid 针对数据集进行全生命周期的管理和隔离，尤其对于短生命周期应用（e.g 数据分析任务、机器学习任务），用户可以在集群中大规模部署。</p> <p>本文档通过一个简单的例子演示了上述功能特性</p> <h2 id="前提条件"><a href="#前提条件" class="header-anchor">#</a> 前提条件</h2> <p>在运行该示例之前，请参考<a href="/zh/userguide/install.html">安装文档</a>完成安装，并检查Fluid各组件正常运行：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -n fluid-system
+NAME                                  READY   STATUS    RESTARTS   AGE
+alluxioruntime-controller-5b64fdbbb-84pc6   <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8h
+csi-nodeplugin-fluid-fwgjh                  <span class="token number">2</span>/2     Running   <span class="token number">0</span>          8h
+csi-nodeplugin-fluid-ll8bq                  <span class="token number">2</span>/2     Running   <span class="token number">0</span>          8h
+dataset-controller-5b7848dbbb-n44dj         <span class="token number">1</span>/1     Running   <span class="token number">0</span>          8h
+</code></pre></div><p>通常来说，你会看到一个名为<code>dataset-controller</code>的Pod、一个名为<code>alluxioruntime-controller</code>的Pod和多个名为<code>csi-nodeplugin</code>的Pod正在运行。其中，<code>csi-nodeplugin</code>这些Pod的数量取决于你的Kubernetes集群中结点的数量。</p> <h2 id="运行示例"><a href="#运行示例" class="header-anchor">#</a> 运行示例</h2> <p><strong>对某个节点打标签</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl  label node cn-beijing.192.168.0.199 <span class="token assign-left variable">fluid</span><span class="token operator">=</span>multi-dataset
+</code></pre></div><blockquote><p>在接下来的步骤中，我们将使用 <code>NodeSelector</code> 来管理Dataset调度的节点，这里仅做试验使用。</p></blockquote> <p><strong>查看待创建的Dataset资源对象</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>dataset.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: hbase
+spec:
+  mounts:
+    - mountPoint: https://mirrors.tuna.tsinghua.edu.cn/apache/hbase/stable/
+      name: hbase
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: fluid
+              operator: In
+              values:
+                - &quot;multi-dataset&quot;
+  placement: &quot;Shared&quot; // 设置为 Exclusive 或者为空则为独占节点数据集
+
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>dataset1.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: spark
+spec:
+  mounts:
+    - mountPoint: https://mirrors.bit.edu.cn/apache/spark/
+      name: spark
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: fluid
+              operator: In
+              values:
+                - &quot;multi-dataset&quot;
+  placement: &quot;Shared&quot; 
+
+EOF</span>        
+</code></pre></div><blockquote><p>注意: 上述mountPoint中使用了Apache清华镜像源进行演示，如果你的环境位于海外，请更换为<code>https://downloads.apache.org/hbase/stable/</code>和<code>https://downloads.apache.org/spark/</code>进行尝试</p></blockquote> <p>在这里，我们将要创建一个kind为<code>Dataset</code>的资源对象(Resource object)。<code>Dataset</code>是Fluid所定义的一个Custom Resource Definition(CRD)，该CRD被用来告知Fluid在哪里可以找到你所需要的数据。Fluid将该CRD对象中定义的<code>mountPoint</code>属性挂载到Alluxio之上，因此该属性可以是任何合法的能够被Alluxio识别的UFS地址。在本示例中，为了简单，我们使用<a href="https://docs.alluxio.io/os/user/stable/cn/ufs/WEB.html" target="_blank" rel="noopener noreferrer">WebUFS<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>进行演示。</p> <p>更多有关UFS的信息，请参考<a href="https://docs.alluxio.io/os/user/stable/cn/ufs/OSS.html" target="_blank" rel="noopener noreferrer">Alluxio文档-底层存储系统<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>部分。</p> <blockquote><p>本示例将以Apache镜像站点上的Hbase stable和Spark相关资源作为演示中使用的远程文件。这个选择并没有任何特殊之处，你可以将这个远程文件修改为任意你喜欢的远程文件。但是，如果你想要和我们一样使用WebUFS进行操作的话，最好还是选择一个Apache镜像源站点( e.g. <a href="https://mirrors.tuna.tsinghua.edu.cn/apache" target="_blank" rel="noopener noreferrer">清华镜像源<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> )，因为根据目前WebUFS的实现，如果你选择其他更加复杂的网页作为WebUFS，你可能需要进行更多<a href="https://docs.alluxio.io/os/user/stable/cn/ufs/WEB.html#%E9%85%8D%E7%BD%AEalluxio" target="_blank" rel="noopener noreferrer">更复杂的配置<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></blockquote> <p><strong>创建Dataset资源对象</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl apply -f dataset.yaml
+dataset.data.fluid.io/hbase created
+$ kubectl apply -f dataset1.yaml
+dataset.data.fluid.io/spark created
+</code></pre></div><p><strong>查看Dataset资源对象状态</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get dataset
+NAME    UFS TOTAL SIZE   CACHED   CACHE CAPACITY   CACHED PERCENTAGE   PHASE      AGE
+hbase                                                                  NotBound   6s
+spark                                                                  NotBound   4s
+</code></pre></div><p>如上所示，<code>status</code>中的<code>phase</code>属性值为<code>NotBound</code>，这意味着该<code>Dataset</code>资源对象目前还未与任何<code>AlluxioRuntime</code>资源对象绑定，接下来，我们将创建一个<code>AlluxioRuntime</code>资源对象。</p> <p><strong>查看待创建的AlluxioRuntime资源对象</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>runtime.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: AlluxioRuntime
+metadata:
+  name: hbase
+spec:
+  replicas: 1
+  tieredstore:
+    levels:
+      - mediumtype: MEM
+        path: /dev/shm
+        quota: 2Gi
+        high: &quot;0.95&quot;
+        low: &quot;0.7&quot;
+      
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>runtime1.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: AlluxioRuntime
+metadata:
+  name: spark
+spec:
+  replicas: 1
+  tieredstore:
+    levels:
+      - mediumtype: MEM
+        path: /dev/shm
+        quota: 4Gi
+        high: &quot;0.95&quot;
+        low: &quot;0.7&quot;
+
+EOF</span>
+</code></pre></div><p><strong>创建AlluxioRuntime资源对象</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl create -f runtime.yaml
+alluxioruntime.data.fluid.io/hbase created
+
+<span class="token comment"># 注意等待 Dataset hbase 全部组件 Running </span>
+$ kubectl get pod -o wide <span class="token operator">|</span> <span class="token function">grep</span> hbase
+NAME                 READY   STATUS    RESTARTS   AGE   IP              NODE                       NOMINATED NODE   READINESS GATES
+hbase-fuse-jl2g2     <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-master-0       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m55s   <span class="token number">192.168</span>.0.200   cn-beijing.192.168.0.200   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-worker-g89p8   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+
+$ kubectl create -f runtime1.yaml
+alluxioruntime.data.fluid.io/spark created
+</code></pre></div><p><strong>检查AlluxioRuntime资源对象是否已经创建</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get alluxioruntime
+NAME    MASTER PHASE   WORKER PHASE   FUSE PHASE   AGE
+hbase   Ready          Ready          Ready        2m14s
+spark   Ready          Ready          Ready        58s
+</code></pre></div><p><code>AlluxioRuntime</code>是另一个Fluid定义的CRD。一个<code>AlluxioRuntime</code>资源对象描述了在Kubernetes集群中运行一个Alluxio实例所需要的配置信息。</p> <p>等待一段时间，让AlluxioRuntime资源对象中的各个组件得以顺利启动，你会看到类似以下状态：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -o wide
+NAME                 READY   STATUS    RESTARTS   AGE     IP              NODE                       NOMINATED NODE   READINESS GATES
+hbase-fuse-jl2g2     <span class="token number">1</span>/1     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-master-0       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m55s   <span class="token number">192.168</span>.0.200   cn-beijing.192.168.0.200   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+hbase-worker-g89p8   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          2m24s   <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+spark-fuse-5z49p     <span class="token number">1</span>/1     Running   <span class="token number">0</span>          19s     <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+spark-master-0       <span class="token number">2</span>/2     Running   <span class="token number">0</span>          50s     <span class="token number">192.168</span>.0.200   cn-beijing.192.168.0.200   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+spark-worker-96ksn   <span class="token number">2</span>/2     Running   <span class="token number">0</span>          19s     <span class="token number">192.168</span>.0.199   cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><p>注意上面的不同的 Dataset 的 worker 和 fuse 组件可以正常的调度到相同的节点 <code>cn-beijing.192.168.0.199</code>。</p> <p><strong>再次查看Dataset资源对象状态</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get dataset 
+NAME    UFS TOTAL SIZE   CACHED   CACHE CAPACITY   CACHED PERCENTAGE   PHASE   AGE
+hbase   <span class="token number">443</span>.89MiB        <span class="token number">0</span>.00B    <span class="token number">2</span>.00GiB          <span class="token number">0.0</span>%                Bound   11m
+spark   <span class="token number">1</span>.92GiB          <span class="token number">0</span>.00B    <span class="token number">4</span>.00GiB          <span class="token number">0.0</span>%                Bound   9m38s
+</code></pre></div><p>因为已经与一个成功启动的AlluxioRuntime绑定，该Dataset资源对象的状态得到了更新，此时<code>PHASE</code>属性值已经变为<code>Bound</code>状态。通过上述命令可以获知有关资源对象的基本信息</p> <p><strong>查看AlluxioRuntime状态</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get alluxioruntime -o wide
+NAME    READY MASTERS   DESIRED MASTERS   MASTER PHASE   READY WORKERS   DESIRED WORKERS   WORKER PHASE   READY FUSES   DESIRED FUSES   FUSE PHASE   AGE
+hbase   <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>             <span class="token number">1</span>               Ready        11m
+spark   <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>               <span class="token number">1</span>                 Ready          <span class="token number">1</span>             <span class="token number">1</span>               Ready        9m52s
+</code></pre></div><p><code>AlluxioRuntime</code>资源对象的<code>status</code>中包含了更多更详细的信息</p> <p><strong>查看与远程文件关联的PersistentVolume以及PersistentVolumeClaim</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get <span class="token function">pv</span>
+NAME    CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM           STORAGECLASS   REASON   AGE
+hbase   100Gi      RWX            Retain           Bound    default/hbase                           4m55s
+spark   100Gi      RWX            Retain           Bound    default/spark                           51s
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pvc
+NAME    STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+hbase   Bound    hbase    100Gi      RWX                           4m57s
+spark   Bound    spark    100Gi      RWX                           53s
+</code></pre></div><p><code>Dataset</code>资源对象准备完成后（即与Alluxio实例绑定后），与该资源对象关联的PV, PVC已经由Fluid生成，应用可以通过该PVC完成远程文件在Pod中的挂载，并通过挂载目录实现远程文件访问</p> <h2 id="远程文件访问"><a href="#远程文件访问" class="header-anchor">#</a> 远程文件访问</h2> <p><strong>查看待创建的应用</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>nginx.yaml</span>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-hbase
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: /data
+          name: hbase-vol
+  volumes:
+    - name: hbase-vol
+      persistentVolumeClaim:
+        claimName: hbase
+  nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>nginx1.yaml</span>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-spark
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: /data
+          name: hbase-vol
+  volumes:
+    - name: hbase-vol
+      persistentVolumeClaim:
+        claimName: spark
+  nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+</code></pre></div><p><strong>启动应用进行远程文件访问</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl create -f nginx.yaml
+$ kubectl create -f nginx1.yaml
+</code></pre></div><p>登录Nginx hbase Pod:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl <span class="token builtin class-name">exec</span> -it nginx-hbase -- <span class="token function">bash</span>
+</code></pre></div><p>查看远程文件挂载情况：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">ls</span> -lh /data/hbase
+total 444M
+-r--r----- <span class="token number">1</span> root root 193K Sep <span class="token number">16</span> 00:53 CHANGES.md
+-r--r----- <span class="token number">1</span> root root 112K Sep <span class="token number">16</span> 00:53 RELEASENOTES.md
+-r--r----- <span class="token number">1</span> root root  26K Sep <span class="token number">16</span> 00:53 api_compare_2.2.6RC2_to_2.2.5.html
+-r--r----- <span class="token number">1</span> root root 211M Sep <span class="token number">16</span> 00:53 hbase-2.2.6-bin.tar.gz
+-r--r----- <span class="token number">1</span> root root 200M Sep <span class="token number">16</span> 00:53 hbase-2.2.6-client-bin.tar.gz
+-r--r----- <span class="token number">1</span> root root  34M Sep <span class="token number">16</span> 00:53 hbase-2.2.6-src.tar.gz
+</code></pre></div><p>登录Nginx spark Pod:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl <span class="token builtin class-name">exec</span> -it nginx-spark -- <span class="token function">bash</span>
+</code></pre></div><p>查看远程文件挂载情况：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">ls</span> -lh /data/spark/
+total <span class="token number">1</span>.0K
+dr--r----- <span class="token number">1</span> root root <span class="token number">7</span> Oct <span class="token number">22</span> <span class="token number">12</span>:21 spark-2.4.7
+dr--r----- <span class="token number">1</span> root root <span class="token number">7</span> Oct <span class="token number">22</span> <span class="token number">12</span>:21 spark-3.0.1
+$ <span class="token function">du</span> -h /data/spark/
+999M	/data/spark/spark-3.0.1
+968M	/data/spark/spark-2.4.7
+<span class="token number">2</span>.0G	/data/spark/
+</code></pre></div><p>登出Nginx Pod:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token builtin class-name">exit</span>
+</code></pre></div><p>正如你所见，WebUFS上所存储的全部文件,可以和本地文件完全没有区别的方式存在于某个Pod中，并且可以被该Pod十分方便地访问</p> <h2 id="远程文件访问加速"><a href="#远程文件访问加速" class="header-anchor">#</a> 远程文件访问加速</h2> <p>为了演示在访问远程文件时，你能获得多大的加速效果，我们提供了一个测试作业的样例:</p> <p><strong>查看待创建的测试作业</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>app.yaml</span>
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fluid-copy-test-hbase
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: busybox
+          image: busybox
+          command: [&quot;/bin/sh&quot;]
+          args: [&quot;-c&quot;, &quot;set -x; time cp -r /data/hbase ./&quot;]
+          volumeMounts:
+            - mountPath: /data
+              name: hbase-vol
+      volumes:
+        - name: hbase-vol
+          persistentVolumeClaim:
+            claimName: hbase
+      nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span>app1.yaml</span>
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: fluid-copy-test-spark
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: busybox
+          image: busybox
+          command: [&quot;/bin/sh&quot;]
+          args: [&quot;-c&quot;, &quot;set -x; time cp -r /data/spark ./&quot;]
+          volumeMounts:
+            - mountPath: /data
+              name: spark-vol
+      volumes:
+        - name: spark-vol
+          persistentVolumeClaim:
+            claimName: spark
+      nodeName: cn-beijing.192.168.0.199
+
+EOF</span>
+</code></pre></div><p><strong>启动测试作业</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl create -f app.yaml
+job.batch/fluid-copy-test-hbase created
+$ kubectl create -f app1.yaml
+job.batch/fluid-copy-test-spark created
+</code></pre></div><p>hbase任务程序会执行<code>time cp -r /data/hbase ./</code>的shell命令，其中<code>/data/hbase</code>是远程文件在Pod中挂载的位置，该命令完成后会在终端显示命令执行的时长。</p> <p>spark任务程序会执行<code>time cp -r /data/spark ./</code>的shell命令，其中<code>/data/spark</code>是远程文件在Pod中挂载的位置，该命令完成后会在终端显示命令执行的时长。</p> <p>等待一段时间,待该作业运行完成,作业的运行状态可通过以下命令查看:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -o wide <span class="token operator">|</span> <span class="token function">grep</span> copy 
+fluid-copy-test-hbase-r8gxp   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          4m16s   <span class="token number">172.29</span>.0.135    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+fluid-copy-test-spark-54q8m   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          4m14s   <span class="token number">172.29</span>.0.136    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><p>如果看到如上结果,则说明该作业已经运行完成</p> <blockquote><p>注意: <code>fluid-copy-test-hbase-r8gxp</code>中的<code>r8gxp</code>为作业生成的标识,在你的环境中,这个标识可能不同,接下来的命令中涉及该标识的地方请以你的环境为准</p></blockquote> <p><strong>查看测试作业完成时间</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl  logs fluid-copy-test-hbase-r8gxp
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/hbase ./
+real    3m <span class="token number">34</span>.08s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">1</span>.24s
+$ kubectl  logs fluid-copy-test-spark-54q8m
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/spark ./
+real    3m <span class="token number">25</span>.47s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">5</span>.48s
+</code></pre></div><p>可见，第一次远程文件的读取hbase耗费了接3m34s的时间，读取spark耗费接近3m25s时间。</p> <p><strong>查看Dataset资源对象状态</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get dataset
+NAME    UFS TOTAL SIZE   CACHED      CACHE CAPACITY   CACHED PERCENTAGE   PHASE   AGE
+hbase   <span class="token number">443</span>.89MiB        <span class="token number">443</span>.89MiB   <span class="token number">2</span>.00GiB          <span class="token number">100.0</span>%              Bound   30m
+spark   <span class="token number">1</span>.92GiB          <span class="token number">1</span>.92GiB     <span class="token number">4</span>.00GiB          <span class="token number">100.0</span>%              Bound   28m
+</code></pre></div><p>现在，所有远程文件都已经被缓存在了Alluxio中</p> <p><strong>再次启动测试作业</strong></p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl delete -f app.yaml
+$ kubectl create -f app.yaml
+$ kubectl delete -f app1.yaml
+$ kubectl create -f app1.yaml
+</code></pre></div><p>由于远程文件已经被缓存，此次测试作业能够迅速完成：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl get pod -o wide<span class="token operator">|</span> <span class="token function">grep</span> fluid
+fluid-copy-test-hbase-sf5md   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          53s   <span class="token number">172.29</span>.0.137    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+fluid-copy-test-spark-fwp57   <span class="token number">0</span>/1     Completed   <span class="token number">0</span>          51s   <span class="token number">172.29</span>.0.138    cn-beijing.192.168.0.199   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl  logs fluid-copy-test-hbase-sf5md
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/hbase ./
+real    0m <span class="token number">0</span>.36s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">0</span>.36s
+$ kubectl  logs fluid-copy-test-spark-fwp57
++ <span class="token function">time</span> <span class="token function">cp</span> -r /data/spark ./
+real    0m <span class="token number">1</span>.57s
+user    0m <span class="token number">0</span>.00s
+sys     0m <span class="token number">1</span>.57s
+</code></pre></div><p>同样的文件访问操，hbase仅耗费了0.36s，spark仅耗费了1.57s。</p> <p>这种大幅度的加速效果归因于Alluxio所提供的强大的缓存能力，这种缓存能力意味着，只要你访问某个远程文件一次，该文件就会被缓存在Alluxio中，你的所有接下来的重复访问都不再需要进行远程文件读取，而是从Alluxio中直接获取数据，因此对于数据的访问加速也就不难解释了。</p> <blockquote><p>注意： 上述文件的访问速度与示例运行环境的网络条件有关，如果文件访问速度过慢，请更换更小的远程文件尝试</p></blockquote> <p>同样登录主机节点（如果可以）</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">ssh</span> root@192.168.0.199
+$ <span class="token function">ls</span> /dev/shm/default/
+hbase  spark
+$ <span class="token function">ls</span> -lh /dev/shm/default/hbase/alluxioworker/
+总用量 444M
+-rwxrwxrwx <span class="token number">1</span> root root 174K <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">100663296</span>
+-rwxrwxrwx <span class="token number">1</span> root root 115K <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">16777216</span>
+-rwxrwxrwx <span class="token number">1</span> root root 200M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">20</span>:26 <span class="token number">33554432</span>
+-rwxrwxrwx <span class="token number">1</span> root root 106K <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">20</span>:26 <span class="token number">50331648</span>
+-rwxrwxrwx <span class="token number">1</span> root root 211M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">67108864</span>
+-rwxrwxrwx <span class="token number">1</span> root root  34M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">20</span>:27 <span class="token number">83886080</span>
+$ <span class="token function">ls</span> -lh /dev/shm/default/spark/alluxioworker/
+总用量 <span class="token number">2</span>.0G
+-rwxrwxrwx <span class="token number">1</span> root root 210M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">100663296</span>
+-rwxrwxrwx <span class="token number">1</span> root root  16M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">117440512</span>
+-rwxrwxrwx <span class="token number">1</span> root root 195M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:05 <span class="token number">134217728</span>
+-rwxrwxrwx <span class="token number">1</span> root root 214M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:05 <span class="token number">150994944</span>
+-rwxrwxrwx <span class="token number">1</span> root root 140M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:08 <span class="token number">16777216</span>
+-rwxrwxrwx <span class="token number">1</span> root root  22M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:05 <span class="token number">167772160</span>
+-rwxrwxrwx <span class="token number">1</span> root root 221M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">184549376</span>
+-rwxrwxrwx <span class="token number">1</span> root root 150M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">201326592</span>
+-rwxrwxrwx <span class="token number">1</span> root root 311K <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">218103808</span>
+-rwxrwxrwx <span class="token number">1</span> root root 322K <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">234881024</span>
+-rwxrwxrwx <span class="token number">1</span> root root 210M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:06 <span class="token number">33554432</span>
+-rwxrwxrwx <span class="token number">1</span> root root 161M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">50331648</span>
+-rwxrwxrwx <span class="token number">1</span> root root 223M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">67108864</span>
+-rwxrwxrwx <span class="token number">1</span> root root 208M <span class="token number">10</span>月 <span class="token number">22</span> <span class="token number">21</span>:07 <span class="token number">83886080</span>
+</code></pre></div><p>可以看到不同Dataset缓存的block文件根据Dataset的namespace和name进行了隔离。</p> <h2 id="环境清理"><a href="#环境清理" class="header-anchor">#</a> 环境清理</h2> <div class="language-shell extra-class"><pre class="language-shell"><code>$ kubectl delete -f <span class="token builtin class-name">.</span>
+$ kubectl label node cn-beijing.192.168.0.199 fluid-
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/zh/samples/master_high_avaliability.html" class="prev">
+        示例 - 配置 master 高可用模式
+      </a></span> <span class="next"><a href="/zh/samples/nonroot_access.html">
+        示例 - 使用Fluid访问非root用户的数据
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.ff89ebb7.js" defer></script><script src="/assets/js/2.9883a141.js" defer></script><script src="/assets/js/88.adc406fa.js" defer></script>
+  </body>
+</html>

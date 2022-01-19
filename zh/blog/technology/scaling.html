@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Fluid 给数据弹性一双隐形的翅膀 -- 自定义弹性伸缩 | Fluid</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/fluid-stacked-color.svg">
+    <meta name="description" content="Fluid, 在云上为大数据以及AI应用的弹性数据提供抽象和加速服务。">
+    
+    <link rel="preload" href="/assets/css/0.styles.edbab21a.css" as="style"><link rel="preload" href="/assets/js/app.ff89ebb7.js" as="script"><link rel="preload" href="/assets/js/2.9883a141.js" as="script"><link rel="preload" href="/assets/js/55.9253880d.js" as="script"><link rel="prefetch" href="/assets/js/10.ff2f4ab4.js"><link rel="prefetch" href="/assets/js/11.7511cb62.js"><link rel="prefetch" href="/assets/js/12.6cc0075a.js"><link rel="prefetch" href="/assets/js/13.ac2fd551.js"><link rel="prefetch" href="/assets/js/14.6c27fec2.js"><link rel="prefetch" href="/assets/js/15.5b399203.js"><link rel="prefetch" href="/assets/js/16.56d4c631.js"><link rel="prefetch" href="/assets/js/17.ded4c0e4.js"><link rel="prefetch" href="/assets/js/18.63823924.js"><link rel="prefetch" href="/assets/js/19.403ee62d.js"><link rel="prefetch" href="/assets/js/20.0b8ab171.js"><link rel="prefetch" href="/assets/js/21.4b4f535c.js"><link rel="prefetch" href="/assets/js/22.aca0862a.js"><link rel="prefetch" href="/assets/js/23.1ef5c1d2.js"><link rel="prefetch" href="/assets/js/24.793d122b.js"><link rel="prefetch" href="/assets/js/25.5a478a64.js"><link rel="prefetch" href="/assets/js/26.128776a2.js"><link rel="prefetch" href="/assets/js/27.f4afbc76.js"><link rel="prefetch" href="/assets/js/28.cb0e85f7.js"><link rel="prefetch" href="/assets/js/29.2849f366.js"><link rel="prefetch" href="/assets/js/3.2ada5a00.js"><link rel="prefetch" href="/assets/js/30.4c8dfe96.js"><link rel="prefetch" href="/assets/js/31.70054216.js"><link rel="prefetch" href="/assets/js/32.392b4ec1.js"><link rel="prefetch" href="/assets/js/33.3b370eba.js"><link rel="prefetch" href="/assets/js/34.41a7b5eb.js"><link rel="prefetch" href="/assets/js/35.95f0a00d.js"><link rel="prefetch" href="/assets/js/36.168f5f83.js"><link rel="prefetch" href="/assets/js/37.4452566b.js"><link rel="prefetch" href="/assets/js/38.901c3a3c.js"><link rel="prefetch" href="/assets/js/39.ec1506de.js"><link rel="prefetch" href="/assets/js/4.c98b7bc1.js"><link rel="prefetch" href="/assets/js/40.04ca41b7.js"><link rel="prefetch" href="/assets/js/41.3e25d182.js"><link rel="prefetch" href="/assets/js/42.1727ac1f.js"><link rel="prefetch" href="/assets/js/43.bce70a95.js"><link rel="prefetch" href="/assets/js/44.7ac691a6.js"><link rel="prefetch" href="/assets/js/45.be2e439b.js"><link rel="prefetch" href="/assets/js/46.05713c89.js"><link rel="prefetch" href="/assets/js/47.8ea80a90.js"><link rel="prefetch" href="/assets/js/48.1583acd2.js"><link rel="prefetch" href="/assets/js/49.aa1e9b68.js"><link rel="prefetch" href="/assets/js/5.f5746beb.js"><link rel="prefetch" href="/assets/js/50.21c7a3f8.js"><link rel="prefetch" href="/assets/js/51.4aa0466d.js"><link rel="prefetch" href="/assets/js/52.7a76af04.js"><link rel="prefetch" href="/assets/js/53.d536675e.js"><link rel="prefetch" href="/assets/js/54.de903366.js"><link rel="prefetch" href="/assets/js/56.182caf99.js"><link rel="prefetch" href="/assets/js/57.e637b6a7.js"><link rel="prefetch" href="/assets/js/58.f13666f3.js"><link rel="prefetch" href="/assets/js/59.2f3414d9.js"><link rel="prefetch" href="/assets/js/6.8b6ef391.js"><link rel="prefetch" href="/assets/js/60.2e782ed8.js"><link rel="prefetch" href="/assets/js/61.912178b8.js"><link rel="prefetch" href="/assets/js/62.fe49a10b.js"><link rel="prefetch" href="/assets/js/63.e955b402.js"><link rel="prefetch" href="/assets/js/64.5a01d069.js"><link rel="prefetch" href="/assets/js/65.c387d4a2.js"><link rel="prefetch" href="/assets/js/66.d6fc89ad.js"><link rel="prefetch" href="/assets/js/67.ecece501.js"><link rel="prefetch" href="/assets/js/68.0de414a9.js"><link rel="prefetch" href="/assets/js/69.c3b6d603.js"><link rel="prefetch" href="/assets/js/7.480203b2.js"><link rel="prefetch" href="/assets/js/70.c3c1666d.js"><link rel="prefetch" href="/assets/js/71.74b515d0.js"><link rel="prefetch" href="/assets/js/72.565535fb.js"><link rel="prefetch" href="/assets/js/73.aa4b80fa.js"><link rel="prefetch" href="/assets/js/74.5babfb55.js"><link rel="prefetch" href="/assets/js/75.c240aa07.js"><link rel="prefetch" href="/assets/js/76.bdf11e70.js"><link rel="prefetch" href="/assets/js/77.da79c69e.js"><link rel="prefetch" href="/assets/js/78.b025a170.js"><link rel="prefetch" href="/assets/js/79.a0ef641e.js"><link rel="prefetch" href="/assets/js/8.ceafe7a8.js"><link rel="prefetch" href="/assets/js/80.9488d79d.js"><link rel="prefetch" href="/assets/js/81.bda0a9bb.js"><link rel="prefetch" href="/assets/js/82.8c563a57.js"><link rel="prefetch" href="/assets/js/83.9e589297.js"><link rel="prefetch" href="/assets/js/84.5c46079d.js"><link rel="prefetch" href="/assets/js/85.469b5e0f.js"><link rel="prefetch" href="/assets/js/86.1cfc9826.js"><link rel="prefetch" href="/assets/js/87.33adc5b0.js"><link rel="prefetch" href="/assets/js/88.adc406fa.js"><link rel="prefetch" href="/assets/js/89.8f120c05.js"><link rel="prefetch" href="/assets/js/9.c4bb6552.js"><link rel="prefetch" href="/assets/js/90.3728026e.js"><link rel="prefetch" href="/assets/js/91.a0fcfd1f.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.edbab21a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><img src="/fluid-horizontal-color.png" alt="Fluid" class="logo"></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/guide/" class="nav-link">
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dev/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/" class="nav-link">
+  示例
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="社区" class="dropdown-title"><span class="title">社区</span> <span class="arrow down"></span></button> <button type="button" aria-label="社区" class="mobile-dropdown-title"><span class="title">社区</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/community/community.html" class="nav-link">
+  社区
+</a></li><li class="dropdown-item"><!----> <a href="/zh/community/ADOPTERS.html" class="nav-link">
+  合作伙伴
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/blog/technology/" class="nav-link router-link-active">
+  技术内幕
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/releases/" class="nav-link">
+  版本发布
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/casestudy/" class="nav-link">
+  案例学习
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/technology/scaling.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/technology/scaling.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="文档" class="dropdown-title"><span class="title">文档</span> <span class="arrow down"></span></button> <button type="button" aria-label="文档" class="mobile-dropdown-title"><span class="title">文档</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/guide/" class="nav-link">
+  指南
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dev/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/zh/samples/" class="nav-link">
+  示例
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="社区" class="dropdown-title"><span class="title">社区</span> <span class="arrow down"></span></button> <button type="button" aria-label="社区" class="mobile-dropdown-title"><span class="title">社区</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/community/community.html" class="nav-link">
+  社区
+</a></li><li class="dropdown-item"><!----> <a href="/zh/community/ADOPTERS.html" class="nav-link">
+  合作伙伴
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="博客" class="dropdown-title"><span class="title">博客</span> <span class="arrow down"></span></button> <button type="button" aria-label="博客" class="mobile-dropdown-title"><span class="title">博客</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/zh/blog/technology/" class="nav-link router-link-active">
+  技术内幕
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/releases/" class="nav-link">
+  版本发布
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/casestudy/" class="nav-link">
+  案例学习
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/blog/technology/scaling.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/blog/technology/scaling.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  简体中文
+</a></li></ul></div></div> <a href="https://github.com/fluid-cloudnative/fluid" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><a href="/zh/blog/technology/" aria-current="page" class="sidebar-link">Fluid: 让大数据和 AI 拥抱云原生的一块重要拼图</a></li><li><a href="/zh/blog/technology/fluid_cncf.html" class="sidebar-link">Fluid 成为 CNCF沙箱项目，开启云原生拥抱数据密集型应用新篇章</a></li><li><a href="/zh/blog/technology/fluid_logistics.html" class="sidebar-link">Fluid — 云原生环境下的高效“数据物流系统”</a></li><li><a href="/zh/blog/technology/scaling.html" aria-current="page" class="active sidebar-link">Fluid 给数据弹性一双隐形的翅膀 -- 自定义弹性伸缩</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="fluid-给数据弹性一双隐形的翅膀-自定义弹性伸缩"><a href="#fluid-给数据弹性一双隐形的翅膀-自定义弹性伸缩" class="header-anchor">#</a> Fluid 给数据弹性一双隐形的翅膀 -- 自定义弹性伸缩</h1> <p><img src="https://fluid-imgs.oss-cn-shanghai.aliyuncs.com/public/imgs/fluid-elastic-01.webp" alt="fluid_blog"></p> <p><strong>导读:</strong> 弹性伸缩作为 Kubernetes 的核心能力之一，但它一直是围绕这无状态的应用负载展开。而 Fluid 提供了分布式缓存的弹性伸缩能力，可以灵活扩充和收缩数据缓存。 它基于 Runtime 提供了缓存空间、现有缓存比例等性能指标, 结合自身对于 Runtime 资源的扩缩容能力，提供数据缓存按需伸缩能力。</p> <h2 id="背景"><a href="#背景" class="header-anchor">#</a> 背景</h2> <p>随着越来越多的大数据和 AI 等数据密集应用开始部署和运行在 Kubernetes 环境下，数据密集型应用计算框架的设计理念和云原生灵活的应用编排的分歧，导致了数据访问和计算瓶颈。云原生数据编排引擎 Fluid 通过数据集的抽象，利用分布式缓存技术，结合调度器，为应用提供了数据访问加速的能力。</p> <p><img src="https://fluid-imgs.oss-cn-shanghai.aliyuncs.com/public/imgs/fluid-elastic-02.png" alt="fluid_blog"></p> <p>弹性伸缩作为 Kubernetes 的核心能力之一，但它一直是围绕这无状态的应用负载展开。而 Fluid 提供了分布式缓存的弹性伸缩能力，可以灵活扩充和收缩数据缓存。它基于 Runtime 提供了缓存空间、现有缓存比例等性能指标, 结合自身对于 Runtime 资源的扩缩容能力，提供数据缓存按需伸缩能力。</p> <p>这个能力对于互联网场景下大数据应用非常重要，由于多数的大数据应用都是通过端到端流水线来实现的。而这个流水线包含以下几个步骤：</p> <ol><li><strong>数据提取</strong>：利用 Spark，MapReduce 等大数据技术对于原始数据进行预处理。</li> <li><strong>模型训练</strong>：利用第一阶段生成特征数据进行机器学习模型训练，并且生成相应的模型。</li> <li><strong>模型评估</strong>：通过测试集或者验证集对于第二阶段生成模型进行评估和测试。</li> <li><strong>模型推理</strong>：第三阶段验证后的模型最终推送到线上为业务提供推理服务。</li></ol> <p><img src="https://fluid-imgs.oss-cn-shanghai.aliyuncs.com/public/imgs/fluid-elastic-03.webp" alt="fluid_blog"></p> <p>可以看到端到端的流水线会包含多种不同类型的计算任务，针对每一个计算任务，实践中会有合适的专业系统来处理（TensorFlow，PyTorch，Spark， Presto）；但是这些系统彼此独立，通常要借助外部文件系统来实现把数据从一个阶段传递到下一个阶段。但是频繁的使用文件系统实现数据交换，会带来大量的 I/O 开销，经常会成为整个工作流的瓶颈。</p> <p>而 Fluid 对于这个场景非常适合，用户可以创建一个 Dataset 对象，这个对象有能力将数据分散缓存到 Kubernetes 计算节点中，作为数据交换的介质，这样避免了数据的远程写入和读取，提升了数据使用的效率。但是这里的问题是临时数据缓存的资源预估和预留。由于在数据生产消费之前，精确的数据量预估是比较难满足，过高的预估会导致资源预留浪费，过低的预估会导致数据写入失败可能性增高。还是按需扩缩容对于使用者更加友好。我们希望能够达成类似 page cache 的使用效果，对于最终用户来说这一层是透明的但是它带来的缓存加速效果是实实在在的。</p> <p>我们通过自定义 HPA 机制，通过 Fluid 引入了缓存弹性伸缩能力。弹性伸缩的条件是当已有缓存数据量达到一定比例时，就会触发弹性扩容，扩容缓存空间。例如将触发条件设置为缓存空间占比超过 75%，此时总的缓存空间为 10G，当数据已经占满 8G 缓存空间的时候，就会触发扩容机制。</p> <p>下面我们通过一个例子帮助您体验 Fluid 的自动扩缩容能力。</p> <h2 id="前提条件"><a href="#前提条件" class="header-anchor">#</a> 前提条件</h2> <p>推荐使用 Kubernetes 1.18 以上，因为在 1.18 之前，HPA 是无法自定义扩缩容策略的，都是通过硬编码实现的。而在 1.18 后，用户可以自定义扩缩容策略的，比如可以定义一次扩容后的冷却时间。</p> <h2 id="具体步骤"><a href="#具体步骤" class="header-anchor">#</a> 具体步骤</h2> <h3 id="_1-安装-jq-工具方便解析-json"><a href="#_1-安装-jq-工具方便解析-json" class="header-anchor">#</a> 1. 安装 jq 工具方便解析 json</h3> <p>在本例子中我们使用操作系统是 centos，可以通过 yum 安装 jq。</p> <div class="language-bash extra-class"><pre class="language-bash"><code>yum <span class="token function">install</span> -y jq
+</code></pre></div><h3 id="_2-下载、安装-fluid-最新版"><a href="#_2-下载、安装-fluid-最新版" class="header-anchor">#</a> 2. 下载、安装 Fluid 最新版</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">git</span> clone https://github.com/fluid-cloudnative/fluid.git
+<span class="token builtin class-name">cd</span> fluid/charts
+kubectl create ns fluid-system
+helm <span class="token function">install</span> fluid fluid
+</code></pre></div><h3 id="_3-部署或配置-prometheus"><a href="#_3-部署或配置-prometheus" class="header-anchor">#</a> 3. 部署或配置 Prometheus</h3> <p>这里通过 Prometheus 对于 AlluxioRuntime 的缓存引擎暴露的 Metrics 进行收集，如果集群内无 prometheus：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ <span class="token builtin class-name">cd</span> fluid
+$ kubectl apply -f integration/prometheus/prometheus.yaml
+</code></pre></div><p>如集群内有 prometheus，可将以下配置写到 prometheus 配置文件中：</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code>
+<span class="token key atrule">scrape_configs</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">job_name</span><span class="token punctuation">:</span> <span class="token string">'alluxio runtime'</span>
+    <span class="token key atrule">metrics_path</span><span class="token punctuation">:</span> /metrics/prometheus
+    <span class="token key atrule">kubernetes_sd_configs</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">role</span><span class="token punctuation">:</span> endpoints
+    <span class="token key atrule">relabel_configs</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token key atrule">source_labels</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>__meta_kubernetes_service_label_monitor<span class="token punctuation">]</span>
+      <span class="token key atrule">regex</span><span class="token punctuation">:</span> alluxio_runtime_metrics
+      <span class="token key atrule">action</span><span class="token punctuation">:</span> keep
+    <span class="token punctuation">-</span> <span class="token key atrule">source_labels</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>__meta_kubernetes_endpoint_port_name<span class="token punctuation">]</span>
+      <span class="token key atrule">regex</span><span class="token punctuation">:</span> web
+      <span class="token key atrule">action</span><span class="token punctuation">:</span> keep
+    <span class="token punctuation">-</span> <span class="token key atrule">source_labels</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>__meta_kubernetes_namespace<span class="token punctuation">]</span>
+      <span class="token key atrule">target_label</span><span class="token punctuation">:</span> namespace
+      <span class="token key atrule">replacement</span><span class="token punctuation">:</span> $1
+      <span class="token key atrule">action</span><span class="token punctuation">:</span> replace
+    <span class="token punctuation">-</span> <span class="token key atrule">source_labels</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>__meta_kubernetes_service_label_release<span class="token punctuation">]</span>
+      <span class="token key atrule">target_label</span><span class="token punctuation">:</span> fluid_runtime
+      <span class="token key atrule">replacement</span><span class="token punctuation">:</span> $1
+      <span class="token key atrule">action</span><span class="token punctuation">:</span> replace
+    <span class="token punctuation">-</span> <span class="token key atrule">source_labels</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>__meta_kubernetes_endpoint_address_target_name<span class="token punctuation">]</span>
+      <span class="token key atrule">target_label</span><span class="token punctuation">:</span> pod
+      <span class="token key atrule">replacement</span><span class="token punctuation">:</span> $1
+      <span class="token key atrule">action</span><span class="token punctuation">:</span> replace
+</code></pre></div><h3 id="_4-验证-prometheus-安装成功。"><a href="#_4-验证-prometheus-安装成功。" class="header-anchor">#</a> <strong>4. 验证 Prometheus 安装成功。</strong></h3> <div class="language-bash extra-class"><pre class="language-bash"><code>$ kubectl get ep -n kube-system  prometheus-svc
+NAME             ENDPOINTS        AGE
+prometheus-svc   <span class="token number">10.76</span>.0.2:9090   6m49s
+$ kubectl get svc -n kube-system prometheus-svc
+NAME             TYPE       CLUSTER-IP      EXTERNAL-IP   PORT<span class="token punctuation">(</span>S<span class="token punctuation">)</span>          AGE
+prometheus-svc   NodePort   <span class="token number">172.16</span>.135.24   <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>        <span class="token number">9090</span>:32114/TCP   2m7s
+</code></pre></div><p>如果希望可视化监控指标，您可以安装 Grafana 验证监控数据，具体操作可以参考文档。</p> <blockquote><p>文档地址：</p> <p>https://github.com/fluid-cloudnative/fluid/blob/master/docs/zh/operation/monitoring.md</p></blockquote> <p><img src="https://fluid-imgs.oss-cn-shanghai.aliyuncs.com/public/imgs/fluid-elastic-04.webp" alt="fluid_blog"></p> <h3 id="_5-部署-metrics-server"><a href="#_5-部署-metrics-server" class="header-anchor">#</a> 5. 部署 metrics server</h3> <p>检查该集群是否包括 metrics-server，执行 <code>kubectl top node</code> 有正确输出可以显示内存和 CPU，则该集群 metrics server 配置正确。</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl <span class="token function">top</span> node
+NAME                       CPU<span class="token punctuation">(</span>cores<span class="token punctuation">)</span>   CPU%   MEMORY<span class="token punctuation">(</span>bytes<span class="token punctuation">)</span>   MEMORY%
+<span class="token number">192.168</span>.1.204   93m          <span class="token number">2</span>%     1455Mi          <span class="token number">10</span>%
+<span class="token number">192.168</span>.1.205   125m         <span class="token number">3</span>%     1925Mi          <span class="token number">13</span>%
+<span class="token number">192.168</span>.1.206   96m          <span class="token number">2</span>%     1689Mi          <span class="token number">11</span>%
+</code></pre></div><p>否则手动执行以下命令：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create -f integration/metrics-server
+</code></pre></div><h3 id="_6-部署-custom-metrics-api-组件。"><a href="#_6-部署-custom-metrics-api-组件。" class="header-anchor">#</a> 6. 部署 custom-metrics-api 组件。</h3> <p>为了基于自定义指标进行扩展，你需要拥有两个组件：</p> <ul><li><strong>第一个组件</strong>是从应用程序收集指标并将其存储到 Prometheus 时间序列数据库。</li> <li><strong>第二个组件</strong>使用收集的度量指标来扩展 Kubernetes 自定义 metrics API，即 k8s-prometheus-adapter。</li></ul> <p>第一个组件在第三步部署完成，下面部署第二个组件。</p> <p>如果已经配置了custom-metrics-api，在 adapter 的 configmap 配置中增加与 dataset 相关的配置：</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code>
+<span class="token key atrule">apiVersion</span><span class="token punctuation">:</span> v1
+<span class="token key atrule">kind</span><span class="token punctuation">:</span> ConfigMap
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">name</span><span class="token punctuation">:</span> adapter<span class="token punctuation">-</span>config
+  <span class="token key atrule">namespace</span><span class="token punctuation">:</span> monitoring
+<span class="token key atrule">data</span><span class="token punctuation">:</span>
+  <span class="token key atrule">config.yaml</span><span class="token punctuation">:</span> <span class="token punctuation">|</span><span class="token scalar string">
+   	rules: </span>
+  	<span class="token punctuation">-</span> <span class="token key atrule">seriesQuery</span><span class="token punctuation">:</span> <span class="token string">'{__name__=~&quot;Cluster_(CapacityTotal|CapacityUsed)&quot;,fluid_runtime!=&quot;&quot;,instance!=&quot;&quot;,job=&quot;alluxio runtime&quot;,namespace!=&quot;&quot;,pod!=&quot;&quot;}'</span>
+      <span class="token key atrule">seriesFilters</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">is</span><span class="token punctuation">:</span> ^Cluster_(CapacityTotal<span class="token punctuation">|</span>CapacityUsed)$
+      <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+        <span class="token key atrule">overrides</span><span class="token punctuation">:</span>
+          <span class="token key atrule">namespace</span><span class="token punctuation">:</span>
+            <span class="token key atrule">resource</span><span class="token punctuation">:</span> namespace
+          <span class="token key atrule">pod</span><span class="token punctuation">:</span>
+            <span class="token key atrule">resource</span><span class="token punctuation">:</span> pods
+          <span class="token key atrule">fluid_runtime</span><span class="token punctuation">:</span>
+            <span class="token key atrule">resource</span><span class="token punctuation">:</span> datasets
+      <span class="token key atrule">name</span><span class="token punctuation">:</span>
+        <span class="token key atrule">matches</span><span class="token punctuation">:</span> <span class="token string">&quot;^(.*)&quot;</span>
+        <span class="token key atrule">as</span><span class="token punctuation">:</span> <span class="token string">&quot;capacity_used_rate&quot;</span>
+      <span class="token key atrule">metricsQuery</span><span class="token punctuation">:</span> ceil(Cluster_CapacityUsed<span class="token punctuation">{</span>&lt;&lt;.LabelMatchers<span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span><span class="token punctuation">}</span><span class="token important">*100/(Cluster_CapacityTotal</span><span class="token punctuation">{</span>&lt;&lt;.LabelMatchers<span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span><span class="token punctuation">}</span>))
+</code></pre></div><p>否则手动执行以下命令：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl create -f integration/custom-metrics-api/namespace.yaml
+kubectl create -f integration/custom-metrics-api
+</code></pre></div><blockquote><p>注意：因为 custom-metrics-api 对接集群中的 Prometheous 的访问地址，请替换 prometheous url 为你真正使用的 Prometheous 地址。</p></blockquote> <p>检查自定义指标：</p> <div class="language-bash extra-class"><pre class="language-bash"><code>
+$ kubectl get --raw <span class="token string">&quot;/apis/custom.metrics.k8s.io/v1beta1&quot;</span> <span class="token operator">|</span> jq
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;kind&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;APIResourceList&quot;</span>,
+  <span class="token string">&quot;apiVersion&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;v1&quot;</span>,
+  <span class="token string">&quot;groupVersion&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;custom.metrics.k8s.io/v1beta1&quot;</span>,
+  <span class="token string">&quot;resources&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;pods/capacity_used_rate&quot;</span>,
+      <span class="token string">&quot;singularName&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&quot;</span>,
+      <span class="token string">&quot;namespaced&quot;</span><span class="token builtin class-name">:</span> true,
+      <span class="token string">&quot;kind&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;MetricValueList&quot;</span>,
+      <span class="token string">&quot;verbs&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;get&quot;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>,
+    <span class="token punctuation">{</span>
+      <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;datasets.data.fluid.io/capacity_used_rate&quot;</span>,
+      <span class="token string">&quot;singularName&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&quot;</span>,
+      <span class="token string">&quot;namespaced&quot;</span><span class="token builtin class-name">:</span> true,
+      <span class="token string">&quot;kind&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;MetricValueList&quot;</span>,
+      <span class="token string">&quot;verbs&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;get&quot;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>,
+    <span class="token punctuation">{</span>
+      <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;namespaces/capacity_used_rate&quot;</span>,
+      <span class="token string">&quot;singularName&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;&quot;</span>,
+      <span class="token string">&quot;namespaced&quot;</span><span class="token builtin class-name">:</span> false,
+      <span class="token string">&quot;kind&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;MetricValueList&quot;</span>,
+      <span class="token string">&quot;verbs&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;get&quot;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_7-提交测试使用的-dataset"><a href="#_7-提交测试使用的-dataset" class="header-anchor">#</a> 7. 提交测试使用的 Dataset</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>$ cat<span class="token operator">&lt;&lt;</span>EOF <span class="token operator">&gt;</span>dataset.yamlapiVersion: data.fluid.io/v1alpha1kind: Datasetmetadata:  name: sparkspec:  mounts:    - mountPoint: https://mirrors.bit.edu.cn/apache/spark/      name: spark---apiVersion: data.fluid.io/v1alpha1kind: AlluxioRuntimemetadata:  name: sparkspec:  replicas: <span class="token number">1</span>  tieredstore:    levels:      - mediumtype: MEM        path: /dev/shm        quota: 1Gi        high: <span class="token string">&quot;0.99&quot;</span>        low: <span class="token string">&quot;0.7&quot;</span>  properties:    alluxio.user.streaming.data.timeout: 300secEOF$ kubectl create -f dataset.yamldataset.data.fluid.io/spark createdalluxioruntime.data.fluid.io/spark created
+</code></pre></div><h3 id="_8-查看这个-dataset-是否处于可用状态"><a href="#_8-查看这个-dataset-是否处于可用状态" class="header-anchor">#</a> 8. 查看这个 Dataset 是否处于可用状态</h3> <p>可以看到该数据集的数据总量为 2.71GiB， 目前 Fluid 提供的缓存节点数为 1，可以提供的最大缓存能力为 1GiB。此时数据量是无法满足全量数据缓存的需求。</p> <div class="language-bash extra-class"><pre class="language-bash"><code>
+$ kubectl get dataset
+NAME    UFS TOTAL SIZE   CACHED   CACHE CAPACITY   CACHED PERCENTAGE   PHASE   AGE
+spark   <span class="token number">2</span>.71GiB          <span class="token number">0</span>.00B    <span class="token number">1</span>.00GiB          <span class="token number">0.0</span>%                Bound   7m38s
+
+</code></pre></div><h3 id="_9-当该-dataset-处于可用状态后-查看是否已经可以从-custom-metrics-api-获得监控指标"><a href="#_9-当该-dataset-处于可用状态后-查看是否已经可以从-custom-metrics-api-获得监控指标" class="header-anchor">#</a> 9. 当该 Dataset 处于可用状态后，查看是否已经可以从 custom-metrics-api 获得监控指标</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>kubectl get --raw <span class="token string">&quot;/apis/custom.metrics.k8s.io/v1beta1/namespaces/default/datasets.data.fluid.io/*/capacity_used_rate&quot;</span> <span class="token operator">|</span> jq
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;kind&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;MetricValueList&quot;</span>,
+  <span class="token string">&quot;apiVersion&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;custom.metrics.k8s.io/v1beta1&quot;</span>,
+  <span class="token string">&quot;metadata&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;selfLink&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;/apis/custom.metrics.k8s.io/v1beta1/namespaces/default/datasets.data.fluid.io/%2A/capacity_used_rate&quot;</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;items&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token string">&quot;describedObject&quot;</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+        <span class="token string">&quot;kind&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;Dataset&quot;</span>,
+        <span class="token string">&quot;namespace&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;default&quot;</span>,
+        <span class="token string">&quot;name&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;spark&quot;</span>,
+        <span class="token string">&quot;apiVersion&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;data.fluid.io/v1alpha1&quot;</span>
+      <span class="token punctuation">}</span>,
+      <span class="token string">&quot;metricName&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;capacity_used_rate&quot;</span>,
+      <span class="token string">&quot;timestamp&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;2021-04-04T07:24:52Z&quot;</span>,
+      <span class="token string">&quot;value&quot;</span><span class="token builtin class-name">:</span> <span class="token string">&quot;0&quot;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="_10-创建-hpa-任务"><a href="#_10-创建-hpa-任务" class="header-anchor">#</a> 10. 创建 HPA 任务</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>
+$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span> hpa.yaml</span>
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: spark
+spec:
+  scaleTargetRef:
+    apiVersion: data.fluid.io/v1alpha1
+    kind: AlluxioRuntime
+    name: spark
+  minReplicas: 1
+  maxReplicas: 4
+  metrics:
+  - type: Object
+    object:
+      metric:
+        name: capacity_used_rate
+      describedObject:
+        apiVersion: data.fluid.io/v1alpha1
+        kind: Dataset
+        name: spark
+      target:
+        type: Value
+        value: &quot;90&quot;
+  behavior:
+    scaleUp:
+      policies:
+      - type: Pods
+        value: 2
+        periodSeconds: 600
+    scaleDown:
+      selectPolicy: Disabled
+EOF</span>
+</code></pre></div><p>首先，我们解读一下从样例配置，这里主要有两部分一个是扩缩容的规则，另一个是扩缩容的灵敏度：</p> <ul><li><p><strong>规则</strong>：触发扩容行为的条件为 Dataset 对象的缓存数据量占总缓存能力的 90%；扩容对象为 <code>AlluxioRuntime</code>，最小副本数为 1，最大副本数为 4；而 Dataset 和 AlluxioRuntime 的对象需要在同一个 namespace。</p></li> <li><p><strong>策略</strong>：可以 K8s 1.18 以上的版本，可以分别针对扩容和缩容场景设置稳定时间和一次扩缩容步长比例。比如在本例子, 一次扩容周期为 10 分钟（periodSeconds），扩容时新增 2 个副本数，当然这也不可以超过 maxReplicas 的限制；而完成一次扩容后，冷却时间（stabilizationWindowSeconds）为 20 分钟；而缩容策略可以选择直接关闭。</p></li></ul> <h3 id="_11-查看-hpa-配置-当前缓存空间的数据占比为-0。远远低于触发扩容的条件。"><a href="#_11-查看-hpa-配置-当前缓存空间的数据占比为-0。远远低于触发扩容的条件。" class="header-anchor">#</a> 11. 查看 HPA 配置， 当前缓存空间的数据占比为 0。远远低于触发扩容的条件。</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>
+$ kubectl get hpa
+NAME    REFERENCE              TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+spark   AlluxioRuntime/spark   <span class="token number">0</span>/90      <span class="token number">1</span>         <span class="token number">4</span>         <span class="token number">1</span>          33s
+$ kubectl describe hpa
+Name:                                                    spark
+Namespace:                                               default
+Labels:                                                  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:                                             <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+CreationTimestamp:                                       Wed, 07 Apr <span class="token number">2021</span> <span class="token number">17</span>:36:39 +0800
+Reference:                                               AlluxioRuntime/spark
+Metrics:                                                 <span class="token punctuation">(</span> current / target <span class="token punctuation">)</span>
+  <span class="token string">&quot;capacity_used_rate&quot;</span> on Dataset/spark <span class="token punctuation">(</span>target value<span class="token punctuation">)</span>:  <span class="token number">0</span> / <span class="token number">90</span>
+Min replicas:                                            <span class="token number">1</span>
+Max replicas:                                            <span class="token number">4</span>
+Behavior:
+  Scale Up:
+    Stabilization Window: <span class="token number">0</span> seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: <span class="token number">2</span>  Period: <span class="token number">600</span> seconds
+  Scale Down:
+    Select Policy: Disabled
+    Policies:
+      - Type: Percent  Value: <span class="token number">100</span>  Period: <span class="token number">15</span> seconds
+AlluxioRuntime pods:   <span class="token number">1</span> current / <span class="token number">1</span> desired
+Conditions:
+  Type            Status  Reason               Message
+  ----            ------  ------               -------
+  AbleToScale     True    ScaleDownStabilized  recent recommendations were higher than current one, applying the highest recent recommendation
+  ScalingActive   True    ValidMetricFound     the HPA was able to successfully calculate a replica count from Dataset metric capacity_used_rate
+  ScalingLimited  False   DesiredWithinRange   the desired count is within the acceptable range
+Events:           <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+</code></pre></div><h3 id="_12-创建数据预热任务"><a href="#_12-创建数据预热任务" class="header-anchor">#</a> 12. 创建数据预热任务</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>$ cat<span class="token operator">&lt;&lt;</span><span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">&gt;</span> dataload.yaml</span>
+apiVersion: data.fluid.io/v1alpha1
+kind: DataLoad
+metadata:
+  name: spark
+spec:
+  dataset:
+    name: spark
+    namespace: default
+EOF</span>
+$ kubectl create -f dataload.yaml
+$ kubectl get dataload
+NAME    DATASET   PHASE       AGE   DURATION
+spark   spark     Executing   15s   Unfinished
+</code></pre></div><h3 id="_13-此时可以发现缓存的数据量接近了-fluid-可以提供的缓存能力-1gib-同时触发了弹性伸缩的条件"><a href="#_13-此时可以发现缓存的数据量接近了-fluid-可以提供的缓存能力-1gib-同时触发了弹性伸缩的条件" class="header-anchor">#</a> 13. 此时可以发现缓存的数据量接近了 Fluid 可以提供的缓存能力（1GiB）同时触发了弹性伸缩的条件</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>$  kubectl  get dataset
+NAME    UFS TOTAL SIZE   CACHED       CACHE CAPACITY   CACHED PERCENTAGE   PHASE   AGE
+spark   <span class="token number">2</span>.71GiB          <span class="token number">1020</span>.92MiB   <span class="token number">1</span>.00GiB          <span class="token number">36.8</span>%               Bound   5m15s
+</code></pre></div><p>从 HPA 的监控，可以看到 Alluxio Runtime 的扩容已经开始, 可以发现扩容的步长为 2。</p> <div class="language-bash extra-class"><pre class="language-bash"><code>
+$ kubectl get hpa
+NAME    REFERENCE              TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+spark   AlluxioRuntime/spark   <span class="token number">100</span>/90    <span class="token number">1</span>         <span class="token number">4</span>         <span class="token number">2</span>          4m20s
+$ kubectl describe hpa
+Name:                                                    spark
+Namespace:                                               default
+Labels:                                                  <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+Annotations:                                             <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>
+CreationTimestamp:                                       Wed, 07 Apr <span class="token number">2021</span> <span class="token number">17</span>:56:31 +0800
+Reference:                                               AlluxioRuntime/spark
+Metrics:                                                 <span class="token punctuation">(</span> current / target <span class="token punctuation">)</span>
+  <span class="token string">&quot;capacity_used_rate&quot;</span> on Dataset/spark <span class="token punctuation">(</span>target value<span class="token punctuation">)</span>:  <span class="token number">100</span> / <span class="token number">90</span>
+Min replicas:                                            <span class="token number">1</span>
+Max replicas:                                            <span class="token number">4</span>
+Behavior:
+  Scale Up:
+    Stabilization Window: <span class="token number">0</span> seconds
+    Select Policy: Max
+    Policies:
+      - Type: Pods  Value: <span class="token number">2</span>  Period: <span class="token number">600</span> seconds
+  Scale Down:
+    Select Policy: Disabled
+    Policies:
+      - Type: Percent  Value: <span class="token number">100</span>  Period: <span class="token number">15</span> seconds
+AlluxioRuntime pods:   <span class="token number">2</span> current / <span class="token number">3</span> desired
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    SucceededRescale    the HPA controller was able to update the target scale to <span class="token number">3</span>
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from Dataset metric capacity_used_rate
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+Events:
+  Type     Reason                        Age                    From                       Message
+  ----     ------                        ----                   ----                       -------
+  Normal   SuccessfulRescale             21s                    horizontal-pod-autoscaler  New size: <span class="token number">2</span><span class="token punctuation">;</span> reason: Dataset metric capacity_used_rate above target
+  Normal   SuccessfulRescale             6s                     horizontal-pod-autoscaler  New size: <span class="token number">3</span><span class="token punctuation">;</span> reason: Dataset metric capacity_used_rate above target
+</code></pre></div><h3 id="_14-在等待一段时间之后发现数据集的缓存空间由-1gib-提升到了-3gib-数据缓存已经接近完成"><a href="#_14-在等待一段时间之后发现数据集的缓存空间由-1gib-提升到了-3gib-数据缓存已经接近完成" class="header-anchor">#</a> 14. 在等待一段时间之后发现数据集的缓存空间由 1GiB 提升到了 3GiB，数据缓存已经接近完成</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>$ kubectl  get dataset
+NAME    UFS TOTAL SIZE   CACHED    CACHE CAPACITY   CACHED PERCENTAGE   PHASE   AGE
+spark   <span class="token number">2</span>.71GiB          <span class="token number">2</span>.59GiB   <span class="token number">3</span>.00GiB          <span class="token number">95.6</span>%               Bound   12m
+</code></pre></div><p>同时观察 HPA 的状态，可以发现此时 Dataset 对应的 runtime 的 replicas 数量为 3， 已经使用的缓存空间比例 capacity_used_rate 为 85%，已经不会触发缓存扩容。</p> <div class="language-bash extra-class"><pre class="language-bash"><code>$ kubectl get hpa
+NAME    REFERENCE              TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+spark   AlluxioRuntime/spark   <span class="token number">85</span>/90     <span class="token number">1</span>         <span class="token number">4</span>         <span class="token number">3</span>          11m
+</code></pre></div><h3 id="_15-清理环境"><a href="#_15-清理环境" class="header-anchor">#</a> 15. 清理环境</h3> <div class="language-bash extra-class"><pre class="language-bash"><code>skubectl delete hpa spark
+kubectl delete dataset spark
+</code></pre></div><h2 id="总结"><a href="#总结" class="header-anchor">#</a> 总结</h2> <p>Fluid 提供了结合 Prometheous，Kubernetes HPA 和 Custom Metrics 能力，根据占用缓存空间的比例触发自动弹性伸缩的能力，实现缓存能力的按需使用。这样能够帮助用户更加灵活的使用通过分布式缓存提升数据访问加速能力，后续我们会提供定时扩缩的能力，为扩缩容提供更强的确定性。</p> <p>Fluid 的代码仓库：https://github.com/fluid-cloudnative/fluid.git， 欢迎大家关注、贡献代码和 star。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/zh/blog/technology/fluid_logistics.html" class="prev">
+        Fluid — 云原生环境下的高效“数据物流系统”
+      </a></span> <!----></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.ff89ebb7.js" defer></script><script src="/assets/js/2.9883a141.js" defer></script><script src="/assets/js/55.9253880d.js" defer></script>
+  </body>
+</html>
