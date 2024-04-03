@@ -1,0 +1,34 @@
+{
+  "version.label": {
+    "message": "0.10",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.Getting Started": {
+    "message": "快速开始",
+    "description": "The label for category Getting Started in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Core Concepts": {
+    "message": "核心概念",
+    "description": "The label for category Core Concepts in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.User Manual": {
+    "message": "用户手册",
+    "description": "The label for category User Manual in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Accelerate Data Access": {
+    "message": "加速数据访问",
+    "description": "The label for category Accelerate Data Access in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Data Operation": {
+    "message": "数据操作",
+    "description": "The label for category Data Operation in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Scheduling": {
+    "message": "调度",
+    "description": "The label for category Scheduling in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.Developer Manual": {
+    "message": "开发者手册",
+    "description": "The label for category Developer Manual in sidebar tutorialSidebar"
+  }
+}
