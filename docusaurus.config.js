@@ -131,20 +131,20 @@ const config = {
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
-            position: 'right',
-            label: 'Docs',
-          },
-          {
-            to: "community/meeting_schedule",
-            sidebarId: 'communitySidebar',
-            position: 'right',
-            label: 'Community',
-            activeBasePath: 'community'
+            position: 'left',
+            label: 'Documentation',
           },
           { 
             to: '/blog', 
             label: 'Blog',
-            position: 'right'
+            position: 'left'
+          },
+		  {
+            to: "community/meeting_schedule",
+            sidebarId: 'communitySidebar',
+            position: 'left',
+            label: 'Community',
+            activeBasePath: 'community'
           },
           {
             type: 'docsVersionDropdown',
