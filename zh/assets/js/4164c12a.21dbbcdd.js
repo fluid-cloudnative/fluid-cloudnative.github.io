@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfluid_website_demo=self.webpackChunkfluid_website_demo||[]).push([[3752],{6868:e=>{e.exports=JSON.parse('{"permalink":"/zh/blog/tags/release","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
