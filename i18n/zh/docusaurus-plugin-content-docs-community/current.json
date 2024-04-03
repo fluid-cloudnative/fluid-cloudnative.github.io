@@ -1,0 +1,10 @@
+{
+  "version.label": {
+    "message": "0.9",
+    "description": "The label for version current"
+  },
+  "sidebar.communitySidebar.category.Test Dir": {
+    "message": "测试目录",
+    "description": "The label for category Test Dir in sidebar communitySidebar"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "link.title.Docs": {
+    "message": "文档",
+    "description": "The title of the footer links column with title=Docs in the footer"
+  },
+  "link.title.Community": {
+    "message": "社区",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.More": {
+    "message": "更多",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.item.label.Tutorial": {
+    "message": "教程",
+    "description": "The label of footer link with label=Tutorial linking to /docs/"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/fluid-cloudnative/fluid"
+  },
+  "copyright": {
+    "message": "Copyright © 2024 The Fluid Authors. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our Trademark Usage page: https://www.linuxfoundation.org/trademark-usage",
+    "description": "The footer copyright"
+  },
+  "link.item.label.WeChat": {
+    "message": "微信群",
+    "description": "The label of footer link with label=WeChat linking to https://github.com/fluid-cloudnative/fluid/blob/master/README.md#community"
+  },
+  "link.item.label.CNCF Slack (#fluid channel)": {
+    "message": "CNCF Slack (#fluid channel)",
+    "description": "The label of footer link with label=CNCF Slack (#fluid channel) linking to https://app.slack.com/client/T08PSQ7BQ/C02ADG209SP"
+  },
+  "link.item.label.DingTalk (GroupID: 32850151)": {
+    "message": "钉钉群 (群号: 32850151)",
+    "description": "The label of footer link with label=DingTalk (GroupID: 32850151) linking to /community/meeting_schedule"
+  },
+  "link.item.label.Meeting": {
+    "message": "周会",
+    "description": "The label of footer link with label=Meeting linking to /community/meeting_schedule"
+  }
+}

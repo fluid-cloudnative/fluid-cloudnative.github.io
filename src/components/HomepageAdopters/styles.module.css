@@ -1,0 +1,34 @@
+.adopters {
+  /* display: flex; */
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+  border-top: 1px solid #eaecef;
+}
+
+.adopterSvg {
+  height: 70px;
+  width: 130px;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.elimage {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: middle;
+  height: 100%;
+}
+
+.elimageinner {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  object-fit: scale-down;
+  height: 100%;
+  width: 100%;
+}
+
