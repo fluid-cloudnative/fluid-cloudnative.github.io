@@ -42,7 +42,7 @@ The video of manual expansion and its effect of data set is as follows:
 
 [![fly-demo](https://fluid-imgs.oss-cn-shanghai.aliyuncs.com/public/imgs/on-the-fly.jfif)](https://fluid-imgs.oss-cn-shanghai.aliyuncs.com/public/video/on-the-fly.mp4)
 
-For more details on manual scaling of datasets, refer to [documentation](/samples/dataset_scaling.md)
+For more details on manual scaling of datasets, refer to [documentation](/docs/tutorials/dataset-operation/cache-runtime-manually-scaling)
 
 ### 2. backup and recovery of metadata
 

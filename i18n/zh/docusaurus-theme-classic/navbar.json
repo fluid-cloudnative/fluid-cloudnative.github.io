@@ -11,9 +11,9 @@
     "message": "GitHub",
     "description": "Navbar item with label GitHub"
   },
-  "item.label.Docs": {
+  "item.label.Documentation": {
     "message": "文档",
-    "description": "Navbar item with label Docs"
+    "description": "Navbar item with label Documentation"
   },
   "item.label.Community": {
     "message": "社区",
