@@ -10,7 +10,7 @@ sidebar_position: 3
 
 Fluid is built in the Kubernetes native fashion. It lies between existing underlying cloud native storage systems and the upper layer data-intensive applications. The architecture of Fluid in Kubernetes is as following:
 
-![](../static/img/docs/architecture.png)
+![](../../static/img/docs/core-concepts/architecture.png)
 Specifically, Fluid is logically split into a data plane and a control plane.
 
 - The control plane is composed of **Dataset/Runtime Controller** and **Application Manager**
@@ -22,7 +22,7 @@ Specifically, Fluid is logically split into a data plane and a control plane.
 
 The following diagram shows the different components.
 
-![](../static/img/docs/componnents.png)
+![](../../static/img/docs/core-concepts/components.png)
 
 ## Key Concepts
 
