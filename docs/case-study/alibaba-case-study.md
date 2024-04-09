@@ -1,6 +1,6 @@
 ---
 sidebar_label: Alibaba's Case Study
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Alibaba's Case Study
