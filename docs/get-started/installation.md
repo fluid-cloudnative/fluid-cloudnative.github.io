@@ -149,7 +149,7 @@ The output should be like:
 For more use cases about Fluid, please refer to our tutorials:
 - [Speed Up Accessing Remote Files](/docs/tutorials/dataset-creation/accelerate-data-accessing-posix)
 - [Cache Co-locality for Workload Scheduling](/docs/tutorials/dataset-creation/cache-co-locality)
-- [Accelerate Machine Learning Training with Fluid](/docs/tutorials/Advanced/machine-learning-workload)
+- [Accelerate Machine Learning Training with Fluid](/docs/tutorials/advanced/machine-learning-workload)
 
 ### Uninstall Fluid
 
