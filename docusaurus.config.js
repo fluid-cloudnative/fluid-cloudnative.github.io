@@ -120,6 +120,11 @@ const config = {
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
+      algolia: {
+        appId: 'LFPGLLH528',
+        apiKey: 'c541d93163af12d221cc7aab896e48f8',
+        indexName: 'fluid-cloudnativeio'
+      },
       navbar: {
         title: '',
         logo: {
