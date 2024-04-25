@@ -5,23 +5,6 @@
 // See: https://docusaurus.io/docs/api/docusaurus-config
 
 import {themes as prismThemes} from 'prism-react-renderer';
-const versions = require('./versions.json');
-
-function getNextVersionName() {
-  const expectedPrefix = 'v';
-
-  const lastReleasedVersion = versions[0];
-  if (!lastReleasedVersion.includes(expectedPrefix)) {
-    throw new Error(
-      'version must be started with v.',
-    );
-  }
-  const version = parseFloat(lastReleasedVersion.replace(expectedPrefix, ''));
-  const nextVersion = (version + 0.1).toFixed(1)
-  return `${expectedPrefix}${nextVersion}`;
-}
-
-
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -79,7 +62,7 @@ const config = {
           routeBasePath: 'docs',
           versions: {
             current: {
-              label: `${getNextVersionName()} 🚧`
+              label: `Latest 🚧`
             },
           },
         },
