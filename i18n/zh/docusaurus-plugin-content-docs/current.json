@@ -1,6 +1,6 @@
 {
   "version.label": {
-    "message": "Latest",
+    "message": "v0.10",
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.Getting Started": {
