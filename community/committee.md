@@ -3,34 +3,35 @@ sidebar_label: Committee
 sidebar_position: 3
 ---
 # Committee
-## Project Maintainers
-| Name | GitHub ID | Affiliation |
-| ---- | --------- | ----------- |
-| [Rong Gu](mailto:gurong@nju.edu.cn) | [RongGu](https://github.com/RongGu) | Nanjing University |
-| [Yang Che](mailto:cheyagn52@gmail.com) | [cheyang](https://github.com/cheyang) | Alibaba |
-| [Bin Fan](mailto:binfan@alluxio.com) | [apc999](https://github.com/apc999) | Alluxio |
-| [Zhihao Xu](mailto:trafalgarz@outlook.com) | [TrafalgarZZZ](https://github.com/TrafalgarZZZ) | Nanjing University |
-| [Kai Zhang](mailto:wsxiaozhang@gmail.com) | [wsxiaozhang](https://github.com/wsxiaozhang) | Alibaba |
-| [Weiwei Zhu](mailto:zww@hdls.me) | [zwwhdls](https://github.com/zwwhdls) |  JuiceData |
-| [Lingwei Qiu](mailto:qlw705706@gmail.com) | [yangyuliufeng](https://github.com/yangyuliufeng) | China Telecom |
+## Fluid Open Source Project Community Chair
+| Name   | Affiliation       |
+|--------|-------------------|
+| [Rong Gu](https://github.com/RongGu) | Nanjing University |
 
-## Project Committers
-| Name | GitHub ID | Affiliation |
-| ---- | --------- | ----------- |
-| [Yuandong Xie](mailto:xieydd@gmail.com) | [xieydd](https://github.com/xieydd) | Tencent Cloud |
-| [Tao Wang](mailto:wangtaod13@gmail.com) | [frankleaf](https://github.com/frankleaf) | Alibaba |
-| [Zifan Ni](mailto:zzifan96@gmail.com) | [zifanni](https://github.com/zifanni) | Bilibili |
-| [Ruofeng Lei](mailto:ruofenglei@outlook.com) | [abowloflrf](https://github.com/abowloflrf) | Baidu AI Cloud |
-| [Sichen Zhao](mailto:zsc19940506@outlook.com) | [hahchenchen](https://github.com/hahchenchen) | Shopee |
-| [Dongdong Lv](mailto:lvdongdong30@gmail.com) | [ldd91](https://github.com/ldd91) | Unisound |
-| [Shouzhuo Sun](mailto:shawn.sun@alluxio.com) | [ssz1997](https://github.com/ssz1997) | Alluxio |
-| [Hao Ma](mailto:allenhaozi@gmail.com) | [allenhaozi](https://github.com/allenhaozi) | 4Paradigm |
-| [Weixiao Huang](mailto:hwx.simle@gmail.com) | [weixiao-huang](https://github.com/weixiao-huang) | Megvii Technology |
-| [Ni Wang](mailto:anonymous) | [uniqueni](https://github.com/uniqueni) | Beike |
-| [Shunli Feng](mailto:1171313930@qq.com) | [fengshunli](https://github.com/fengshunli) | Individual developer |
-| [Ye Cao](mailto:dashanjic@gmail.com) | [dashanji](https://github.com/dashanji) | Alibaba |
-| [Jun Yang](mailto:anonymous) | [yangjun289519474](https://github.com/yangjun289519474) | Alibaba Cloud |
-| [Zhiqiang Liu](mailto:xlzq1992@gmail.com) | [xliuqq](https://github.com/xliuqq) | Individual developer |
-| [Wenxiao Wang](mailto:724802019@qq.com) | [wang-mask](https://github.com/wang-mask) | Nanjing University |
-| [Xiaozheng Zhang](mailto:xiaozhengzhang@smail.nju.edu.cn) | [zhang-x-z](https://github.com/zhang-x-z) | Nanjing University |
-| [Shiming Wu](mailto:anonymous) | [wushiming540](https://github.com/wushiming540) | Huawei |
+## Fluid Project Management Committee
+| Name            | Affiliation        | Role               |
+|-----------------|--------------------|--------------------|
+| [Rong Gu](https://github.com/RongGu)           | Nanjing University | community chair, maintainer |
+| [Yang Che](https://github.com/cheyang)         | Alibaba .Inc        | maintainer         |
+| [Bin Fan](https://github.com/apc999)           | Alluxio .Inc        | maintainer         |
+| [Zhihao Xu](https://github.com/TrafalgarZZZ)   | Nanjing University | maintainer         |
+| [Kai Zhang](https://github.com/wsxiaozhang)    | Alibaba .Inc        | maintainer         |
+| [Weiwei Zhu](https://github.com/zwwhdls)       | JuiceData .Inc      | maintainer         |
+| [Lingwei Qiu](https://github.com/yangyuliufeng)| China Telecom       | maintainer         |
+| [Yuandong Xie](https://github.com/xieydd)      | Tencent Cloud .Inc  | committer          |
+| [Tao Wang](https://github.com/frankleaf)       | Alibaba .Inc        | committer          |
+| [Zifan Ni](https://github.com/zifanni)         | Bilibili            | committer          |
+| [Ruofeng Lei](https://github.com/abowloflrf)   | Baidu AI Cloud      | committer          |
+| [Sichen Zhao](https://github.com/hahchenchen)  | Shopee              | committer          |
+| [Dongdong Lv](https://github.com/ldd91)        | Unisound            | committer          |
+| [Shouzhuo Sun](https://github.com/ssz1997)     | Alluxio .Inc        | committer          |
+| [Hao Ma](https://github.com/allenhaozi)        | 4Paradigm           | committer          |
+|  [Weixiao Huang](https://github.com/weixiao-huang) | Megvii Technology | committer |
+| [Ni Wang](https://github.com/uniqueni) | Beike | committer |
+| [Shunli Feng](https://github.com/fengshunli) | Individual developer | committer |
+| [Ye Cao](https://github.com/dashanji) | Alibaba | committer |
+| [Jun Yang](https://github.com/yangjun289519474) | Alibaba Cloud | committer |
+| [Zhiqiang Liu](https://github.com/xliuqq) | Individual developer | committer |
+| [Wenxiao Wang](https://github.com/wang-mask) | Nanjing University | committer |
+| [Xiaozheng Zhang](https://github.com/zhang-x-z) | Nanjing University | committer |
+| [Shiming Wu](https://github.com/wushiming540) | Huawei | committer |
