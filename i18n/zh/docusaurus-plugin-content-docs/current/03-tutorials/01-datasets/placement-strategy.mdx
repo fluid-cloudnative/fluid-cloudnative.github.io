@@ -1,0 +1,32 @@
+---
+sidebar_label: 配置数据集放置策略
+sidebar_position: 3
+---
+
+# 配置数据集放置策略
+
+Fluid鼓励用户为不同的业务场景创建彼此独立的Dataset，而与Dataset绑定的运行时引擎通常是一个分布式缓存系统。应用访问数据时，缓存系统将会占用所在节点的带宽资源，因此多个分布式缓存系统是否能够“放置”在相同的节点上对于整体性能有很大影响。本章介绍数据集放置策略的配置示例。
+
+## 配置示例
+
+数据集放置策略（Placement Strategy）决定了多个分布式缓存系统是否能够在相同的节点上运行。Fluid目前支持两种数据集放置策略`Shared`和`Exclusive`，分别表示一个节点允许/不允许被多个
+分布式缓存系统共享。数据集放置策略的默认值为`Exclusive`。
+
+包含放置策略的Dataset配置示例如下：
+
+```yaml tile=dataset.yaml
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: mydataset1
+spec:
+  placement: "Shared" # default to Exclusive
+  mounts:
+    - mountPoint: <MOUNT_POINT>
+```
+
+`placement: Exclusive`是通过在分布式缓存Worker Pod上添加`spec.affinity.podAntiAffinity`的调度约束实现的。因此，假设集群中的某个节点上已经存在Dataset A的缓存Worker Pod，那么Dataset B的Worker Pod在该节点的调度结果如下表所示：
+|放置策略（A/B）| Exclusive| Shared |
+| ----------- | ---------| ------ |
+| **Exclusive** | 不可调度 | 不可调度 |
+| **Shared** | 不可调度 | 可调度 |

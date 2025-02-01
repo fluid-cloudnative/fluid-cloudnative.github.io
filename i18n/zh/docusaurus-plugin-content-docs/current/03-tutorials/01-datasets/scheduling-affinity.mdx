@@ -1,0 +1,43 @@
+---
+sidebar_label: 配置数据集调度约束
+sidebar_position: 4
+---
+
+# 配置数据集调度约束
+
+Fluid将数据集对应的缓存数据看作可被调度的资源，你可以在数据集上增加调度约束，控制缓存数据在Kubernetes集群中的部署位置和拓扑。如果你集群中的节点从属于不同的拓扑结构（例如：交换机、可用区、地域等），配置数据集的调度约束可以帮助你将缓存数据与业务应用放在临近的拓扑结构下，缩短数据访问链路，提升数据访问性能。本章介绍如何在Dataset上配置调度约束。
+
+## 配置示例
+
+包含调度约束的Dataset配置示例如下：
+```yaml title=dataset.yaml
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: mydataset-affinity
+spec:
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchFields:
+        - key: topology.kubernetes.io/region
+          operator: In
+          values:
+          - cn-beijing
+        - key: nodepool
+          operator: In
+          values:
+          - model-training
+          - model-developing
+  mounts:
+    - mountPoint: <MOUNT_POINT>
+```
+上述示例为Dataset添加了`spec.nodeAffinity`字段以控制缓存数据在Kubernetes集群中的分布。在上述配置示例中，缓存数据（本质上是分布式缓存系统的Worker Pod）会被强制调度到**同时满足**以下两个条件的节点上：
+1. 节点包含标签`topology.kubernetes.io/region=cn-beijing`
+2. 节点包含标签`nodepool`，且标签值等于`model-training`或`model-developing`
+
+通过数据集调度约束，你可以对Kubernetes集群内不同节点的资源划分管理，并确保不同业务访问数据的过程互相隔离。
+
+
+
+

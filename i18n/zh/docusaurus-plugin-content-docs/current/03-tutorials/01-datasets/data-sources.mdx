@@ -1,3 +1,8 @@
+---
+sidebar_label: 配置底层存储数据源
+sidebar_position: 1
+---
+
 # 配置底层存储数据源
 
 底层存储数据源是Fluid Dataset中最关键的定义字段，它指定了待访问数据的实际存储位置，以及访问过程中可能需要的凭证信息。本章包括如何在Dataset中定义需要访问的单个或多个数据源，数据源中各个相关字段的含义，以及不同底层存储数据源与Fluid中各Runtime（运行时）的兼容关系。
@@ -184,7 +189,7 @@ spec:
               name: minio-access-key
               key: minio-access-secret
 ```
-相比于[单数据源配置示例](#单数据源配置示例)，上述Dataset新增一个阿里云OSS对象存储服务的挂载路径，并修改了两个数据源的挂载位置：OSS对象存储挂载在`/oss`路径，而MinIO对象存储挂载在`/minio`路径。这意味着应用访问该Dataset时，将会在根目录下看到两个子目录，子目录中分别是`oss://my-oss-bucket/`和`s3://mybucket/mydirectory/`中的文件。
+相比于[单数据源配置示例](#单数据源配置示例)，上述Dataset新增了一个阿里云OSS对象存储服务的挂载路径，并修改了两个数据源的挂载位置：OSS对象存储挂载在`/oss`路径，而MinIO对象存储挂载在`/minio`路径。这意味着应用访问该Dataset时，将会在根目录下看到两个子目录，子目录中分别是`oss://my-oss-bucket/`和`s3://mybucket/mydirectory/`中的文件。
 
 ```
 .
