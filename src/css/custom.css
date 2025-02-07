@@ -81,3 +81,7 @@ table td {
 .pagination-nav__label {
   font-size: 1.0rem;
 }
+
+.runtime-compatibility {
+  background-color: #d6eaff;
+}
