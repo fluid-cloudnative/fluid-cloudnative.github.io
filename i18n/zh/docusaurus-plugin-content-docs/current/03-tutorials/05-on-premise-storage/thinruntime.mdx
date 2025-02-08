@@ -1,0 +1,21 @@
+---
+sidebar_label: 接入通用存储客户端
+sidebar_position: 1
+---
+
+# 使用ThinRuntime接入通用存储客户端
+
+Fluid原生集成的运行时引擎仅支持特定的数据源类型。对于其他暂未支持的底层存储系统（例如：自研或自建的存储），Fluid提供了ThinRuntime以支持任意存储系统接入到Fluid框架中。
+使用ThinRuntime接入后，用户既可以复用Fluid框架的编排能力，也可以使用标准统一的API（即Dataset、Runtime、PVC等）访问底层存储系统。
+
+## ThinRuntime使用场景
+
+当业务进行容器化改造时，往往意味着业务依赖的存储系统也需要与Kubernetes进行适配。这种适配的目的是让业务容器能够以Kubernetes标准的API（PersistentVolume和PersistentVolumeClaim）的方式访问存储系统中的数据。
+一种流行的适配方案是基于[CSI存储插件接口](https://github.com/container-storage-interface/spec)开发，而ThinRuntime为存储系统与Kubernetes集群的适配提供了一种简化替代方案。我们将两种方案的差异整理为如下表格：
+
+| 适配方案 |  代码开发 | 使用接口 | StorageClass和卷动态分配 | MountPod挂载模式 | Sidecar挂载模式 | 支持的存储客户端 |
+| ------ | --------- | ------- | ------- | ------- | ------- | ------- |
+|  CSI Plugin | **需要**，参考CSI Spec实现 | PVC | 支持 | 支持，需开发 | 不支持 | 块设备、分布式存储客户端等 |
+| ThinRuntime | **不需要**，仅需构建存储客户端镜像 | PVC | 暂不支持 | 支持，直接复用 | 支持，直接复用 | 限于基于FUSE的客户端 |
+
+## 使用ThinRuntime集成MinIO存储示例
