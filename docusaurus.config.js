@@ -125,8 +125,8 @@ const config = {
             label: 'Blog',
             position: 'left'
           },
-		  {
-            to: "community/meeting_schedule",
+		      {
+            to: "community/committee",
             sidebarId: 'communitySidebar',
             position: 'left',
             label: 'Community',
