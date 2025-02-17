@@ -7,7 +7,7 @@ The Fluid Project holds bi-weekly community online meeting in DingTalk Group.
 
 **Meeting Application:** DingTalk
 
-**Time:** 16.30 Tuesday
+**Time:** 16:30 Wednesday (bi-weekly)
 
 **Time zone:** Beijing, Shanghai
 
