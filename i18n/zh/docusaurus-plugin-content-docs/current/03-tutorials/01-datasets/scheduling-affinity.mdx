@@ -7,9 +7,9 @@ sidebar_position: 4
 
 Fluid将数据集对应的缓存数据看作可被调度的资源，你可以在数据集上增加调度约束，控制缓存数据在Kubernetes集群中的部署位置和拓扑。如果你集群中的节点从属于不同的拓扑结构（例如：交换机、可用区、地域等），配置数据集的调度约束可以帮助你将缓存数据与业务应用放在临近的拓扑结构下，缩短数据访问链路，提升数据访问性能。本章介绍如何在Dataset上配置调度约束。
 
-## 配置示例
+## 配置节点亲和性
 
-包含调度约束的Dataset配置示例如下：
+包含节点亲和性的Dataset配置示例如下：
 ```yaml title=dataset.yaml
 apiVersion: data.fluid.io/v1alpha1
 kind: Dataset

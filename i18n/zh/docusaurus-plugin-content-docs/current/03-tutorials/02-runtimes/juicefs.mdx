@@ -1,0 +1,347 @@
+---
+sidebar_label: 部署JuiceFS运行时引擎
+sidebar_position: 3
+---
+
+# 部署JuiceFS运行时引擎
+<span class="runtime-compatibility theme-doc-version-badge badge badge--secondary">功能适用于: JuiceFS</span>
+
+[JuiceFS](https://juicefs.com/zh-cn/) 是一款面向云环境设计的开源高性能共享文件系统，提供完备的 POSIX 兼容性，可将海量低价的云存储作为本地磁盘使用，亦可同时被多台主机同时挂载读写。在Fluid中，你可以使用JuiceFSRuntime部署JuiceFS文件系统的缓存组件和客户端组件，以访问JuiceFS文件系统中的数据。
+关于JuiceFS项目的更多细节，可以参考文档[JuiceFS快速上手指南](https://juicefs.com/docs/zh/community/quick_start_guide)。
+
+本章介绍JuiceFSRuntime的配置示例，以及如何使用JuiceFSRuntime部署JuiceFS缓存系统和客户端组件。
+
+## Dataset配置示例
+
+JuiceFS提供了社区版和云服务版，不同版本的差异仅体现在与JuiceFSRuntime绑定的Dataset配置上，JuiceFSRuntime的配置通常并无较大差异。以下分别介绍社区版和云服务版下Dataset的配置。
+
+### 社区版
+
+JuiceFS社区版依赖于一个元数据服务和一个对象存储服务以正常运行，参考[JuiceFS技术架构](https://juicefs.com/docs/zh/community/architecture)。本节以Redis为元数据服务，MinIO为对象存储服务为例展示如何配置Dataset，在实际使用时，
+你需要根据实际情况修改元数据服务和对象存储服务的配置信息。参考文档：JuiceFS支持的[元数据引擎](https://juicefs.com/docs/zh/community/databases_for_metadata)和[对象存储](https://juicefs.com/docs/zh/community/reference/how_to_set_up_object_storage)。
+
+:::info[前提条件]
+如果你没有可用的元数据服务或对象存储，可以使用如下配置在Kubernetes集群中创建一个临时的Redis元数据服务和一个MinIO对象存储：
+<details>
+  <summary>redis.yaml</summary>
+  ```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+      protocol: TCP
+  selector:
+    app: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: redis 
+    spec:
+      containers:
+      - name: redis
+        image: bitnami/redis
+        ports:
+        - containerPort: 6379
+          hostPort: 6379
+```
+</details>
+
+<details>
+  <summary>minio.yaml</summary>
+  ```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
+  selector:
+    app: minio
+---
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: minio
+spec:
+  selector:
+    matchLabels:
+      app: minio
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+      - name: minio
+        image: minio/minio
+        args:
+        - server
+        - /data
+        env:
+        # Minio access key and secret key
+        - name: MINIO_ROOT_USER
+          value: "minioadmin"
+        - name: MINIO_ROOT_PASSWORD
+          value: "minioadmin"
+        ports:
+        - containerPort: 9000
+          hostPort: 9000
+```
+</details>
+:::
+
+
+首先，创建以下Secret资源，存储敏感信息（元数据服务URL，访问对象存储的AccessKey密钥对等）：
+
+```yaml title="secret.yaml"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jfs-secret
+stringData:
+  metaurl: redis://redis:6379/0
+  access-key: minioadmin
+  secret-key: minioadmin
+```
+
+使用Redis的元数据服务和MinIO的对象存储时，Dataset的配置示例如下：
+
+```yaml title="dataset.yaml"
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: jfsdemo
+spec:
+  mounts:
+    - name: myjfs
+      mountPoint: "juicefs:///"                  # mount JuiceFS filesystem's root path, change it to "juicefs:///mydir/" to mount subpath
+      options:
+        bucket: "http://minio:9000/minio/test"   # MinIO bucket url
+        storage: "minio"                         # set "minio" for MinIO object storage 
+      encryptOptions:
+        - name: metaurl
+          valueFrom:
+            secretKeyRef:
+              name: jfs-secret
+              key: metaurl
+        - name: access-key
+          valueFrom:
+            secretKeyRef:
+              name: jfs-secret
+              key: access-key
+        - name: secret-key
+          valueFrom:
+            secretKeyRef:
+              name: jfs-secret
+              key: secret-key
+```
+
+### 云服务版
+如果需要通过Fluid JuiceFSRuntime部署JuiceFS云服务版的分布式缓存系统和客户端组件，首先需要在JuiceFS云服务版控制台[创建文件系统](https://juicefs.com/docs/zh/cloud/getting_started#create-file-system)，
+并获取文件系统的客户端令牌（Token）。除了客户端令牌外，Dataset的配置中还需要指定JuiceFS文件系统使用的对象存储，这个对象存储信息(存储桶名字或存储桶URL)将被作为`--bucket`的参数传入[`juicefs auth`](https://juicefs.com/docs/zh/cloud/reference/command_reference#auth)命令中。
+
+本节将会以阿里云OSS对象存储服务为例，展示Dataset的配置示例。
+
+首先，创建以下Secret资源，存储数据访问过程需要的敏感信息（客户端令牌，访问对象存储的AccessKey密钥对等）：
+
+```yaml title="secret.yaml"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jfs-secret
+  namespace: default
+type: Opaque
+stringData:
+  token: <JUICEFS_TOKEN>
+  access-key: <OSS_ACCESS_KEY>
+  secret-key: <OSS_ACCESS_SECRET>
+```
+
+Dataset配置示例如下：
+
+```yaml title="dataset.yaml"
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: jfsdemo
+spec:
+  mounts:
+    - name: <JUICEFS_FILESYSTEM_NAME>      # replace with your JuiceFS filesystem name
+      mountPoint: "juicefs:///"            # mount JuiceFS filesystem's root path, change it to "juicefs:///mydir/" to mount subpath
+      options:
+        storage: oss                       # set "oss" for Aliyun OSS, change it accordingly
+        bucket: "<OSS_BUCKET_NAME_OR_URL>" # will be passed to `--bucket` parameter
+      encryptOptions:
+        - name: token
+          valueFrom:
+            secretKeyRef:
+              name: jfs-secret
+              key: token
+        - name: access-key
+          valueFrom:
+            secretKeyRef:
+              name: jfs-secret
+              key: access-key
+        - name: secret-key
+          valueFrom:
+            secretKeyRef:
+              name: jfs-secret
+              key: secret-key
+```
+
+## JuiceFSRuntime配置示例
+
+一个简单的JuiceFSRuntime配置示例如下：
+
+```yaml title="runtime.yaml"
+apiVersion: data.fluid.io/v1alpha1
+kind: JuiceFSRuntime
+metadata:
+  name: jfsdemo
+spec:
+  replicas: 2
+  tieredstore:
+    levels:
+      - mediumtype: MEM
+        volumeType: emptyDir
+        path: /dev/shm
+        quota: 2Gi
+        # high: <no-use>
+        low: "0.01"
+```
+
+<details>
+  <summary> JuiceFSRuntime中各配置字段含义 </summary>
+  | 字段 | 含义 | 详细解释 |
+  | --------------------- | ----------------------- | -------------------- |
+  | `replicas` | 分布式缓存系统Worker Pod的副本数。| 在Fluid默认的[「放置策略」](../01-datasets/placement-strategy.mdx)（`spec.placement=Exclusive`）下，一个节点上至多运行一个Worker Pod副本，此时副本数也等于分布式缓存系统需要的节点数量。 |
+  | `volumeType` | 缓存数据的持久卷类型。 | 支持的持久卷类型为emptyDir和hostPath，默认为hostPath。当设置为hostPath时，Fluid将节点上的`path`目录挂载到容器中作为缓存数据的存储空间。当设置为emptyDir时，Fluid根据`mediumtype`指定的缓存介质类型生成emptyDir数据卷，并将其作为缓存数据的存储空间。 |
+  | `mediumtype` | 缓存介质，即缓存的数据会存储在什么样的介质中。| 支持MEM（内存），SSD（固态硬盘），HDD（机械硬盘）三种等级。该字段仅为Fluid提供参考信息，以控制多级缓存的层级关系。Fluid将根据用户指定的`mediumtype`对多级缓存排序，顺序按照MEM、SSD、HDD性能从高到低的方式排列。|
+  | `path` | 缓存数据的存储路径。 | 存储路径可以为单个路径，例如`/dev/shm`；也可以为以逗号分隔的多个路径，例如`/mnt/disk1,/mnt/disk2`。当`volumeType`设置为hostPath时，`path`指定的路径会从宿主机挂载到容器中的相同位置，用于存储缓存数据。当`volumeType`设置为emptyDir时，`path`仅仅指定了容器中存储缓存数据的路径。|
+  | `quota` | 单个分布式缓存Worker Pod的缓存容量。 | 当`path`为单个路径时，`quota`指定的是该路径下缓存数据的容量上限。当`path`为多个路径时，`quota`将分配到多个路径上。 |
+  | `high` | 在JuiceFSRuntime中无效果。 |   |
+  | `low` | 触发缓存驱逐的可用空间比例。 | 当缓存可用空间比例小于`low`指定的比例时，触发JuiceFS的缓存驱逐。 |
+</details>
+
+这个JuiceFSRuntime示例将会创建一个包含了2个JuiceFS Worker Pod的缓存集群（`replicas=2`）。每个Worker Pod提供2Gi大小的缓存容量(`quota==2Gi`)，缓存数据将会存储在Worker Pod容器内的`/dev/shm`目录下(`path==/dev/shm`)，该目录挂载了一个内存介质(`mediumtype==MEM`)的emptyDir数据卷（`volumeType==emptyDir`）。最后，缓存系统在剩余可用空间不足0.01（即百分之一）时触发缓存数据驱逐（`low==0.01`）。
+
+在部署JuiceFS的缓存系统之前，JuiceFSRuntime必须与某个Dataset绑定。Fluid会自动将**相同命名空间下同名**的Dataset和Runtime关联并绑定。例如，上述示例中JuiceFSRuntime资源名为`jfsdemo`，命名空间为`default`，这意味着它将会和`default`命名空间下名为`jfsdemo`的Dataset资源绑定。
+
+## 绑定JuiceFSRuntime和Dataset
+
+:::info[前提条件]
+本节假设你已经在集群中创建了一个**未绑定的Dataset(`status.phase==NotBound`)**，你可以根据使用的JuiceFS版本，参考[Dataset配置示例](#Dataset配置示例)创建Dataset资源。
+:::
+
+以[JuiceFSRuntime配置示例](#JuiceFSRuntime配置示例)为例，执行以下命令创建JuiceFSRuntime资源。
+
+```
+kubectl create -f runtime.yaml
+```
+
+接着执行以下命令，可以看到JuiceFSRuntime与Dataset绑定过程中，Dataset的状态变化：
+
+```
+kubectl get dataset jfsdemo -w
+```
+
+输出结果如下：
+
+```
+NAME      UFS TOTAL SIZE   CACHED   CACHE CAPACITY   CACHED PERCENTAGE   PHASE      AGE
+jfsdemo                                                                  NotBound   0s
+jfsdemo                                                                  NotBound   27s
+jfsdemo                                                                  NotBound   28s
+jfsdemo                    0.00B    0.00B            0.0%                Bound      41s
+jfsdemo   [Calculating]    0.00B    0.00B            0.0%                Bound      42s
+jfsdemo   [Calculating]    0.00B    0.00B            0.0%                Bound      42s
+jfsdemo   [Calculating]    0.00B    2.00GiB          0.0%                Bound      42s
+jfsdemo   [Calculating]    0.00B    2.00GiB          0.0%                Bound      43s
+jfsdemo   147.50GiB        0.00B    2.00GiB          0.0%                Bound      2m13s
+jfsdemo   147.50GiB        0.00B    2.00GiB          0.0%                Bound      2m13s
+```
+
+Dataset `jfsdemo`从`NotBound`状态最终变为`Bound`状态，并展示了JuiceFS文件系统中的文件总大小(UFS Total Size)、已缓存数据量（Cached）、总缓存容量（Cache Capacity）、缓存数据量占文件总大小百分比（Cached Percentage）。
+
+此时，JuiceFS的缓存系统已经在集群中成功部署。Dataset与JuiceFSRuntime绑定后，Fluid将会自动创建与Dataset和JuiceFSRuntime同名的持久卷声明（PersistentVolumeClaim, PVC）和持久卷（PersistentVolume, PV）资源，你可以在应用Pod中挂载PVC，以POSIX接口访问JindoFS中的数据。
+
+```
+$ kubectl get pvc jfsdemo
+```
+输出如下：
+```
+NAME      STATUS   VOLUME            CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+jfsdemo   Bound    default-jfsdemo   100Pi      ROX            fluid          <unset>                 4m48s
+```
+
+## Fluid如何部署JuiceFS
+
+本节将会深入介绍一些JuiceFSRuntime与Dataset绑定时发生的细节，并向你介绍Fluid部署JuiceFS时实际上创建了哪些Kubernetes资源。了解这些细节可能有助于排查运行时引擎遇到的技术问题，并让你能够更细化地了解各个节点JuiceFS进程的运行状态。如果你对上述内容不感兴趣，可随意跳过本节内容。
+
+Fluid通过JuiceFSRuntime部署的JuiceFS中并不包含JuiceFS所需的元数据服务，仅包含JuiceFS的缓存系统部分和JuiceFS FUSE客户端部分，他们对应的是两种Kubernetes工作负载：*Worker StatefulSet*和*FUSE Client DaemonSet*。这两种工作负载都以绑定的Dataset名字作为前缀：
+
+```
+$ kubectl get statefulset,daemonset
+```
+输出结果如下：
+```
+NAME                                        READY   AGE
+statefulset.apps/jfsdemo-worker             2/2     10m
+
+NAME                                    DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR                       AGE
+daemonset.apps/jfsdemo-fuse             0         0         0       0            0           fluid.io/f-default-jfsdemo=true     10m
+```
+
+* JuiceFS Worker组件负责实际存储并管理缓存数据，并在缓存可用容量不足时驱逐缓存。JuiceFS Worker StatefulSet的副本数等于`JuiceFSRuntime.spec.replicas`指定的副本数。
+* JuiceFS FUSE Client组件是JuiceFS实现了POSIX访问接口的客户端。初始状态下FUSE Client DaemonSet的副本数为0：
+    - 当使用「MountPod挂载模式」时，只有当某个挂载了对应PVC的应用Pod调度到某个节点时，才会在该节点动态创建出FUSE Client的Pod，届时DaemonSet的副本数将发生变化。
+    - 当使用「Sidecar挂载模式」时，DaemonSet的副本数始终为0。FUSE Client组件将通过Sidecar容器被动态注入到应用Pod中。
+
+JuiceFSRuntime与Dataset绑定后，Fluid将自动在集群中创建一对静态绑定的PVC和PV，PVC的名字与Dataset和JuiceFSRuntime相同，PV的名字为`<namespace>-<dataset_name>`：
+
+```
+$ kubectl get pvc,pv
+```
+输出结果如下：
+```
+NAME                              STATUS   VOLUME              CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/jfsdemo     Bound    default-jfsdemo     100Pi      RWX            fluid          <unset>                 10m
+
+NAME                                 CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM               STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+persistentvolume/default-jfsdemo     100Pi      RWX            Retain           Bound    default/jfsdemo     fluid          <unset>                          10m
+```
+
+Fluid部署的JuiceFS进程与非容器化环境下运行的JuiceFS进程没有区别，可以执行以下命令等到到任意JuiceFS Worker或FUSE Pod中：
+
+```
+$ kubectl exec -it jfsdemo-worker-0 -- bash
+```
+
+接着在JuiceFS容器中，可以使用[`juicefs` CLI工具](https://juicefs.com/docs/cloud/reference/command_reference)查询更多JuiceFS文件系统状态，例如：
+
+```
+# in juicefs container
+$ juicefs status <juicefs-filesystem-name>
+```

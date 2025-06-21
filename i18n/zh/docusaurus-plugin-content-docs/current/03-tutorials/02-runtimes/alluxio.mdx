@@ -13,7 +13,7 @@ sidebar_position: 1
 ## AlluxioRuntime配置示例
 
 一个简单的AlluxioRuntime配置示例如下：
-```yaml title=runtime.yaml
+```yaml title="runtime.yaml"
 apiVersion: data.fluid.io/v1alpha1
 kind: AlluxioRuntime
 metadata:
@@ -30,15 +30,12 @@ spec:
         high: "0.95"
         low: "0.7"
 ```
-这个AlluxioRuntime示例将会创建一个包含2个节点（对应两个分布式缓存Worker Pod）的分布式缓存集群(`replicas==2`)。每个Worker Pod提供2Gi大小的缓存容量(`quota==2Gi`)，缓存数据将会存储在Worker Pod容器内的`/dev/shm`目录下(`path==/dev/shm`)，该目录挂载了一个内存介质(`mediumtype==MEM`)的emptyDir数据卷（`volumeType==emptyDir`）。最后，整个缓存系统的低水位和高水位分别为0.7（`low==0.7`）和0.95（`high=0.95`）。
-
-值得注意的是，在部署Alluxio分布式缓存系统之前，AlluxioRuntime必须与某个Dataset绑定。Fluid会自动将同命名空间下**同名**的Dataset和Runtime关联并绑定起来。例如，上述示例中AlluxioRuntime资源名为`mydataset`，命名空间为`default`，这意味着它将会和`default`命名空间下名为`mydataset`的Dataset资源绑定。
 
 <details>
   <summary> AlluxioRuntime中各配置字段含义 </summary>
   | 字段 | 含义 | 详细解释 |
   | --------------------- | ----------------------- | -------------------- |
-  | `replicas` | 分布式缓存系统Worker Pod的副本数。| 对于一个分布式缓存系统来说，一个节点上至多运行一个Worker Pod副本，因此副本数也等于分布式缓存系统中节点数量。 |
+  | `replicas` | 分布式缓存系统Worker Pod的副本数。| 在Fluid默认的[「放置策略」](../01-datasets/placement-strategy.mdx)（`spec.placement=Exclusive`）下，一个节点上至多运行一个Worker Pod副本，此时副本数也等于分布式缓存系统需要的节点数量。 |
   | `volumeType` | 缓存数据的持久卷类型。 | 支持的持久卷类型为emptyDir和hostPath，默认为hostPath。当设置为hostPath时，Fluid将节点上的`path`目录挂载到容器中作为缓存数据的存储空间。当设置为emptyDir时，Fluid根据`mediumtype`指定的缓存介质类型生成emptyDir数据卷，并将其作为缓存数据的存储空间。 |
   | `mediumtype` | 缓存介质，即缓存的数据会存储在什么样的介质中。| 支持MEM（内存），SSD（固态硬盘），HDD（机械硬盘）三种等级。该字段仅为Fluid提供参考信息，以控制多级缓存的层级关系。Fluid将根据用户指定的`mediumtype`对多级缓存排序，顺序按照MEM、SSD、HDD性能从高到低的方式排列。|
   | `path` | 缓存数据的存储路径。 | 存储路径可以为单个路径，例如`/dev/shm`；也可以为以逗号分隔的多个路径，例如`/mnt/disk1,/mnt/disk2`。当`volumeType`设置为hostPath时，`path`指定的路径会从宿主机挂载到容器中的相同位置，用于存储缓存数据。当`volumeType`设置为emptyDir时，`path`仅仅指定了容器中存储缓存数据的路径。|
@@ -46,6 +43,12 @@ spec:
   | `high` | 缓存空间的高水位。 | 当缓存已使用容量达到高水位指定的比例时，以更高频率触发缓存驱逐，脏数据回写等动作 |
   | `low` | 缓存空间的低水位。 | 当缓存已使用容量未达到低水位指定的比例时，以更低频率触发缓存驱逐，脏数据回写等动作 |
 </details>
+
+这个AlluxioRuntime示例将会创建一个包含2个节点（对应两个分布式缓存Worker Pod）的分布式缓存集群(`replicas==2`)。每个Worker Pod提供2Gi大小的缓存容量(`quota==2Gi`)，缓存数据将会存储在Worker Pod容器内的`/dev/shm`目录下(`path==/dev/shm`)，该目录挂载了一个内存介质(`mediumtype==MEM`)的emptyDir数据卷（`volumeType==emptyDir`）。最后，整个缓存系统的低水位和高水位分别为0.7（`low==0.7`）和0.95（`high=0.95`）。
+
+在部署Alluxio分布式缓存系统之前，AlluxioRuntime必须与某个Dataset绑定。Fluid会自动将**同命名空间下同名**的Dataset和Runtime关联并绑定起来。例如，上述示例中AlluxioRuntime资源名为`mydataset`，命名空间为`default`，这意味着它将会和`default`命名空间下名为`mydataset`的Dataset资源绑定。
+
+
 
 ## 绑定AlluxioRuntime和Dataset
 
@@ -99,9 +102,9 @@ NAME        STATUS   VOLUME              CAPACITY   ACCESS MODES   STORAGECLASS 
 mydataset   Bound    default-mydataset   100Pi      ROX            fluid          <unset>                 10m
 ```
 
-## AlluxioRuntime的部署细节
+## Fluid如何部署Alluxio
 
-本节将会深入介绍一些AlluxioRuntime与Dataset绑定时发生的细节，并向你介绍部署Alluxio时实际上创建了哪些Kubernetes资源。了解这些细节可能有助于排查运行时引擎遇到的技术问题，并让你能够像是运维裸机运行的Alluxio进程一样运维由Fluid部署的Alluxio分布式系统。如果你对上述内容不感兴趣，请随意跳过本节内容。
+本节将会介绍一些AlluxioRuntime与Dataset绑定时发生的细节，并向你介绍部署Alluxio时实际上创建了哪些Kubernetes资源。了解这些细节可能有助于排查运行时引擎遇到的技术问题，并让你能够像是运维裸机运行的Alluxio进程一样运维由Fluid部署的Alluxio分布式系统。如果你对上述内容不感兴趣，请随意跳过本节内容。
 
 Alluxio是Master-Worker架构的分布式系统，Fluid将会为AlluxioRuntime分别创建3个Kubernetes工作负载：*Master StatefulSet*、*Worker StatefulSet*和*FUSE Client DaemonSet*。他们以绑定的Dataset名字作为前缀命名：
 
