@@ -314,10 +314,13 @@
     "description": "The unlisted content banner message"
   },
   "Fluid is a": {
-    "message": "Fluid是"
+    "message": "Fluid 是"
   },
   "Sandbox project": {
     "message": "的沙箱项目之一"
+  },
+  "Incubating project": {
+    "message": "的孵化项目之一"
   },
   "Download": {
     "message": "下载"
