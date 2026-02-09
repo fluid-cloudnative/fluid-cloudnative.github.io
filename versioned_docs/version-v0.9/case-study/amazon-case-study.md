@@ -31,7 +31,7 @@ The following components are recommended for running workloads on EKS with the P
   </tr>
 
   <tr>
-    <td rowspan="8" style={{ padding: '8px', verticalAlign: 'middle' }}>EKS-optimized accelerated AMI</td>
+    <td rowSpan="8" style={{ padding: '8px', verticalAlign: 'middle' }}>EKS-optimized accelerated AMI</td>
     <td style={{ padding: '8px', verticalAlign: 'middle' }}>Kernel 6.12</td>
   </tr>
   <tr>
@@ -57,7 +57,7 @@ The following components are recommended for running workloads on EKS with the P
   </tr>
 
   <tr>
-    <td rowspan="6" style={{ padding: '8px', verticalAlign: 'middle' }}>Components running on node</td>
+    <td rowSpan="6" style={{ padding: '8px', verticalAlign: 'middle' }}>Components running on node</td>
     <td style={{ padding: '8px', verticalAlign: 'middle' }}>VPC CNI</td>
   </tr>
   <tr>

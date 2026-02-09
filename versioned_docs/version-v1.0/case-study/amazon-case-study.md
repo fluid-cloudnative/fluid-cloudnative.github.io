@@ -15,7 +15,7 @@ sidebar_position: 6
 - P6e-GB200 UltraServers are made available through [EC2 Capacity Blocks for ML](https://aws.amazon.com/ec2/capacityblocks/). See [Manage compute resources for AI/ML workloads on Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/ml-compute-management.html) for information on how to launch EKS nodes with Capacity Blocks.
 - When using EKS managed node groups with Capacity Blocks, you must use custom launch templates. When upgrading EKS managed node groups with P6e-GB200 UltraServers, you must set the desired size of the node group to 0 before upgrading.
 - It is recommended to use the AL2023 ARM NVIDIA variant of the EKS-optimized accelerated AMIs. This AMI includes the required node components and configuration to work with P6e-GB200 UltraServers. If you decide to build your own AMI, you are responsible for installing and validating the compatibility of the node and system software, including drivers. For more information, see [Use EKS-optimized accelerated AMIs for GPU instances](https://docs.aws.amazon.com/eks/latest/userguide/ml-eks-optimized-ami.html).
-- It is recommend to use EKS-optimized AMI release v20251103 or later, which includes NVIDIA driver version 580. This NVIDIA driver version enables Coherent Driver-Based Memory Memory (CDMM) to address potential memory over-reporting. When CDMM is enabled, the following capabilities are not supported: NVIDIA Multi-Instance GPU (MIG) and vGPU. For more information on CDMM, see [NVIDIA Coherent Driver-based Memory Management (CDMM)](https://nvdam.widen.net/s/gpqp6wmz7s/cuda-whitepaper%E2%80%94%E2%80%8Bcdmm-pdf).
+- It is recommended to use EKS-optimized AMI release v20251103 or later, which includes NVIDIA driver version 580. This NVIDIA driver version enables Coherent Driver-Based Memory Memory (CDMM) to address potential memory over-reporting. When CDMM is enabled, the following capabilities are not supported: NVIDIA Multi-Instance GPU (MIG) and vGPU. For more information on CDMM, see [NVIDIA Coherent Driver-based Memory Management (CDMM)](https://nvdam.widen.net/s/gpqp6wmz7s/cuda-whitepaper%E2%80%94%E2%80%8Bcdmm-pdf).
 - When using the [NVIDIA GPU operator](https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/overview.html) with the EKS-optimized AL2023 NVIDIA AMI, you must disable the operator installation of the driver and toolkit, as these are already included in the AMI. The EKS-optimized AL2023 NVIDIA AMIs do not include the NVIDIA Kubernetes device plugin or the NVIDIA DRA driver, and these must be installed separately.
 - Each p6e-gb200.36xlarge instance can be configured with up to 17 network cards and can leverage EFA for communication between UltraServers. Workload network traffic can cross UltraServers, but for highest performance it is recommended to schedule workloads in the same UltraServer leveraging IMEX for intra-UltraServer GPU communication. For more information, see [EFA configuration for P6e-GB200 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa-acc-inst-types.html#efa-for-p6e).
 - Each p6e-gb200.36xlarge instance has 3x 7.5TB [instance store storage](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html). By default, the EKS-optimized AMI does not format and mount the instance stores. The node’s ephemeral storage can be shared among pods that request ephemeral storage and container images that are downloaded to the node. If using the AL2023 EKS-optimized AMI, this can be configured as part of the nodes bootstrap in the user data by setting the instance local storage policy in [NodeConfig](https://docs.aws.amazon.com/eks/latest/eksctl/node-bootstrapping.html#configuring-the-bootstrapping-process) to RAID0. Setting to RAID0 stripes the instance stores and configures the container runtime and kubelet to make use of this ephemeral storage.
@@ -31,7 +31,7 @@ The following components are recommended for running workloads on EKS with the P
   </tr>
 
   <tr>
-    <td rowspan="8" style={{ padding: '8px', verticalAlign: 'middle' }}>EKS-optimized accelerated AMI</td>
+    <td rowSpan="8" style={{ padding: '8px', verticalAlign: 'middle' }}>EKS-optimized accelerated AMI</td>
     <td style={{ padding: '8px', verticalAlign: 'middle' }}>Kernel 6.12</td>
   </tr>
   <tr>
@@ -57,7 +57,7 @@ The following components are recommended for running workloads on EKS with the P
   </tr>
 
   <tr>
-    <td rowspan="6" style={{ padding: '8px', verticalAlign: 'middle' }}>Components running on node</td>
+    <td rowSpan="6" style={{ padding: '8px', verticalAlign: 'middle' }}>Components running on node</td>
     <td style={{ padding: '8px', verticalAlign: 'middle' }}>VPC CNI</td>
   </tr>
   <tr>
