@@ -1,0 +1,26 @@
+---
+sidebar_label: Mount Pod clean Policy
+sidebar_position: 2
+---
+
+### MountPod清理策略
+
+在应用Pod被调度到某个节点上时，Fluid会自动在该节点上按需创建FUSE Pod。默认情况下，FUSE Pod创建后将会持续存在，直至与FUSE Pod相关的Runtime资源删除。
+如果挂载相同Dataset的其他应用Pod调度到该节点，这些应用Pod将会复用已经存在的FUSE Pod。
+
+常驻的FUSE Pod本质上创建了一个常驻的文件系统挂载点。该文件系统的状态（如高频访问的热点数据元信息，[内核页缓存](https://en.wikipedia.org/wiki/Page_cache)等）可以被不同的应用Pod重用。
+但常驻的FUSE Pod意味着它会长时间占用所在节点的更多资源，为此，Fluid支持为FUSE Pod配置生命周期策略，配置示例如下：
+
+```yaml title="runtime.yaml"
+apiVersion: data.fluid.io/v1alpha1
+kind: XXXRuntime  # Replace with your Runtime Kind.
+metadata:
+  name: mydataset # MUST be same as Dataset's name
+  namespace: default
+spec:
+  ...
+  fuse:
+  # highlight-next-line
+    cleanPolicy: OnDemand # defaults to OnRuntimeDeleted
+```
+配置`spec.fuse.cleanPolicy`为`OnDemand`，可配置仅在同节点上有需要挂载文件系统的应用Pod时保留FUSE Pod。

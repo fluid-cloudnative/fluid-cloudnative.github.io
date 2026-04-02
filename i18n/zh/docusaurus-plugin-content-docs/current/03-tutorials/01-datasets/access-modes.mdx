@@ -1,5 +1,5 @@
 ---
-sidebar_label: 配置数据集访问模式
+sidebar_label: 访问模式
 sidebar_position: 2
 ---
 
@@ -30,6 +30,7 @@ spec:
   # accessModes: ["ReadOnlyMany"] # default to ReadOnlyMany
   mounts:
     - mountPoint: <MOUNT_POINT>
+      name: demo
   ...
 ```
 
@@ -48,4 +49,5 @@ spec:
   accessModes: ["ReadWriteMany"]
   mounts:
     - mountPoint: <MOUNT_POINT>
+      name: demo
 ```
