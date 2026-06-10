@@ -35,3 +35,7 @@ sidebar_position: 3
 | [Wenxiao Wang](https://github.com/wang-mask) | Nanjing University | committer |
 | [Xiaozheng Zhang](https://github.com/zhang-x-z) | Nanjing University | committer |
 | [Shiming Wu](https://github.com/wushiming540) | Huawei | committer |
+| [Tongyu Guo](https://github.com/Syspretor) | Alibaba Cloud | committer |
+| [FuTao Lin](https://github.com/zmrlft) | South China Normal University | committer |
+| [Eliza Li](https://github.com/Pikabooboo) | independent software engineer | committer |
+| [Guoding Ji](https://github.com/JiGuoDing) | Nanjing University | committer |
