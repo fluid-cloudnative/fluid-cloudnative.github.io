@@ -3,12 +3,15 @@ sidebar_label: Committee
 sidebar_position: 3
 ---
 # Committee
+
 ## Fluid Open Source Project Community Chair
+
 | Name   | Affiliation       |
 |--------|-------------------|
 | [Rong Gu](https://github.com/RongGu) | Nanjing University |
 
 ## Fluid Project Management Committee
+
 | Name            | Affiliation        | Role               |
 |-----------------|--------------------|--------------------|
 | [Rong Gu](https://github.com/RongGu)           | Nanjing University | community chair, maintainer |
