@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfluid_website_demo=self.webpackChunkfluid_website_demo||[]).push([[2740],{928:e=>{e.exports=JSON.parse('{"label":"fluid-cli","permalink":"/zh/blog/tags/fluid-cli","allTagsPath":"/zh/blog/tags","count":1,"unlisted":false}')}}]);
