@@ -22,20 +22,20 @@ const movedDocs = {
   'tutorials/dataset-creation/cache-co-locality': 'tutorials/advanced/cache-co-locality',
   'tutorials/dataset-creation/share-data-across-namespace-csi': 'tutorials/advanced/share-data-across-namespace-csi',
   'tutorials/dataset-creation/share-data-across-namespace-sidecar': 'tutorials/advanced/share-data-across-namespace-sidecar',
-  'tutorials/dataset-operation/data-preloading': 'tutorials/operate-datasets/data-preloading',
+  'tutorials/dataset-operation/data-preloading': 'tutorials/operate-datasets/data-load',
   'tutorials/dataset-operation/automatic-cleanup-data-operation': 'tutorials/operate-datasets/automatic-cleanup-data-operation',
   'tutorials/dataset-operation/cacheruntime-data-operations': 'tutorials/operate-datasets/cacheruntime-data-operations',
   'tutorials/dataset-operation/use-curvine-as-cacheruntime-for-data-caching': 'tutorials/runtimes/use-curvine-as-cacheruntime-for-data-caching',
   'tutorials/dataset-operation/deploy-mooncake-with-cacheruntime': 'tutorials/runtimes/deploy-mooncake-with-cacheruntime',
   'tutorials/dataset-operation/cache-runtime-manually-scaling': 'administration/cache-runtime-manually-scaling',
   'tutorials/dataset-security/encrypted-options-for-dataset': 'tutorials/datasets/encrypted-options-for-dataset',
-  'tutorials/dataset-security/set-access-mode': 'tutorials/datasets/set-access-mode',
+  'tutorials/dataset-security/set-access-mode': 'tutorials/datasets/access-modes',
   'tutorials/dataset-security/using-fluid-to-access-non-root-users-data': 'tutorials/advanced/using-fluid-to-access-non-root-users-data',
   'tutorials/storage-acceleration/accelerate-pvc-with-fluid': 'tutorials/on-premise-storage/accelerate-pvc-with-fluid',
   'tutorials/storage-acceleration/accelerate-hostPath-with-fluid': 'tutorials/on-premise-storage/accelerate-hostPath-with-fluid',
   'tutorials/storage-acceleration/accelerate-different-storage-with-fluid': 'more-examples/accelerate-different-storage-with-fluid',
   'tutorials/advanced/configuring-affinity-for-data-operations-in-dataflow': 'tutorials/operate-datasets/configuring-affinity-for-data-operations-in-dataflow',
-  'tutorials/advanced/set-fuse-clean-policy': 'tutorials/data-accessing/set-fuse-clean-policy',
+  'tutorials/advanced/set-fuse-clean-policy': 'tutorials/data-accessing/fuse-pod-clean-policy',
   'tutorials/advanced/alluxio-tieredstore-configuration': 'more-examples/alluxio-tieredstore-configuration',
   'tutorials/advanced/accelerate-data-access-by-mem-or-ssd': 'more-examples/accelerate-data-access-by-mem-or-ssd',
   'tutorials/advanced/support-image-pull-secrets': 'more-examples/support-image-pull-secrets',
@@ -86,6 +86,11 @@ const config = {
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   staticDirectories: ['public', 'static'],
+
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you

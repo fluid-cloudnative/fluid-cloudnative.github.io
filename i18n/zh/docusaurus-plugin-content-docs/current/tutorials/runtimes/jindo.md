@@ -1,0 +1,203 @@
+---
+sidebar_label: 部署JindoFS
+sidebar_position: 3
+---
+
+# 使用JindoRuntime部署JindoFS
+
+<span className="badge badge--secondary runtime-compatibility">功能适用于：JindoRuntime</span>
+
+[JindoFS](https://aliyun.github.io/alibabacloud-jindodata/)是阿里云开源大数据团队自研的数据湖存储系统，面向大数据和AI生态，使用分布式缓存技术提供全方位数据访问加速解决方案。在Fluid中，你可以使用JindoRuntime部署JindoFS分布式缓存系统，并通过JindoFS访问阿里云OSS、OSS-HDFS底层存储中的数据。
+
+本章介绍JindoRuntime的配置示例，以及如何部署JindoFS分布式缓存系统。
+
+## JindoRuntime配置示例 {#jindoruntime-example}
+
+一个简单的JindoRuntime配置示例如下：
+
+```yaml title="runtime.yaml"
+apiVersion: data.fluid.io/v1alpha1
+kind: JindoRuntime
+metadata:
+  name: mydataset # MUST be same as Dataset's name
+  namespace: default
+spec:
+  replicas: 2
+  tieredstore:
+    levels:
+      - volumeType: emptyDir
+        mediumtype: MEM
+        path: /dev/shm
+        quota: 2Gi
+        high: "0.99"
+        low: "0.95"
+```
+
+<details>
+<summary>JindoRuntime中各配置字段含义</summary>
+
+| 字段 | 含义 | 详细解释 |
+| ----- | ----------- | ------- |
+| `replicas` | 分布式缓存系统Worker Pod的副本数。 | 在Dataset默认的[放置策略](/tutorials/datasets/placement-strategy.md)（`spec.placement=Exclusive`）下，一个节点上至多运行一个Worker Pod副本，此时副本数也等于分布式缓存系统需要的节点数量。 |
+| `volumeType` | 存储缓存数据的数据卷类型。 | 支持`emptyDir`和`hostPath`两种类型，默认为`hostPath`。当设置为`hostPath`时，Fluid将节点上的`path`目录挂载到容器中作为缓存数据的存储空间。当设置为`emptyDir`时，Fluid根据`mediumtype`指定的缓存介质类型生成emptyDir数据卷，并将其作为缓存数据的存储空间。 |
+| `mediumtype` | 缓存介质，即缓存的数据会存储在什么样的介质中。 | 支持`MEM`（内存）、`SSD`（固态硬盘）和`HDD`（机械硬盘）三种等级。该字段仅为Fluid提供参考信息，以控制多级缓存的层级关系。Fluid将根据用户指定的`mediumtype`对多级缓存排序，按照MEM、SSD、HDD性能从高到低的顺序排列。 |
+| `path` | 缓存数据的存储路径。 | 存储路径可以为单个路径，例如`/dev/shm`；也可以为以逗号分隔的多个路径，例如`/mnt/disk1,/mnt/disk2`。当`volumeType`设置为`hostPath`时，`path`指定的路径会从宿主机挂载到容器中的相同位置，用于存储缓存数据。当`volumeType`设置为`emptyDir`时，`path`仅仅指定了容器中存储缓存数据的路径。 |
+| `quota` | 单个分布式缓存Worker Pod的缓存容量。 | 当`path`为多个路径时，`quota`将被平均分配到各个路径上。如需为每个路径分别设置缓存容量，请改用`quotaList`。 |
+| `high` | 缓存空间的高水位。 | 当缓存空间的已使用比例达到高水位时，缓存系统开始驱逐缓存数据。 |
+| `low` | 缓存空间的低水位。 | 缓存系统会持续驱逐缓存数据，直到缓存空间的已使用比例降至低水位以下。 |
+
+</details>
+
+这个JindoRuntime示例将会创建一个包含2个节点（对应两个分布式缓存Worker Pod）的分布式缓存集群（`replicas: 2`）。每个Worker Pod提供2Gi大小的缓存容量（`quota: 2Gi`），缓存数据将会存储在Worker Pod容器内的`/dev/shm`目录下（`path: /dev/shm`），该目录挂载了一个内存介质（`mediumtype: MEM`）的emptyDir数据卷（`volumeType: emptyDir`）。最后，整个缓存系统的低水位和高水位分别为0.95（`low: "0.95"`）和0.99（`high: "0.99"`）。
+
+在部署JindoFS分布式缓存系统之前，JindoRuntime必须与某个Dataset绑定。Fluid会自动将**同命名空间下同名**的Dataset和Runtime关联并绑定起来。例如，上述示例中JindoRuntime资源名为`mydataset`，命名空间为`default`，这意味着它将会和`default`命名空间下名为`mydataset`的Dataset资源绑定。
+
+## 绑定JindoRuntime和Dataset {#bind-jindoruntime-to-a-dataset}
+
+:::info[前提条件]
+
+本节假设你已经在集群中创建了一个**未绑定的Dataset（`status.phase==NotBound`）**，并且Dataset中定义了JindoFS支持的数据源。关于如何在Dataset中定义底层存储数据源，参考[配置底层存储数据源](/tutorials/datasets/data-sources.md)。
+
+本节使用的示例Dataset指定了JindoFS支持的OSS类型的数据源，其配置如下：
+
+<details>
+<summary>dataset.yaml</summary>
+
+```yaml
+apiVersion: data.fluid.io/v1alpha1
+kind: Dataset
+metadata:
+  name: mydataset
+spec:
+  mounts:
+    - mountPoint: oss://myossbucket/path/to/mydata/
+      name: example-bucket
+      path: /
+      options:
+        fs.oss.endpoint: oss-cn-beijing-internal.aliyuncs.com
+      encryptOptions:
+        - name: fs.oss.accessKeyId
+          valueFrom:
+            secretKeyRef:
+              name: access-key
+              key: fs.oss.accessKeyId
+        - name: fs.oss.accessKeySecret
+          valueFrom:
+            secretKeyRef:
+              name: access-key
+              key: fs.oss.accessKeySecret
+```
+
+</details>
+
+:::
+
+以[配置示例](#jindoruntime-example)为例，执行以下命令创建JindoRuntime资源：
+
+```shell
+$ kubectl create -f runtime.yaml
+```
+
+接着执行以下命令，可以看到JindoRuntime与Dataset绑定过程中，Dataset的状态变化：
+
+```shell
+$ kubectl get dataset mydataset -w
+```
+
+输出结果类似如下：
+
+```
+NAME        UFS TOTAL SIZE   CACHED   CACHE CAPACITY   CACHED PERCENTAGE   PHASE      AGE
+mydataset                                                                  NotBound   4s
+mydataset   [Calculating]                                                  NotBound   36s
+mydataset   95.09MiB                                                       NotBound   36s
+mydataset   95.09MiB                                                       Bound      38s
+mydataset   95.09MiB         0.00B    4.00GiB          0.0%                Bound      38s
+mydataset   95.09MiB         0.00B    4.00GiB          0.0%                Bound      38s
+```
+
+Dataset `mydataset`从`NotBound`状态最终变为`Bound`状态，并展示了底层存储数据源的文件总大小（UFS TOTAL SIZE）、已缓存数据量（CACHED）、总缓存容量（CACHE CAPACITY）以及缓存数据量占文件总大小的百分比（CACHED PERCENTAGE）。
+
+此时，JindoFS分布式缓存系统已经在集群中成功部署，你可以通过JindoFS自身支持的多种文件访问接口读取其中的数据。Dataset与JindoRuntime绑定后，Fluid会自动为其创建持久卷声明（PersistentVolumeClaim，PVC）和持久卷（PersistentVolume，PV），其中PVC与Dataset和JindoRuntime同名。你可以在应用Pod中挂载该PVC，以POSIX接口访问JindoFS中的数据，参考[挂载数据集](/tutorials/data-accessing/mount-datasets.mdx)。
+
+```shell
+$ kubectl get pvc mydataset
+```
+
+输出结果类似如下：
+
+```
+NAME        STATUS   VOLUME              CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+mydataset   Bound    default-mydataset   100Pi      ROX            fluid          <unset>                 10m
+```
+
+## Fluid如何部署JindoFS {#how-fluid-deploys-jindofs}
+
+本节将会深入介绍一些JindoRuntime与Dataset绑定时发生的细节，并向你介绍Fluid部署JindoFS时实际上创建了哪些Kubernetes资源。了解这些细节可能有助于排查运行时引擎遇到的技术问题，并让你能够像运维裸机上运行的JindoFS集群一样运维由Fluid部署的JindoFS集群。如果你对上述内容不感兴趣，请随意跳过本节内容。
+
+JindoFS是Master-Worker架构的分布式系统，Fluid将会为JindoRuntime分别创建3个Kubernetes工作负载：*Master StatefulSet*、*Worker StatefulSet*和*FUSE Client DaemonSet*。它们以绑定的Dataset名字作为前缀命名：
+
+```shell
+$ kubectl get statefulset,daemonset
+```
+
+输出结果类似如下：
+
+```
+NAME                                        READY   AGE
+statefulset.apps/mydataset-jindofs-master   1/1     81s
+statefulset.apps/mydataset-jindofs-worker   2/2     81s
+
+NAME                                    DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR                       AGE
+daemonset.apps/mydataset-jindofs-fuse   0         0         0       0            0           fluid.io/f-default-mydataset=true   81s
+```
+
+* JindoFS Master组件负责管理整个JindoFS集群，并承担了缓存文件元数据的职责。在未开启高可用的前提下副本数为1。
+* JindoFS Worker组件负责实际管理缓存数据，并在缓存空间达到高水位时执行缓存驱逐。副本数等于`JindoRuntime.spec.replicas`指定的副本数。
+* JindoFS FUSE Client组件是JindoFS实现了POSIX访问接口的客户端。初始状态下FUSE Client DaemonSet的副本数为0：
+    - 当使用「MountPod挂载模式」时，只有当某个挂载了对应PVC的应用Pod调度到某个节点时，才会在该节点动态创建出FUSE Client的Pod，届时DaemonSet的副本数将发生变化。
+    - 当使用「Sidecar挂载模式」时，DaemonSet的副本数始终为0，因为FUSE Client组件将以Sidecar容器的形式被动态注入到应用Pod中。
+
+JindoRuntime与Dataset绑定后（也就是JindoFS分布式缓存系统就绪后），Fluid将自动在集群中创建一对静态绑定的PVC和PV，PVC的名字与Dataset和JindoRuntime相同，PV的名字为`<namespace>-<dataset_name>`：
+
+```shell
+$ kubectl get pvc,pv
+```
+
+输出结果类似如下：
+
+```
+NAME                              STATUS   VOLUME              CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/mydataset   Bound    default-mydataset   100Pi      ROX            fluid          <unset>                 85s
+
+NAME                                 CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM               STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+persistentvolume/default-mydataset   100Pi      ROX            Retain           Bound    default/mydataset   fluid          <unset>                          85s
+```
+
+如果希望获得类似运维裸机JindoFS集群的体验，可执行以下命令登录到JindoFS Master组件容器中：
+
+```shell
+$ kubectl exec -it mydataset-jindofs-master-0 -- bash
+```
+
+在JindoFS Master组件容器中，可以使用[`jindo`和`jindocache` CLI工具](https://aliyun.github.io/alibabacloud-jindodata/oss/usages/oss_jindo_cli/)查询JindoFS集群状态和运维集群：
+
+```shell
+# in the jindofs-master container
+$ jindocache -report  # report JindoFS status
+```
+
+输出结果类似如下：
+
+```
+Namespace Address: mydataset-jindofs-master-0.default:19923
+Rpc Port: 19923
+Started: Sat Feb  1 08:48:11 2025
+Version: 6.4.0
+Live Nodes: 2
+Decommission Nodes: 0
+Total Disk Capacity: 4GB
+Used Disk Capacity: 8.07031MB
+Total MEM Capacity: 4GB
+Used MEM Capacity: 0B
+```

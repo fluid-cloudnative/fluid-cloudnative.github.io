@@ -69,7 +69,7 @@ $ kubectl create -f dataset-mem.yaml
 $ kubectl create -f runtime-mem.yaml
 ```
 
-**data warm-up**（more details about data warmup please refer to [data warmup](../tutorials/operate-datasets/data-preloading.md)）：
+**data warm-up**（more details about data warmup please refer to [data warmup](/tutorials/operate-datasets/data-load.md)）：
 ```yaml
 cat<<EOF >dataload-mem.yaml
 apiVersion: data.fluid.io/v1alpha1
