@@ -6,6 +6,65 @@
 
 import {themes as prismThemes} from 'prism-react-renderer';
 
+// Docs that were moved when the documentation was reorganized (see
+// https://github.com/fluid-cloudnative/fluid-cloudnative.github.io/issues/38).
+// Keys are old doc paths and values are the new doc paths, both relative to
+// the docs root and without any version prefix. When you move or remove a doc,
+// add an entry here so that existing links keep working.
+const movedDocs = {
+  'core-concepts/key-features': 'introduction/key-features',
+  'core-concepts/architecture-and-concepts': 'introduction/architecture-and-concepts',
+  'get-started/installation': 'getting-started/installation',
+  'get-started/quick-start': 'getting-started/quick-start',
+  'get-started/configuration-best-practices': 'getting-started/configuration-best-practices',
+  'tutorials/dataset-creation/accelerate-data-accessing-posix': 'tutorials/data-accessing/accelerate-data-accessing-posix',
+  'tutorials/dataset-creation/accelerate-data-accessing-hdfs': 'tutorials/data-accessing/accelerate-data-accessing-hdfs',
+  'tutorials/dataset-creation/cache-co-locality': 'tutorials/advanced/cache-co-locality',
+  'tutorials/dataset-creation/share-data-across-namespace-csi': 'tutorials/advanced/share-data-across-namespace-csi',
+  'tutorials/dataset-creation/share-data-across-namespace-sidecar': 'tutorials/advanced/share-data-across-namespace-sidecar',
+  'tutorials/dataset-operation/data-preloading': 'tutorials/operate-datasets/data-preloading',
+  'tutorials/dataset-operation/automatic-cleanup-data-operation': 'tutorials/operate-datasets/automatic-cleanup-data-operation',
+  'tutorials/dataset-operation/cacheruntime-data-operations': 'tutorials/operate-datasets/cacheruntime-data-operations',
+  'tutorials/dataset-operation/use-curvine-as-cacheruntime-for-data-caching': 'tutorials/runtimes/use-curvine-as-cacheruntime-for-data-caching',
+  'tutorials/dataset-operation/deploy-mooncake-with-cacheruntime': 'tutorials/runtimes/deploy-mooncake-with-cacheruntime',
+  'tutorials/dataset-operation/cache-runtime-manually-scaling': 'administration/cache-runtime-manually-scaling',
+  'tutorials/dataset-security/encrypted-options-for-dataset': 'tutorials/datasets/encrypted-options-for-dataset',
+  'tutorials/dataset-security/set-access-mode': 'tutorials/datasets/set-access-mode',
+  'tutorials/dataset-security/using-fluid-to-access-non-root-users-data': 'tutorials/advanced/using-fluid-to-access-non-root-users-data',
+  'tutorials/storage-acceleration/accelerate-pvc-with-fluid': 'tutorials/on-premise-storage/accelerate-pvc-with-fluid',
+  'tutorials/storage-acceleration/accelerate-hostPath-with-fluid': 'tutorials/on-premise-storage/accelerate-hostPath-with-fluid',
+  'tutorials/storage-acceleration/accelerate-different-storage-with-fluid': 'more-examples/accelerate-different-storage-with-fluid',
+  'tutorials/advanced/configuring-affinity-for-data-operations-in-dataflow': 'tutorials/operate-datasets/configuring-affinity-for-data-operations-in-dataflow',
+  'tutorials/advanced/set-fuse-clean-policy': 'tutorials/data-accessing/set-fuse-clean-policy',
+  'tutorials/advanced/alluxio-tieredstore-configuration': 'more-examples/alluxio-tieredstore-configuration',
+  'tutorials/advanced/accelerate-data-access-by-mem-or-ssd': 'more-examples/accelerate-data-access-by-mem-or-ssd',
+  'tutorials/advanced/support-image-pull-secrets': 'more-examples/support-image-pull-secrets',
+  'operation-guide/runtime-monitoring': 'administration/runtime-monitoring',
+  'operation-guide/cache-runtime-auto-scaling': 'administration/cache-runtime-auto-scaling',
+  'operation-guide/cacheruntime-spec-field-update-capabilities': 'administration/cacheruntime-spec-field-update-capabilities',
+  'operation-guide/dashboard-visualization': 'administration/dashboard-visualization',
+  'troubleshooting-and-faq/troubleshooting': 'administration/troubleshooting',
+  'troubleshooting-and-faq/faq': 'administration/faq',
+  'release-and-API-doc/api-doc': 'reference/api-doc',
+  'release-and-API-doc/release': 'reference/release',
+  'release-and-API-doc/roadmap': 'reference/roadmap',
+};
+
+// Redirects old doc URLs to the new ones for the "next" version (/docs/next/)
+// and for the default version (/docs/). Older versions keep their original
+// paths, so they need no redirects.
+function createDocsRedirects(existingPath) {
+  const match = existingPath.match(/^\/docs\/(next\/)?(.+)$/);
+  if (!match) {
+    return undefined;
+  }
+  const [, versionPrefix = '', docPath] = match;
+  const oldPaths = Object.keys(movedDocs)
+    .filter((oldPath) => movedDocs[oldPath] === docPath)
+    .map((oldPath) => `/docs/${versionPrefix}${oldPath}`);
+  return oldPaths.length > 0 ? oldPaths : undefined;
+}
+
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Fluid',
@@ -92,7 +151,13 @@ const config = {
         include: ['**/*.md'],
         sidebarPath: './sidebars-community.js',
       },
-    ]
+    ],
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        createRedirects: createDocsRedirects,
+      },
+    ],
   ],
 
 

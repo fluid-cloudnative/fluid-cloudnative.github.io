@@ -8,7 +8,7 @@ sidebar_position: 10
 ## Prerequisites
 
 ### Get the latest code of Fluid
-The official image for multiple platforms is provided by Fluid community. You can refer to the [document](/docs/get-started/quick-start) to deploy Fluid diretly and jump to the step of *Example*.
+The official image for multiple platforms is provided by Fluid community. You can refer to the [document](/getting-started/quick-start.md) to deploy Fluid diretly and jump to the step of *Example*.
 ```shell
 $ mkdir -p $GOPATH/src/github.com/fluid-cloudnative/
 $ cd $GOPATH/src/github.com/fluid-cloudnative

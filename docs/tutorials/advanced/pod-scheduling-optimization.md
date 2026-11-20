@@ -1,6 +1,6 @@
 ---
 sidebar_label: Pod Scheduling Optimization
-sidebar_position: 5
+sidebar_position: 1
 ---
 
 # Pod Scheduling Optimization

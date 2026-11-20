@@ -14,7 +14,7 @@ The Fluid community has enabled the pprof service in each component. Users can a
 
 You can download the latest Fluid installation package from [Fluid Releases](https://github.com/fluid-cloudnative/fluid/releases).
 
-Refer to the [Installation document](/docs/get-started/installation) to complete the installation.
+Refer to the [Installation document](/getting-started/installation.md) to complete the installation.
 
 ```shell
 $ kubectl get po -n fluid-system

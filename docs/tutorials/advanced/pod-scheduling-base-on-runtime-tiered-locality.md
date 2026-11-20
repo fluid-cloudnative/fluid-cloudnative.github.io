@@ -1,11 +1,11 @@
 ---
 sidebar_label: Pod Scheduling Base on Runtime Tiered Locality
-sidebar_position: 6
+sidebar_position: 2
 ---
 
 # Pod Scheduling Base on Runtime Tiered Locality
 
-In [Pod Scheduling Optimization](/docs/tutorials/advanced/pod-scheduling-optimization), we introduce how to schedule application Pods to nodes
+In [Pod Scheduling Optimization](/tutorials/advanced/pod-scheduling-optimization.md), we introduce how to schedule application Pods to nodes
 with cached data.
 
 However, in some cases, if the data cached nodes cannot be scheduled with the application Pod, the Pod will be scheduled
@@ -56,7 +56,7 @@ pluginConfig:
         - topology.kubernetes.io/zone
 ```
 
-Install Fluid following the document [Installation](/docs/get-started/installation). After installation, a configmap
+Install Fluid following the document [Installation](/getting-started/installation.md). After installation, a configmap
 named `webhook-plugins` storing above configuration will exist in Fluid namespace(default `fluid-system`).
 
 1) Modify tiered locality configuration in the existing Fluid cluster
