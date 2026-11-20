@@ -8,12 +8,14 @@ sidebar_position: 1
 ## Requirements
 
 - Git
-- Golang (version >= 1.13)
+- Golang (version >= 1.26)
 - Docker (version >= 19.03)
 - Kubernetes (version >= 1.14)
 - GNU Make
 
 For installation of Golang, please refer to [Install Golang](https://golang.org/dl/)
+
+> **NOTE**: The Go toolchain used by CI and the image builds is pinned by the `toolchain` directive in `go.mod`. With the default `GOTOOLCHAIN=auto`, an older local Go downloads that toolchain automatically, but a newer local Go is used as-is, so keep it on its latest patch release (for example, Go 1.27.0–1.27.3 are affected by [GO-2026-6859](https://pkg.go.dev/vuln/GO-2026-6859), which is fixed in Go 1.27.4). To build with exactly the pinned toolchain, set it explicitly, e.g. `export GOTOOLCHAIN=go1.26.11`.
 
 `make` is usually in a `build-essential` package in your distribution's package manager of choice. Make sure you have `make` on your machine.
 
@@ -25,14 +27,12 @@ See [Install Docker](https://docs.docker.com/engine/install/) for more informati
 ### Get Source Code
 
 ```shell
-$ mkdir -p $GOPATH/src/github.com/fluid-cloudnative/
-$ cd $GOPATH/src/github.com/fluid-cloudnative
 $ git clone https://github.com/fluid-cloudnative/fluid.git
+
+$ cd fluid
 ```
 
-> **NOTE**: In this document, we build, run and debug under non-module environment. 
->
-> See [Go Modules](https://github.com/golang/go/wiki/Modules) for more information if some issue occurs to you.
+> **NOTE**: Fluid uses Go modules for dependency management. No GOPATH setup is required.
 
 ### Build Binary
 `Makefile` under project directory provides many tasks you may want to use including Test, Build, Debug, Deploy etc.
@@ -216,14 +216,14 @@ $ ln -s $(which helm) /usr/local/bin/ddc-helm
 
 2. Create a soft link directory for related Charts locally
 ```
-$ ln -s $GOPATH/src/github.com/fluid-cloudnative/fluid/charts $HOME/charts
+$ ln -s $(pwd)/charts $HOME/charts
 ```
 
 3. Taking the Alluxio Runtime Controller as an example, run the component locally using the following command：
 ```
 # Configure environment variable parameters related to AlluxioRuntime
 $ export ALLUXIO_RUNTIME_IMAGE_ENV="alluxio/alluxio-dev:2.9.0"
-$ export ALLUXIO_FUSE_IMAGE_ENV="alluxio/alluxio-dev:2.9.0
+$ export ALLUXIO_FUSE_IMAGE_ENV="alluxio/alluxio-dev:2.9.0"
 $ export DEFAULT_INIT_IMAGE_ENV="fluidcloudnative/init-users:v0.8.0-5bb4677"
 $ export MOUNT_ROOT="/runtime-mnt"
 $ export HOME="$HOME"

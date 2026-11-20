@@ -1,6 +1,6 @@
 ---
 sidebar_label: Support Image Pull Secrets
-sidebar_position: 10
+sidebar_position: 11
 ---
 
 # Support Image Pull Secrets

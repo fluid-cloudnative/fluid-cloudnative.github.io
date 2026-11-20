@@ -1,6 +1,6 @@
 ---
 sidebar_label: Pod Scheduling Base on Runtime Tiered Locality
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 # Pod Scheduling Base on Runtime Tiered Locality

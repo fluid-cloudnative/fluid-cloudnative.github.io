@@ -1,6 +1,6 @@
 ---
 sidebar_label: Cache Runtime Manually Scaling
-sidebar_position: 2
+sidebar_position: 5
 ---
 
 # Cache Runtime Manually Scaling

@@ -1,6 +1,6 @@
 ---
 sidebar_label: Using Fluid on ARM64 Platform
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 # Using Fluid on ARM64 Platform
@@ -68,6 +68,8 @@ This example is based on JuiceFSRuntime
 1. Creating an ARM64 based Kubernetes cluster
 
 2. Refer to the [document](https://github.com/fluid-cloudnative/fluid/blob/master/docs/en/samples/juicefs_setup.md) to prepare JuiceFS Community Edition
+
+   Note: the MinIO image used in that document is amd64 only. On ARM64, deploy an S3-compatible object storage service that ships an arm64 image instead.
 
 Before using JuiceFS, you need to provide parameters for metadata services (such as Redis) and object storage services (such as MinIO), and create corresponding secrets:
 
