@@ -8,8 +8,8 @@ sidebar_position: 5
 This tutorial is used to show how to use a Dataset cache across Namespace.
 - In Namespace `ns-a`, create Dataset `demo` and AlluxioRuntime `demo`
 - In Namespace `ns-b` create Dataset `demo-ref`. The mountPoint of `demo-ref` is `dataset://ns-a/demo`
- 
-## Prerequests
+
+## Prerequisites
 Before running this tutorial, please refer to the [installation documentation](/docs/get-started/installation) to complete the installation and check that the components of Fluid are working properly:
 ```shell
 $ kubectl get pod -n fluid-system

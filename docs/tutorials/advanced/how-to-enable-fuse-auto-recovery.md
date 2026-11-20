@@ -1,6 +1,6 @@
 ---
 sidebar_label: How to Enable FUSE Auto-recovery
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # How to Enable FUSE Auto-recovery

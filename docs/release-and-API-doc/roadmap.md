@@ -5,54 +5,79 @@ sidebar_position: 2
 
 # Roadmap
 
-## Fluid 2024 Roadmap
+## Fluid 2026 Roadmap
 
-### Objective: Achieve orchestration of data operations and Kubernetes job scheduling systems
+### 1. Data Anyway
 
-- Support temporality through Kueue
-   - Once data migration is completed, run data preheating, triggering the running of machine learning tasks (such as tfjob, mpiJob, pytorchJob, sparkJob)
-   - After computation is completed, data migration and cache cleaning can be carried out
-- Choose data access methods based on the scheduling results of the Kubernetes scheduler (default scheduler, Volcano, YuniKorn)
-   - If scheduled to ordinary nodes with shared operating system kernels, adaptively use csi plugin mode
-   - If scheduled to Kata container nodes with independent operating system kernels, you can use the sidecar mode adaptively and support scalable modifications by cloud vendors
+> **Objective:** Enable fluid data access **regardless of infrastructure constraints** (e.g., storage types, runtime environments) without developing controller code.
 
-### Objective: Simplify the work of operation and maintenance and AI developers through Python SDK
+#### Generic Cache Runtime
 
-- Support basic data operation
-- Combine with Hugging face and Pytorch to support transparent data acceleration through pre-reading and multi-stream reading
-- Support defining automated data flow operations
+- **Pluggable Architecture:** Standardized Cache Runtime Interface for rapid integration of new engines (CubeFS, Dragonfly, Vineyard) with minimal boilerplate.
+- **Orchestration Based on AdvancedStatefulSet:** Migrate from StatefulSet to AdvancedStatefulSet for fine-grained Pod lifecycle management, ordered rollout, and enhanced failover capabilities.
 
-### Objective: Further deeply integrate the machine learning ecosystem to simplify the user experience
+#### Runtime Dynamic Configuration
 
-- Integrate with Kubeflow Pipelines to accelerate datasets in the pipeline
-- Integrate with Fairing for model development and deployment in the notebook environment
-- Integrate with KServe to facilitate model deployment
+- **Zero-Downtime Tuning:** Adjust cache replicas, storage media tiers (SSD/HDD/RAM), and eviction policies without Dataset reconstruction or workload restart.
+- **Hot Parameter Swapping:** Runtime modification of cache engine configurations (e.g., Alluxio thread pool, Jindo worker threads) for traffic spike handling.
 
-### Objective: Continuous security enhancement
+#### API Upgrade to `v1alpha2`
 
-- Minimum container permission (remove the privileged permission of FUSE Pod)
-- Minimum rbac permission
-- Minimal container image installation
-- Continuously provide best practice documentation
+- Standardized Conditions, `ObservedGeneration`, and phase transition semantics for improved GitOps and tooling compatibility.
+- Conversion webhook support for seamless `v1alpha1` → `v1alpha2` migration.
 
-### Objective: Simplicity and reliability, friendlier to users and developers
+#### Validation Webhook
 
-- Simplify deployment
-  - Merge Dataset/Runtime controllers into one binary package
-- Simplify usage
-  - Support Runtimeless, Dataset as the single API entry for users to use Fluid
+- Admission-time CRD validation with auto-correction suggestions to prevent misconfigurations.
+- Policy enforcement for resource quotas and security constraints.
 
- ### Objective: Enhance code quality & security improvements & documentation for produciton ready:
+#### ThinRuntime Productization
 
- - Improve code quality
-  - Reduce repetitive code
-  - Improve test coverage
-- Security hardening
-  - Minimize the permissions of controller's RBAC
-  - Regularly review and update the permissions when new runtime is introduced
-- Enhance observability
-  - Provide monitoring and alerts for Datasets
-- Enhance the quality of documentation
-  - Organize the documentation so users can navigate it easily and find the information
-  - Provide more practical examples and tutorials can significantly improve the user's comprehension and learning process.
-  - Maintain consistency in language, style, and formatting throughout the documentation
+- Production-ready stability for large-scale deployments with **minimum container privileges** (eliminate privileged FUSE Pod requirements).
+
+---
+
+### 2. Data Anywhere
+
+> **Objective:** Achieve **cross-region, cross-cluster, and cross-platform** data mobility and accessibility.
+
+#### LLM KV Cache Orchestration
+
+- **Disaggregated KV Cache:** Externalize vLLM/SGLang KV Cache to Fluid-managed distributed storage, enabling 10x+ throughput improvement for long-context inference.
+- **Cross-Pod Cache Sharing:** Live migration of KV Cache between inference instances for preemptive scheduling and spot instance tolerance.
+- **Mooncake Integration:** Official partnership for high-performance KV Cache backend with RDMA acceleration.
+
+#### Efficient Data Prewarming & Migration
+
+- **Distributed Prewarming:** Maximize bandwidth utilization for fast data loading.
+- **Throttling Control:** Limit bandwidth usage during prewarming to avoid saturation.
+- **Rsync Optimization:** Improve cross-region sync efficiency.
+
+#### JindoRuntime High Availability
+
+- **Master Pod Crash Recovery:** Automatic re-setup and state reconstruction after cache master failure without data loss.
+- **Metadata Persistence:** WAL-based metadata recovery for rapid failover.
+
+#### Observability-Driven Optimization
+
+- **Access Pattern Recognition:** ML-based analysis to auto-inject acceleration strategies (prefetching, block size optimization).
+- **Dataset Garbage Collection:** Idle dataset detection via reference counting and access history analysis.
+
+---
+
+### 3. Data Anytime
+
+> **Objective:** Ensure **real-time, adaptive, and intelligent** data availability for workloads.
+
+#### Temporal Workflow Integration
+
+- **Kueue-Driven Pipelines:** Trigger training/inference jobs automatically upon DataLoad completion; automate post-job cache eviction and data migration.
+- **Event-Driven Policies:** Flexible metadata synchronization triggered by workload lifecycle events.
+
+#### Developer Experience
+
+- **Fluid kubectl Plugin:** Native CLI extension (`kubectl fluid`) for:
+  - Dataset status inspection and health diagnostics
+  - On-demand prewarming triggering (`kubectl fluid warmup`)
+  - Cache performance profiling and bottleneck analysis
+  - Runtime configuration hot-updates

@@ -20,10 +20,6 @@ For the installation and configuration of Helm 3, please refer to [here](https:/
 
 ## How to Deploy
 
-### Download Fluid Chart
-
-You can download the latest Fluid installation package from [Fluid Releases](https://github.com/fluid-cloudnative/fluid/releases).
-
 ### Install Fluid with Helm
 
 Create namespace:
@@ -52,9 +48,9 @@ REVISION: 1
 TEST SUITE: None
 ```
 
-> For Kubernetes version lower than v1.17(included), please use `helm install --set runtime.criticalFusePod=false fluid fluid.tgz`
-
-> The general format of the `helm install` command is like: `helm install <RELEASE_NAME> <SOURCE>`. In the above command,  the first `fluid` means the release name, and the second  `fluid` specified the path to the helm chart, i.e. the directory just unpacked.
+> The command `helm install <RELEASE_NAME> <CHART>` takes the release name (`fluid`) followed by the chart reference (`fluid/fluid`). The chart reference uses the `fluid` repository added above.
+>
+> To install from a local archive, download a versioned `.tgz` from [Fluid Releases](https://github.com/fluid-cloudnative/fluid/releases) and pass its local path as `<CHART>`.
 
 
 ### Upgrade Fluid to the latest version with Helm
@@ -83,8 +79,6 @@ STATUS: deployed
 REVISION: 2
 TEST SUITE: None
 ```
-
-> For Kubernetes version lower than v1.17(included), please use `helm install --set runtime.criticalFusePod=false fluid fluid.tgz`
 
 > We recommend you to update Fluid latest version from v0.7. If you have an older version, our suggestion is to reinstall it to ensure everything works fine.
 
@@ -157,11 +151,19 @@ To uninstall fluid safely, we should check weather Custom Resource Objects about
 ```shell
 kubectl get crds -o custom-columns=NAME:.metadata.name | grep data.fluid.io  | sed ':t;N;s/\n/,/;b t' | xargs kubectl get --all-namespaces
 ```
-If you confirm that all Custom resource objects about fluid have been deleted, you can safely uninstall fluid:
+Before uninstalling the release, run `helm list --filter '^fluid$'` to find its chart version in the `CHART` column (for example, `1.0.8` from `fluid-1.0.8`). Download that chart version from the Fluid Helm repository to get the CRD manifests.
+
+```shell
+FLUID_CHART_VERSION=1.0.8  # Replace with the installed chart version.
+FLUID_CHART_DIR=$(mktemp -d)
+helm pull fluid/fluid --version "$FLUID_CHART_VERSION" --untar --destination "$FLUID_CHART_DIR"
+```
+
+Once the download succeeds and all Fluid custom resources have been deleted, uninstall Fluid:
 
 ```shell
 $ helm delete fluid
-$ kubectl delete -f fluid/crds
+$ kubectl delete -f "$FLUID_CHART_DIR/fluid/crds"
 $ kubectl delete ns fluid-system
 ```
 
@@ -172,20 +174,22 @@ $ kubectl delete ns fluid-system
 
 1. In some cloud vendors, the default mount root directory `/runtime-mnt` is not writable, so you have to modify the directory location
 
-```
-helm install fluid --set runtime.mountRoot=/var/lib/docker/runtime-mnt fluid
+```shell
+helm install fluid fluid/fluid --set runtime.mountRoot=/var/lib/docker/runtime-mnt
 ```
 
 2. The feature `Fuse Recovery` is not enable by default, to enable this:
 
-```
-helm install fluid --set csi.featureGates='FuseRecovery=true' fluid
+```shell
+helm install fluid fluid/fluid --set csi.featureGates='FuseRecovery=true'
 ```
 
 3. If your Kubernetes cluster has a custom configured kubelet root directory, please configure the KUBELET_ROOTDIR when installing Fluid with the following command: 
 ```shell
-helm install --set csi.kubelet.rootDir=<kubelet-root-dir> \
-  --set csi.kubelet.certDir=<kubelet-root-dir>/pki fluid fluid.tgz
+KUBELET_ROOTDIR=/data/kubelet  # Replace with the node's kubelet root directory.
+helm install fluid fluid/fluid \
+  --set "csi.kubelet.rootDir=${KUBELET_ROOTDIR}" \
+  --set "csi.kubelet.certDir=${KUBELET_ROOTDIR}/pki"
 ```
 
 > You can execute the following command on the Kubernetes node to view the --root-dir parameter configuration:
@@ -200,4 +204,29 @@ helm install --set csi.kubelet.rootDir=<kubelet-root-dir> \
 helm install fluid --set csi.config.hostNetwork=true fluid/fluid
 # upgrade
 helm upgrade fluid --set csi.config.hostNetwork=true fluid/fluid
+```
+
+5. Under the default configuration, Fluid does not set `spec.resources` for the installed Controller Pods. If you are deploying Fluid in a production environment, it is recommended to configure `spec.resources` for each Controller Pod based on your workload scale. For how to configure for different Controller Pods, you can refer to the examples in the [`values.yaml`](https://github.com/fluid-cloudnative/fluid/blob/master/charts/fluid/fluid/values.yaml) file. For instance, if you'd like to modify the resource requests and limits for the Dataset Controller Pod, you should first define a custom values file (e.g., my-resource-file.yaml):
+
+```yaml
+dataset:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+```
+
+Override the default resources with the following command:
+
+```shell
+helm upgrade fluid --install -f my-resource-file.yaml fluid/fluid
+```
+
+6. The CacheRuntime controller, which is required by `CacheRuntime` and `CacheRuntimeClass` (see the [CacheRuntime Integration Guide](/docs/developer-guide/cacheruntime-integration-guide)), is not enabled by default. To enable it:
+
+```shell
+helm install fluid fluid/fluid --set runtime.cacheruntime.enabled=true
 ```
