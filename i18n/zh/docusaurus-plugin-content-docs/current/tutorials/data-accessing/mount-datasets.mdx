@@ -1,0 +1,182 @@
+---
+sidebar_label: 挂载数据集
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 挂载数据集
+
+<span className="badge badge--secondary runtime-compatibility">功能适用于：AlluxioRuntime, JindoRuntime, JuiceFSRuntime, ThinRuntime</span>
+
+对于每一个已经与某Runtime绑定的Dataset，Fluid为其自动创建持久卷声明（PersistentVolumeClaim，PVC）和对应的持久卷（PersistentVolume，PV）。应用Pod可以指定Fluid创建的PVC作为容器中需要使用的数据卷，从而将运行时引擎的文件系统挂载到容器中的指定目录上。这样，容器可以像访问本地文件一样，经由运行时引擎访问到Dataset中定义的底层存储系统中的文件数据。
+
+Fluid支持两种挂载模式：**MountPod挂载模式和Sidecar挂载模式**。本章介绍如何使用这两种挂载模式访问Dataset中的数据。
+
+## 创建应用Pod访问数据 {#create-application-pods-to-access-data}
+
+:::info[前提条件]
+
+本节假设你已经在集群中创建了一个与Runtime绑定的Dataset（即`status.phase==Bound`），并且Fluid已经为该Dataset创建了PVC资源。该前置过程请参考Runtime的部署文档，例如[使用AlluxioRuntime部署Alluxio](/tutorials/runtimes/alluxio.md)。
+
+:::
+
+假设集群中已有如下Fluid创建的名为`mydataset`的PVC资源：
+
+```shell
+$ kubectl get pvc
+```
+
+输出结果类似如下：
+
+```
+NAME        STATUS   VOLUME              CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+mydataset   Bound    default-mydataset   100Pi      ROX            fluid          <unset>                 157m
+```
+
+根据所需的挂载模式，创建挂载该PVC的应用Pod：
+
+<Tabs groupId="mount-mode">
+<TabItem value="MountPod" label="MountPod">
+
+```yaml title="pod.yaml"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  restartPolicy: Always
+  containers:
+    - name: demo
+      image: nginx
+      volumeMounts:
+        - mountPath: /data/
+          name: data-vol
+  volumes:
+    - name: data-vol
+      persistentVolumeClaim:
+        claimName: mydataset # PVC's name is same as Dataset's name
+```
+
+上述应用Pod将`mydataset`的PVC（即与Dataset绑定的运行时引擎文件系统）挂载到容器内的`/data`目录下。
+
+使用MountPod挂载模式时，支持直接将与Dataset同名的PVC作为容器挂载的数据卷，挂载到容器中的指定路径。
+
+</TabItem>
+<TabItem value="Sidecar" label="Sidecar">
+
+```yaml title="pod.yaml"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    serverless.fluid.io/inject: "true"
+spec:
+  restartPolicy: Always
+  containers:
+    - name: demo
+      image: nginx
+      volumeMounts:
+        - mountPath: /data/
+          name: data-vol
+  volumes:
+    - name: data-vol
+      persistentVolumeClaim:
+        claimName: mydataset # PVC's name is same as Dataset's name
+```
+
+上述应用Pod将`mydataset`的PVC（即与Dataset绑定的运行时引擎文件系统）挂载到容器内的`/data`目录下。
+
+使用Sidecar挂载模式时，除了将与Dataset同名的PVC作为容器挂载的数据卷挂载到容器中的指定路径外，还需要在`Pod.metadata.labels`中增加标签`serverless.fluid.io/inject=true`。当包含该标签的Pod创建时，Fluid自动将Pod中的PVC转换为Sidecar容器，为Pod中的其他应用容器提供文件系统挂载点。
+
+</TabItem>
+</Tabs>
+
+执行以下命令，创建应用Pod：
+
+```shell
+$ kubectl create -f pod.yaml
+```
+
+最后，登录到应用Pod中验证是否能正常读取Dataset中的数据：
+
+```shell
+$ kubectl exec -it nginx -c demo -- ls -l /data/
+```
+
+如果一切正常，你会看到`/data/`目录下已经映射了底层存储系统的文件目录结构。
+
+## 关于挂载模式 {#about-mount-modes}
+
+<Tabs groupId="mount-mode">
+<TabItem value="MountPod" label="MountPod">
+
+使用MountPod挂载模式访问数据，其数据访问架构如下图：
+
+```mermaid
+flowchart LR
+    app("App Pod")
+    subgraph Runtime
+    engine_fuse("FUSE Pod (Mount Pod)")
+    cache_engine("Cache Engine")
+    end
+    storage[("Under File Storage")]
+    app <-..-> engine_fuse <-..-> cache_engine <-..-> storage
+```
+
+FUSE Pod使用[用户态文件系统（Filesystem in Userspace，FUSE）](https://www.kernel.org/doc/html/next/filesystems/fuse.html)创建节点上可共享的文件系统挂载点。在应用Pod被调度到某个节点上时，Fluid会自动在该节点上按需创建FUSE Pod（发现FUSE Pod不存在时创建）。如果多个应用Pod在同一节点访问相同的Dataset，那么这些应用Pod将会共享同一个FUSE客户端，这也意味着它们能够自然地共享客户端缓存带来的性能优化。关于FUSE Pod何时被清理，请参考[FUSE Pod清理策略](/tutorials/data-accessing/fuse-pod-clean-policy.md)。
+
+</TabItem>
+<TabItem value="Sidecar" label="Sidecar">
+
+使用Sidecar挂载模式访问数据，其数据访问架构如下图：
+
+```mermaid
+flowchart LR
+    subgraph "App Pod"
+    app("App Container")
+    fuse("FUSE Container (Sidecar)")
+    end
+    subgraph Runtime
+    cache_engine("Cache Engine")
+    end
+    storage[("Under File Storage")]
+    app <-..-> fuse <-..-> cache_engine <-..-> storage
+```
+
+应用Pod创建时，Fluid将FUSE Container作为Sidecar容器注入到应用Pod中。FUSE Container首先启动，使用[用户态文件系统（Filesystem in Userspace，FUSE）](https://www.kernel.org/doc/html/next/filesystems/fuse.html)创建Pod内可共享的文件系统挂载点。如果一个应用Pod需要访问多个Dataset，则会对应注入多个Sidecar容器。如果多个应用Pod访问相同的Dataset，各个应用Pod之间使用不同的FUSE客户端，在实现更强隔离性的同时，也意味着失去了共享客户端缓存的机会。
+
+Sidecar挂载模式同样适用于无法在节点上运行FUSE Pod的环境，例如Serverless Kubernetes。具体请参考[如何在Knative环境运行](/tutorials/advanced/serverless/how-to-run-in-knative-environment.md)。
+
+</TabItem>
+</Tabs>
+
+## FUSE Pod/Sidecar资源配置 {#resources-of-fuse-pods-and-sidecars}
+
+FUSE将应用对本地目录的数据访问请求转换为对运行时引擎的数据访问请求，因此FUSE Pod/Sidecar容器的资源限制（limits）也会影响到应用感受到的数据访问性能。如果需要修改FUSE Pod/Sidecar容器的资源请求与限制，那么需要按如下方式修改Runtime配置：
+
+```yaml title="runtime.yaml"
+apiVersion: data.fluid.io/v1alpha1
+kind: XXXRuntime  # Replace with your Runtime Kind.
+metadata:
+  name: mydataset # MUST be same as Dataset's name
+  namespace: default
+spec:
+  ...
+  fuse:
+    resources:
+      requests:
+        cpu: 4
+        memory: 8Gi
+      limits:
+        cpu: 8
+        # memory: 16Gi
+```
+
+:::warning
+
+FUSE创建的用户态文件系统挂载点依赖于容器中运行的FUSE进程以正常处理数据。如果FUSE进程崩溃，应用Pod将无法正常访问数据。因此，推荐将FUSE Pod的内存资源限制（`spec.fuse.resources.limits.memory`）设置为比预期更大的值（或者留空），避免OOM造成的业务影响。
+
+:::

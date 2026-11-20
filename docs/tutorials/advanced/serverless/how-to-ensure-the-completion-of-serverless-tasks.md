@@ -18,7 +18,7 @@ After the user container exits, the fuse container is exited normally to reach t
 
 You can download the latest Fluid installation package
 from [Fluid Releases](https://github.com/fluid-cloudnative/fluid/releases).
-Refer to the [Installation Documentation](/docs/get-started/installation) to complete the installation. And check that the
+Refer to the [Installation Documentation](/getting-started/installation.md) to complete the installation. And check that the
 components of Fluid are running normally (here takes JuiceFSRuntime as an example):
 
 ```shell
