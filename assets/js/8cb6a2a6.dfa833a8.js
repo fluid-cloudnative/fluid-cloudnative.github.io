@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfluid_website_demo=self.webpackChunkfluid_website_demo||[]).push([[9918],{35640:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/paper","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
