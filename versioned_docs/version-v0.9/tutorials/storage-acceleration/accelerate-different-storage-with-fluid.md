@@ -118,7 +118,7 @@ So far, Alluxio can normally access different types of underlying storage accord
 ## Examples
 
 * [AWS S3](https://github.com/fluid-cloudnative/fluid/blob/master/docs/en/samples/s3_configuration.md)
-* [HDFS](/docs/tutorials/dataset-creation/accelerate-data-accessing-hdfs.md)
-* [PVC](/docs/tutorials/storage-acceleration/accelerate-pvc-with-fluid.md)
+* [HDFS](/tutorials/dataset-creation/accelerate-data-accessing-hdfs.md)
+* [PVC](/tutorials/storage-acceleration/accelerate-pvc-with-fluid.md)
 * [Minio](https://github.com/fluid-cloudnative/fluid/blob/master/docs/en/samples/accelerate_s3_minio.md)
 * [GCS](https://github.com/fluid-cloudnative/fluid/blob/master/docs/en/samples/gcs_configuration.md)

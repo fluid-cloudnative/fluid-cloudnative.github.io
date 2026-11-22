@@ -8,7 +8,7 @@ toc_max_heading_level: 4
 
 ## Installation
 
-*   Install Fluid v1.1.0 or later, which supports CacheRuntime. The CacheRuntime controller is disabled by default, so enable it with `--set runtime.cacheruntime.enabled=true`. See the [Installation Guide](/docs/get-started/installation) for more installation options.
+*   Install Fluid v1.1.0 or later, which supports CacheRuntime. The CacheRuntime controller is disabled by default, so enable it with `--set runtime.cacheruntime.enabled=true`. See the [Installation Guide](/getting-started/installation.md) for more installation options.
 
 
 ```shell
@@ -189,7 +189,7 @@ The master, worker and client components under `topology` are all optional in th
 
 In that case the Master and Worker components start as usual, the Dataset reaches the Bound phase as usual, and cache status is still reported through the ReportSummary script.
 
-Note that Fluid still creates a PVC/PV for such a Dataset and reports them as Bound, but an application pod that mounts the PVC stays in ContainerCreating forever (reporting `timeout waiting for FUSE mount point`). For this kind of cache system, applications should talk to the cache service directly instead of going through the Dataset → PVC → volumeMounts path. For a complete configuration example, see [Deploy Mooncake with CacheRuntime](/docs/tutorials/dataset-operation/deploy-mooncake-with-cacheruntime).
+Note that Fluid still creates a PVC/PV for such a Dataset and reports them as Bound, but an application pod that mounts the PVC stays in ContainerCreating forever (reporting `timeout waiting for FUSE mount point`). For this kind of cache system, applications should talk to the cache service directly instead of going through the Dataset → PVC → volumeMounts path. For a complete configuration example, see [Deploy Mooncake with CacheRuntime](/tutorials/runtimes/deploy-mooncake-with-cacheruntime.md).
 
 #### Step 2.5 User Creates Runtime
 

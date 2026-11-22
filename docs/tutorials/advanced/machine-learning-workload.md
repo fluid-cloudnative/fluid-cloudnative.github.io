@@ -1,6 +1,6 @@
 ---
 sidebar_label: Machine Learning Workload
-sidebar_position: 1
+sidebar_position: 9
 ---
 
 # Machine Learning Workload
@@ -17,7 +17,7 @@ This article describes how to deploy [ImageNet](http://www.image-net.org/) datas
 
 > **NOTE**:
 >
-> 1. The document requires Fluid installed on your Kubernetes cluster. Please refer to [Fluid Installation Guide](/docs/get-started/installation) to finish installation before going to the next step.
+> 1. The document requires Fluid installed on your Kubernetes cluster. Please refer to [Fluid Installation Guide](/getting-started/installation.md) to finish installation before going to the next step.
 >
 > 2. Arena is a CLI that is convenient for data scientists to run and monitor machine learning tasks. See [Arena Installation Tutorial](https://github.com/kubeflow/arena/blob/master/docs/installation/INSTALL_FROM_BINARY.md) for more information.
 >

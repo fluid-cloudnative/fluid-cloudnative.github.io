@@ -20,7 +20,7 @@ kubectl get Deployments -n knative-serving
 
 > Note: This document is just for demonstration purpose, please refer to the best practices of Knative documentation for Knative deployment in production environment. Also, since the container images of Knative are in the gcr.io image repository, please make sure the images are reachable. If you are using AliCloud, you can also use [AliCloud ACK](https://help.aliyun.com/document_detail/121508.html) hosting service directly to reduce the complexity of configuring Knative.
 
-2.Please refer to the [installation documentation](/docs/get-started/installation) to install the latest Fluid, and check that the Fluid components are working properly after installation (this document uses AlluxioRuntime as an example):
+2.Please refer to the [installation documentation](/getting-started/installation.md) to install the latest Fluid, and check that the Fluid components are working properly after installation (this document uses AlluxioRuntime as an example):
 
 ```shell
 $ kubectl get deploy -n fluid-system

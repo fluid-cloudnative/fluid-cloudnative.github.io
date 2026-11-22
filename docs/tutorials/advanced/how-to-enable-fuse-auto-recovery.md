@@ -1,6 +1,6 @@
 ---
 sidebar_label: How to Enable FUSE Auto-recovery
-sidebar_position: 8
+sidebar_position: 6
 ---
 
 # How to Enable FUSE Auto-recovery
@@ -10,7 +10,7 @@ sidebar_position: 8
 You can download the latest Fluid installation package from [Fluid Releases](https://github.com/fluid-cloudnative/fluid/releases).
 
 In Fluid chart values.yaml, set `csi.featureGates` to `FuseRecovery=true`, indicating enable FUSE auto-recovery.
-Refer to the [Installation Documentation](/docs/get-started/installation) to complete the installation. And check that the components of Fluid are running normally (here takes JuiceFSRuntime as an example):
+Refer to the [Installation Documentation](/getting-started/installation.md) to complete the installation. And check that the components of Fluid are running normally (here takes JuiceFSRuntime as an example):
 
 ```shell
 $ kubectl -n fluid-system get po

@@ -81,3 +81,17 @@ table td {
 .pagination-nav__label {
   font-size: 1.0rem;
 }
+
+/* Badge listing the Runtimes that a documented feature applies to. */
+.runtime-compatibility {
+  margin-bottom: var(--ifm-paragraph-margin-bottom);
+  border-color: #d6eaff;
+  background-color: #d6eaff;
+  color: #0d3d6d;
+}
+
+[data-theme='dark'] .runtime-compatibility {
+  border-color: #1d3a5c;
+  background-color: #1d3a5c;
+  color: #d6eaff;
+}
